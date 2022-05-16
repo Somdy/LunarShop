@@ -1,0 +1,14 @@
+{
+  "lunar:Snecko_E": {
+    "NAME": "纽特？",
+    "MOVES": [],
+    "DIALOG": []
+  },
+  "lunar:Snecko_F": {
+    "NAME": "纽特的代理",
+    "MOVES": [
+      "？？？"
+    ],
+    "DIALOG": []
+  }
+}

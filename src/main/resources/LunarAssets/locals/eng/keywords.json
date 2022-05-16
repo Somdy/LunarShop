@@ -1,0 +1,53 @@
+[
+
+  {
+    "NAMES": [
+      "Equipment",
+      "Equipment"
+    ],
+    "DESCRIPTION": "Can be placed at equipment slot and be activated by right-clicking."
+  },
+
+  {
+    "NAMES": [
+      "Armor"
+    ],
+    "DESCRIPTION": "Armor reduces the incoming damage."
+  },
+
+  {
+    "NAMES": [
+      "Bleeding"
+    ],
+    "DESCRIPTION": "Bleeding target loses #b1 HP after being attacked."
+  },
+
+  {
+    "NAMES": [
+      "Slowdown"
+    ],
+    "DESCRIPTION": "Slowdowned target deals less damage and takes more damage."
+  },
+
+  {
+    "NAMES": [
+      "Regeneration"
+    ],
+    "DESCRIPTION": "Target restores HP at the start and the end of its turn if regen is above 0. Otherwise, it loses HP."
+  },
+
+  {
+    "NAMES": [
+      "Attack"
+    ],
+    "DESCRIPTION": "Attack modifies card's damage differently when it's above 0 or not."
+  },
+
+  {
+    "NAMES": [
+      "Crit",
+      "Critical"
+    ],
+    "DESCRIPTION": "The damage finally dealt that's #b150% times more than original damage will be considered as Crit."
+  }
+]

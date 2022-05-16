@@ -1,0 +1,188 @@
+{
+    "LunarPower": {
+        "NAME": "能力",
+        "DESCRIPTIONS": [
+            "你",
+            ""
+        ]
+    },
+
+    "lunar:RachisPower": {
+        "NAME": "伤害提升",
+        "DESCRIPTIONS": [
+            "[owner_name] 造成的伤害增加 #b[amt_0] % .",
+            ""
+        ]
+    },
+
+    "lunar:CripplePower": {
+        "NAME": "削弱",
+        "DESCRIPTIONS": [
+            "[owner_name] 的 #y护甲 减少 #b[amt_0] 点 。",
+            ""
+        ]
+    },
+
+    "lunar:HelfirePower": {
+        "NAME": "燃烧",
+        "DESCRIPTIONS": [
+            "[owner_name] 在回合结束时，失去 #b[amt_0] 点生命值。",
+            ""
+        ]
+    },
+
+    "lunar:OnFirePower": {
+        "NAME": "燃烧",
+        "DESCRIPTIONS": [
+            "[owner_name] 在回合结束时，受到 #b[amt_0] 点伤害，持续 #b[amt_1] 回合。",
+            ""
+        ]
+    },
+
+    "lunar:TonicPower": {
+        "NAME": "尖晶强化",
+        "DESCRIPTIONS": [
+            "[owner_name] 造成的伤害增加 #b175% ，每回合回复 #b20% 已损失的生命并获得 #b35 #y格挡 。持续 #b[amt_0] 回合。",
+            ""
+        ]
+    },
+
+    "lunar:TonicDebuffPower": {
+        "NAME": "酒醉",
+        "DESCRIPTIONS": [
+            "[owner_name] 的生命回复效果减少 #b75% .",
+            ""
+        ]
+    },
+
+    "lunar:DeathMarkPower": {
+        "NAME": "死亡标记",
+        "DESCRIPTIONS": [
+            "[owner_name] 受到的伤害增加 #b50% . 持续 #b[amt_0] 回合。",
+            ""
+        ]
+    },
+
+    "lunar:ShatteringPower": {
+        "NAME": "粉粹中",
+        "DESCRIPTIONS": [
+            "再攻击 [owner_name] #b[amt_0] 次可将其 #y粉粹 。",
+            ""
+        ]
+    },
+
+    "lunar:ShatteredPower": {
+        "NAME": "粉粹",
+        "DESCRIPTIONS": [
+            "[owner_name] 的 #y护甲 减少 #b[amt_0] 点，持续 3 回合。",
+            ""
+        ]
+    },
+
+    "lunar:BleedingPower": {
+        "NAME": "出血",
+        "DESCRIPTIONS": [
+            "[owner_name] 受到攻击后，失去 #b[amt_0] 点生命值和 #b1 层出血。",
+            ""
+        ]
+    },
+
+    "lunar:SlowdownPower": {
+        "NAME": "减速",
+        "DESCRIPTIONS": [
+            "[owner_name] 造成的伤害减少 #b[amt_0]% ，受到的伤害增加 #b[amt_1]% . 持续 #b[amt_2] 回合。",
+            ""
+        ]
+    },
+
+    "lunar:BlazingPower": {
+        "NAME": "炽热",
+        "DESCRIPTIONS": [
+            "[owner_name] 造成未被 #y格挡 的伤害时， #y点燃 目标 #b[amt_0] 回合。",
+            ""
+        ]
+    },
+
+    "lunar:CelestinePower": {
+        "NAME": "天青石",
+        "DESCRIPTIONS": [
+            "[owner_name] 无法被选为卡牌目标，并且造成未被 #y格挡 的攻击伤害后，给予目标 #b[amt_0] 回合 #b60% 的 #y减速 。受到伤害后移除。",
+            ""
+        ]
+    },
+
+    "lunar:GlacialPower": {
+        "NAME": "冰冷",
+        "DESCRIPTIONS": [
+            "[owner_name] 被攻击时给予攻击者 #b1 回合 #b40% 的 #y减速 并反弹 #b20% 的伤害，持续 #b[amt_0] 回合。",
+            ""
+        ]
+    },
+
+    "lunar:MalachitePower": {
+        "NAME": "孔雀石",
+        "DESCRIPTIONS": [
+            "[owner_name] 造成未被 #y格挡 的伤害时，使目标在 #b[amt_0] 回合内无法恢复生命值。",
+            ""
+        ]
+    },
+
+    "lunar:HealingDisabledPower": {
+        "NAME": "禁疗",
+        "DESCRIPTIONS": [
+            "[owner_name] 无法恢复生命值。",
+            ""
+        ]
+    },
+
+    "lunar:MirageNewtPower": {
+        "NAME": "纽特幻影",
+        "DESCRIPTIONS": [
+            "纽特还没搞清楚你在干什么。",
+            "纽特对你的过分行为很不满。",
+            "纽特很乐意以很弱的形态与你对战，如果你赢了它或许会给你一些好处，但前提是你别太过分，毕竟这是个回合制游戏……",
+            ""
+        ]
+    },
+
+    "lunar:ImmunePower": {
+        "NAME": "免疫",
+        "DESCRIPTIONS": [
+            "[owner_name] 受到的所有伤害为 #b0 且免疫所有负面效果。",
+            "持续 #b[amt_0] 回合。",
+            ""
+        ]
+    },
+
+    "lunar:ElephantPower": {
+        "NAME": "青玉巨像",
+        "DESCRIPTIONS": [
+            "[owner_name] 获得 #b[amt_0] 点 #y护甲 。",
+            ""
+        ]
+    },
+
+    "lunar:MedkitPower": {
+        "NAME": "治疗",
+        "DESCRIPTIONS": [
+            "下回合开始时，[owner_name] 回复 #b[amt_0] 点生命值。持续 #b[amt_1] 回合。",
+            ""
+        ]
+    },
+
+    "lunar:SlugPower": {
+        "NAME": "蛞蝓疗法",
+        "DESCRIPTIONS": [
+            "[owner_name] 的自然再生增加 #b[amt_0] 点，持续 #b[amt_1] 回合。",
+            ""
+        ]
+    },
+
+    "lunar:PredatoryPower": {
+        "NAME": "捕食者本能",
+        "DESCRIPTIONS": [
+            "[owner_name] 的攻击力增加 #b[amt_0] 点，持续 #b[amt_1] 回合。",
+            ""
+        ]
+    }
+}

@@ -1,0 +1,203 @@
+{
+    "lunar:ItemRarity": {
+        "TEXT": [
+            "OTHER",
+            "Common",
+            "Uncommon",
+            "Rare",
+            "Legendary",
+            "Mythic",
+            "Unreal",
+            ""
+        ]
+    },
+    "lunar:LunarPassReward": {
+        "TEXT": [
+            "[ #gPick #gup #gthe #pFragement #pFrom #pWorlds ]",
+            "...Feel NL ~...raindrops~ NL Silently...",
+            "...From ~...pull~ ~down~ ~to~ ~the~ ~depth~ ...tastes",
+            "Be aware of...intangible... NL ...advantages...",
+            "~Deep...it~ ~might~ NL ...falls on the soil",
+            "~...others~ NL I take it to you...",
+            ""
+        ]
+    },
+    "lunar:TopPanel": {
+        "TEXT": [
+            "Hacking Beacon",
+            "Left click to enable.",
+            "Left click to disenable.",
+            "When enabled, display details of most of the OTHER items and the benefits player gets.",
+            " [#FFC125]Armor[] ：",
+            " [#8A2BE2]Lunar Coin[] ：",
+            " [#00BFFF]Luck[] ：",
+            "Available to connect with OTHER worlds",
+            "Next connection in %d floor(s)",
+            "Random OTHER shop: ",
+            "Cleansing Pool: ",
+            "Connection with OTHER worlds is LOST",
+            "Available",
+            "Unavailable",
+            "====Basic Properties====",
+            "====Other Properties====",
+            " [#FF0000]Attack[] ：",
+            " [#32CD32]Regeneration[] ：",
+            ""
+        ]
+    },
+    "lunar:ShopType": {
+        "TEXT": [
+            "Bazaar Between Times",
+            "Bazaar in the Void",
+            "Unseen",
+            "Unseen",
+            "Unseen",
+            ""
+        ]
+    },
+    "lunar:EquipmentProxy": {
+        "TEXT": [
+            "Empty equipment slot",
+            "Equipment slot",
+            "You can equip an equipment item here.",
+            "Equipped with #y",
+            " , a new equipment item will replace this one.",
+            ""
+        ]
+    },
+    "lunar:LunarFireOption": {
+        "TEXT": [
+            "Light a fire",
+            "Try to connect with OTHER worlds.",
+            "Unable to connect with OTHER worlds.",
+            ""
+        ]
+    },
+    "lunar:MiscReward": {
+        "TEXT": [
+            "Some lunar coins",
+            "A lot of lunar coins",
+            "A locked chest",
+            ""
+        ]
+    },
+    "lunar:LunarShopRoom": {
+        "TEXT": [
+            "Leave",
+            ""
+        ]
+    },
+    "lunar:LunarShop": {
+        "TEXT": [
+            "You poor! Get out!",
+            "Remove your sight from things you cannot afford.",
+            "The poor is not welcome here. I mean you.",
+            "Stop clicking please, you poor thing.",
+            "Never ever had seen such poor one.",
+            "They say the stupid comes in happiness, but not the poor.",
+            "Burn your wallet to see if your rich before you come here.",
+            "I sometimes do charity but not for the poor.",
+            "Get out and stop messing up my treasures.",
+            "That's all you got?",
+            "More money? Didn't you?",
+            "That's the most expensive cheapest thing you can afford.",
+            "Why give me money without being generous?",
+            "That's the little, you deserve to be the poorest",
+            "How can you hang around with such little money on you?",
+            ""
+        ]
+    },
+    "lunar:LunarRelicViewList": {
+        "TEXT": [
+            "OTHER - Bazaard Between Times",
+            "The treasures from an amphibious creature",
+            "OTHER - Bazaard in the Void",
+            "The treasures looted from different worlds",
+            "异端-黄金特卖区",
+            "来自造物者剩余巨大财富",
+            "OTHER - The Most Primitive",
+            "The items come from the most primitive worlds",
+            "异端-开发者专享",
+            "？？？？？？？？？？？",
+            ""
+        ]
+    },
+    "lunar:PickerScreen": {
+        "TEXT": [
+            "Confirm",
+            "Cancel",
+            "What is your command?",
+            "Choose %d item(s)",
+            "Choose %d item(s) for cleansing",
+            ""
+        ]
+    },
+    "lunar:LunarUncommonEss": {
+        "TEXT": [
+            "Green Command Essence",
+            "Choose #b1 item whose rarity is Uncommon or below from ALL non-equipment items in Bazaard Between Times.",
+            ""
+        ]
+    },
+    "lunar:LunarRareEss": {
+        "TEXT": [
+            "Yellow Command Essence",
+            "Choose #b1 item whose rarity is Rare or below from ALL non-equipment items in Bazaard Between Times.",
+            ""
+        ]
+    },
+    "lunar:LunarLegendEss": {
+        "TEXT": [
+            "Red Command Essence",
+            "Choose #b1 item whose rarity is Legendary or below from ALL non-equipment items in Bazaard Between Times.",
+            ""
+        ]
+    },
+    "lunar:VanillaCommonEss": {
+        "TEXT": [
+            "White Command Essence",
+            "Choose #b1 relic from ALL vanilla Common relics.",
+            ""
+        ]
+    },
+    "lunar:VanillaUncommonEss": {
+        "TEXT": [
+            "Blue Command Essence",
+            "Choose #b1 relic from ALL vanilla Uncommon relics.",
+            ""
+        ]
+    },
+    "lunar:VanillaSpecialEss": {
+        "TEXT": [
+            "Purple Command Essence",
+            "Choose #b1 relic from ALL vanilla Event/Special relics.",
+            ""
+        ]
+    },
+    "lunar:VanillaUltimateEss": {
+        "TEXT": [
+            "Red Command Essence",
+            "Choose #b1 relic from ALL vanilla non-character-class relics.",
+            ""
+        ]
+    },
+    "lunar:BanCardAction": {
+        "TEXT": [
+            "This card is BANNED.",
+            ""
+        ]
+    },
+    "lunar:LunarAchievement": {
+        "TEXT": [
+            "Unknown",
+            "This achievement is not unlocked yet.",
+            ""
+        ]
+    },
+    "lunar:AchvGrid": {
+        "TEXT": [
+            "OTHER Achievements",
+            ""
+        ]
+    }
+}

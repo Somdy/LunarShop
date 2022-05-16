@@ -1,0 +1,300 @@
+
+powers.png
+size: 1602,262
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+128/blazing
+  rotate: false
+  xy: 2, 132
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/bleeding
+  rotate: false
+  xy: 2, 2
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/buffoncrit
+  rotate: false
+  xy: 132, 132
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/celestine
+  rotate: false
+  xy: 132, 2
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/cripple
+  rotate: false
+  xy: 262, 132
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/deathmark
+  rotate: false
+  xy: 262, 2
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/elephant
+  rotate: false
+  xy: 392, 132
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/glacial
+  rotate: false
+  xy: 392, 2
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/healing_disabled
+  rotate: false
+  xy: 522, 132
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/helfire
+  rotate: false
+  xy: 522, 2
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/immune
+  rotate: false
+  xy: 652, 132
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/malachite
+  rotate: false
+  xy: 652, 2
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/medkit
+  rotate: false
+  xy: 782, 132
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/mirage_newt
+  rotate: false
+  xy: 782, 2
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/onfire
+  rotate: false
+  xy: 912, 132
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/powerbuff
+  rotate: false
+  xy: 912, 2
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/shattered
+  rotate: false
+  xy: 1042, 132
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/shattering
+  rotate: false
+  xy: 1042, 2
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/slow_m
+  rotate: false
+  xy: 1172, 132
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/tonicbuff
+  rotate: false
+  xy: 1172, 2
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+128/tonicdebuff
+  rotate: false
+  xy: 1302, 132
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+48/blazing
+  rotate: false
+  xy: 1302, 82
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/bleeding
+  rotate: false
+  xy: 1432, 212
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/buffoncrit
+  rotate: false
+  xy: 1302, 32
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/celestine
+  rotate: false
+  xy: 1352, 82
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/cripple
+  rotate: false
+  xy: 1432, 162
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/deathmark
+  rotate: false
+  xy: 1482, 212
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/elephant
+  rotate: false
+  xy: 1352, 32
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/glacial
+  rotate: false
+  xy: 1482, 162
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/healing_disabled
+  rotate: false
+  xy: 1532, 212
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/helfire
+  rotate: false
+  xy: 1532, 162
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/immune
+  rotate: false
+  xy: 1402, 82
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/malachite
+  rotate: false
+  xy: 1402, 32
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/medkit
+  rotate: false
+  xy: 1452, 112
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/mirage_newt
+  rotate: false
+  xy: 1452, 62
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/onfire
+  rotate: false
+  xy: 1502, 112
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/powerbuff
+  rotate: false
+  xy: 1502, 62
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/shattered
+  rotate: false
+  xy: 1452, 12
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/shattering
+  rotate: false
+  xy: 1502, 12
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/slow_m
+  rotate: false
+  xy: 1552, 112
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/tonicbuff
+  rotate: false
+  xy: 1552, 62
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+48/tonicdebuff
+  rotate: false
+  xy: 1552, 12
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1

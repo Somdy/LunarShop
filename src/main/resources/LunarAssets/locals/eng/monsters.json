@@ -1,0 +1,14 @@
+{
+  "lunar:Snecko_E": {
+    "NAME": "Newt?",
+    "MOVES": [],
+    "DIALOG": []
+  },
+  "lunar:Snecko_F": {
+    "NAME": "Newt?",
+    "MOVES": [
+      "???"
+    ],
+    "DIALOG": []
+  }
+}

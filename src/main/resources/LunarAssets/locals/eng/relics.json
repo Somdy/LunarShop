@@ -1,0 +1,632 @@
+{
+    "lunar:LunarRelic": {
+        "NAME": "OTHER Thing",
+        "FLAVOR": "You shall not have this.",
+        "DESCRIPTIONS": [
+            "Analyzed by",
+            "",
+            ""
+        ]
+    },
+    "lunar:LunarPass": {
+        "NAME": "Dimension Fragment",
+        "FLAVOR": "You see the unreal and quirky lights through the fragment which indicates that it's not here now.",
+        "DESCRIPTIONS": [
+            "A glimpse of OTHER worlds from the quirky lights makes you wanna light a fire.",
+            "蓝色的光",
+            "你可以看到一个模糊的蓝色球体，它似乎 #b凝滞 在错乱异常的时空中。",
+            "虚无的光",
+            "深紫色的球体飘忽不定，从折射出的光线中你听见了 #p入侵者 的低语。",
+            "金黄的光",
+            "身藏在金黄色球体中的东西会将踏足者消灭，唯独留下 #y永恒的财富 。",
+            ""
+        ]
+    },
+    "lunar:CETemplate": {
+        "NAME": "Command Essence",
+        "FLAVOR": "Don't you understand it? It is your turn now.",
+        "DESCRIPTIONS": [
+            "Choose #b1 relic of a certain relic pool.",
+            ""
+        ]
+    },
+    "lunar:Fealty": {
+        "NAME": "Beads of Fealty",
+        "FLAVOR": "One thing, however, is known to anyone who has borne witness to these beads: never looking back and leaving it alone.",
+        "DESCRIPTIONS": [
+            "Seems to do nothing... #rbut...",
+            "Gain #b2 ~ #b4 #pLunar #pCoins , but something is looking at you... ",
+            ""
+        ]
+    },
+    "lunar:Crown": {
+        "NAME": "Brittle Crown",
+        "FLAVOR": "Your death is fated.",
+        "DESCRIPTIONS": [
+            "#b30% chance to gain #b18 [#CCCCCC](+6 per stack)[] #ygolds . Lose #ygolds on taking #yunblocked damage equal to #b50% [#CCCCCC](+25% per stack)[] of the loss HP.",
+            "Golds incoming: #g%d , golds loss percent: #g%d%%",
+            ""
+        ]
+    },
+    "lunar:Corpsebloom": {
+        "NAME": "Corpsebloom",
+        "FLAVOR": "The flowers have fully bloomed and the body is as good as new.",
+        "DESCRIPTIONS": [
+            "Heal #b+100% [#CCCCCC](+50% per stack)[] in combat. ALL healing is applied over time. Can heal for a max of #b25% [#CCCCCC](-50% per stack)[] of your max HP each turn.",
+            "Heal #g%d%% more and up to #g%d HP per turn.",
+            "Heal #g%d%% more and up to #g%d HP per turn. #g%d heal is stored.",
+            ""
+        ]
+    },
+    "lunar:LessBossHp": {
+        "NAME": "Focused Convergence",
+        "FLAVOR": "Your task here is simple and hastened - ALL in an attempt to start again. How many chances can you make this trip before you are approved?",
+        "DESCRIPTIONS": [
+            "The max HP of Bosses are reduced by #b25% [#CCCCCC](+25% per stack)[] . You have up to #b180 [#CCCCCC](-20% per stack)[] seconds to win a Boss.",
+            "Bosses' max HP are reduced by #g%d%% , each boss combat lasts up to #g%d seconds.",
+            "Cursed",
+            "You have consumed ALL your time and so your life has. ALL your cards are cursed.",
+            ""
+        ]
+    },
+    "lunar:DrownedGesture": {
+        "NAME": "Gesture of the Drowned",
+        "FLAVOR": "The spire once housed a lot of life. Life that you may have held dear, had the timing been right. But your timing was wrong.",
+        "DESCRIPTIONS": [
+            "The #yEquipment 's cooldown is reduced by #b30% [#CCCCCC](+10% per stack)[] . The #yEquipment activates AUTOMATICALLY.",
+            "The #equipment 's cooldown is reduce by #g%d%% .",
+            ""
+        ]
+    },
+    "lunar:PowerRachis": {
+        "NAME": "Mercurial Rachis",
+        "FLAVOR": "What if the spine traced a path not just from body to mind, but a path that intersects between other bodies and minds?",
+        "DESCRIPTIONS": [
+            "Triggers #b2 [#CCCCCC](+1 per stack)[] times at the start of each turn. Each trigger makes a random character deal #b50% more damage before next turn.",
+            "Triggers #g%d times each turn. Affected by luck.",
+            ""
+        ]
+    },
+    "lunar:Purity": {
+        "NAME": "Purity",
+        "FLAVOR": "Are you calm? If only can your heart beat no more, you have reach what is called \"PURITY\".",
+        "DESCRIPTIONS": [
+            "Each card triggers #b1 [#CCCCCC](+1 per stack)[] more time when played. You can have up to #b3 [E] [#CCCCCC](-1 per stack)[] at the same time. #rYou #rare #runlucky .",
+            "Cards trigger #g%d more time. #g%d [E] at the same time.",
+            ""
+        ]
+    },
+    "lunar:SharpedGlass": {
+        "NAME": "Sharped Glass",
+        "FLAVOR": "Time is fair. Time mends the wounds on you the glass left and not the strengths you gained. And the cost of the folded time.",
+        "DESCRIPTIONS": [
+            "Deal #b200% [#CCCCCC](+100% per stack)[] more damage. Your max HP can't be over #b12 [#CCCCCC](-50% per stack)[] .",
+            "Max HP threshold is #g%d . Deal #g%d%% more damage.",
+            ""
+        ]
+    },
+    "DEPRECATED lunar:Beetle": {
+        "NAME": "超然",
+        "FLAVOR": "你正在阅读的这些文字都将变成我的养料，我将不会存在于我的宇宙中——我已经成功逃出了我的苦难，现在它是你的了。",
+        "DESCRIPTIONS": [
+            "最大生命值增加 #b50% [#CCCCCC](+20%每层)[] .每场战斗开始时，将所有生命值上限转化 #y格挡 但保留至少 #b1 点。在未受到伤害的回合结束时，回复一部分已损失的 #y格挡 。",
+            "每场战斗开始时可获得 #g%d 点格挡，每个未受伤回合结束时可回复 #g%d 点格挡。",
+            ""
+        ]
+    },
+    "lunar:Beetle": {
+        "NAME": "Transcendence",
+        "FLAVOR": "I will no longer exist in my universe - I have escaped my suffering which is yours now. Since you are reading the words you have freed me.",
+        "DESCRIPTIONS": [
+            "Increase your max HP by #b50% [#CCCCCC](+20% per stack)[] and convert ALL but #b1 HP into #yBlock at the start of each combat. Restore half of loss #yBlock at the end of turn when you're out of danger.",
+            "Gain #g%d Block at the start of each combat. Restore #g%d Block at the end of each turn you're out of danger.",
+            ""
+        ]
+    },
+    "lunar:Clover": {
+        "NAME": "57 Leaf Clover",
+        "FLAVOR": "It was a massacre. Neutron Sweep had incinerated ALL lif on the planet - except for the clover.",
+        "DESCRIPTIONS": [
+            "ALL random effects of OTHER items are rolled #b1 [#CCCCCC](+1 per stack)[] more times for #ga #gfavorable #goutcome .",
+            ""
+        ]
+    },
+    "lunar:Gouge": {
+        "NAME": "Defiant Gouge",
+        "FLAVOR": "Most of them, incluing the creators, failed to recognize the shards of something evil constricting around them.",
+        "DESCRIPTIONS": [
+            "Summons extra enemies in each combat with #yElites for a rich battle reward. Scales over the floors.",
+            ""
+        ]
+    },
+    "lunar:JumpHigher": {
+        "NAME": "H3AD-5T v2",
+        "FLAVOR": "They had a lower bone density which indicates the ex-wearers have had trouble adjusting to life on heavier planets for their femur would be shattered within a week.",
+        "DESCRIPTIONS": [
+            "Gain #b2 [#CCCCCC](+2每层)[] additional #yBlock whenever you gain #yBlock . Right-click per battle: Lose ALL #yBlock and deal damage to ALL enemies at the same amount.",
+            "Gain #g%d additional #Block each time you gain #yBlock.",
+            ""
+        ]
+    },
+    "lunar:Horn": {
+        "NAME": "War Horn",
+        "FLAVOR": "They found good inspiration in history of the brief-time war.",
+        "DESCRIPTIONS": [
+            "Plays copies of #b2 [#CCCCCC](+1 per stack)[] random Attacks in your deck at random targets after you activated any #yEquipment .",
+            "Plays #g%d random Attacks' copies.",
+            ""
+        ]
+    },
+    "lunar:ReduceStrength": {
+        "NAME": "悲伤雕像",
+        "FLAVOR": "这件遗物讲述了一个故事……但那不是个童话。那是个悲剧。一个关于背叛、悔恨与悲伤的故事。这是两个主角的故事。",
+        "DESCRIPTIONS": [
+            "#y装备 。 #y削弱 所有角色并使其失去 #b2 点 #y力量 。一场战斗最多使用 #b6 次。 #r冷却 ：打出 #b8 张攻击牌。",
+            "本场战斗中还可以使用 #g%d 次。",
+            ""
+        ]
+    },
+    "lunar:Helfire": {
+        "NAME": "地狱烈酊",
+        "FLAVOR": "“我增加了四叶草的比例。我让混合物更加饱和。脓液淹没了房间。灰烬在空中飘动，散落在地上。我着了，他会记录时间。”",
+        "DESCRIPTIONS": [
+            "#y装备 。点燃所有角色 #b3 回合。燃烧每回结束时会使你失去等同于最大生命值 #b2.5% 的生命值。该效果以 #b4 倍作用于敌人。 #r冷却 ：打出 #b12 张技能牌。",
+            "本场战斗中还可以使用 #g%d 次。",
+            ""
+        ]
+    },
+    "lunar:FakeWine": {
+        "NAME": "尖晶强心剂",
+        "FLAVOR": "“现实由意识所决定。只需要一小口，你的意识就变得具有可塑性，你可以把它塑造成任何你喜欢的样子。你周围的世界都会依照你的意愿改变。”——醉鬼西博德",
+        "DESCRIPTIONS": [
+            "#y装备 。接下来 #b3 回合内，获得尖晶强化效果。造成的伤害增加 #b175% ，每回合回复 #b20% 已损失的生命并获得 #b35  #y格挡 。尖晶强化效果结束后，有 #b20% 的概率获得 #r强心剂副作用 。 #r冷却 ：造成 #b240 点伤害。",
+            "本场战斗中还可以使用 #g%d 次。",
+            ""
+        ]
+    },
+    "lunar:Meteorite": {
+        "NAME": "发光的石头",
+        "FLAVOR": "这应该会很有趣。",
+        "DESCRIPTIONS": [
+            "#y装备 。本场战斗剩余的回合里，随机降下陨石并爆炸。陨石对直接命中的目标造成 #b50 点固定伤害，对溅射范围内的目标造成 #b30 点固定伤害。 #r冷却 ： #b6 场战斗。",
+            "本场战斗中还可以使用 #g%d 次。",
+            ""
+        ]
+    },
+    "lunar:InstantKiller": {
+        "NAME": "陈旧的断头台",
+        "FLAVOR": "断头台在传递一个信息，这是一种古老的行刑方法，也是一种对刽子手的警示。希望这能让你心中充满恐惧。",
+        "DESCRIPTIONS": [
+            "当你的攻击使目标生命值低于 #b12% [#CCCCCC](+12%每层)[] 时，立即将其杀死。对首领敌人的斩杀线减半。",
+            "攻击会立即杀死生命值低于 #g%d%% 的目标。",
+            ""
+        ]
+    },
+    "lunar:DeathMark": {
+        "NAME": "死亡标记",
+        "FLAVOR": "这个头骨证明了以前确实有东西存在于此。虽然不清楚他们为何消亡，但我知道你会怎么死去。",
+        "DESCRIPTIONS": [
+            "当一名敌人具有超过 #b3 种负面效果时，为其打上 #b2 [#CCCCCC](+1每层)[] 回合的 #y死亡标记 ，使其受到的伤害增加 #b50% .",
+            "攻击符合条件的目标时给予 #g%d 回合的 #y死亡标记 。",
+            ""
+        ]
+    },
+    "lunar:LeechingSeed": {
+        "NAME": "吸血种子",
+        "FLAVOR": "只有真正无私的人，会将自己的生命无私地献给这些植物，然后，它将会无私地吸收营养。",
+        "DESCRIPTIONS": [
+            "每当你造成未被 #y格挡 的伤害时，回复 #b1 [#CCCCCC](+1每层)[] 点生命值。",
+            "每次可回复 #g%d 点生命值。",
+            ""
+        ]
+    },
+    "lunar:Planula": {
+        "NAME": "浮浪幼体",
+        "FLAVOR": "祖妪伏也，子生卵，而卵为父也。父顾子与祖。是问祖最幼乎？曰，少于子，不及父也。",
+        "DESCRIPTIONS": [
+            "每当你受到未被 #y格挡 的伤害后，回复 #b10 [#CCCCCC](+5每层)[] 点生命值。",
+            "每次可回复 #g%d 点生命值。",
+            ""
+        ]
+    },
+    "lunar:Vase": {
+        "NAME": "诡异花瓶",
+        "FLAVOR": "曾有人尝试用珠宝将花瓶装满，直到有一天花瓶倒扣在它的头上……",
+        "DESCRIPTIONS": [
+            "每回合开始时，将你上次受到 #b50% [#CCCCCC](+25%每层)[] 的伤害储存为该遗物的计数。每场战斗 #b2 次：右击获得等同于计数的 #y格挡 并失去一半计数。",
+            "每回合开始时储存 #g%d%% 的伤害，本场战斗还可使用 #g%d 次。",
+            ""
+        ]
+    },
+    "lunar:RoseBuckler": {
+        "NAME": "玫瑰圆盾",
+        "FLAVOR": "多多益善，不是吗？",
+        "DESCRIPTIONS": [
+            "获得 #b5 [#CCCCCC](+5每层)[] 点 #y护甲 。",
+            "总共获得 #g%d 点 #y护甲 。",
+            ""
+        ]
+    },
+    "lunar:Shattering": {
+        "NAME": "正义粉碎者",
+        "FLAVOR": "这种工具含有了一种纳米毒素，通过内部机制释放。每次撞击，都使得目标更容易被破坏。",
+        "DESCRIPTIONS": [
+            "攻击一个目标 #b4 次后，使其减少 #b30 [#CCCCCC](+10%每层)[] 点 #y护甲 3 回合。",
+            "每次使目标减少 #g%d 点 #y护甲 。",
+            ""
+        ]
+    },
+    "lunar:ChargedDrill": {
+        "NAME": "电能钻头",
+        "FLAVOR": "内部具有大量电池，偶尔会产生高于安全水平的电流，最主要的是它能游泳！",
+        "DESCRIPTIONS": [
+            "对一名敌人造成伤害时，有 #b10% 的几率召唤一道闪电对目标造成 #b150% [#CCCCCC](+50%每层)[] 的伤害。",
+            "每次能造成 #g%d%% 的伤害。",
+            ""
+        ]
+    },
+    "lunar:BossBullet": {
+        "NAME": "穿甲弹",
+        "FLAVOR": "有谣言说这些子弹能穿透101间101号房。不过这只是谣言而已，对吗？我说，你没在骗我吧？",
+        "DESCRIPTIONS": [
+            "对首领敌人造成的伤害增加 #b25% [#CCCCCC](+10%每层)[] .",
+            "在首领战中，对首领级的敌人额外造成 #g%d%% 的伤害。",
+            ""
+        ]
+    },
+    "lunar:Microbots": {
+        "NAME": "防御用纳米机器人",
+        "FLAVOR": "“我更担心你的安全。年轻人。”",
+        "DESCRIPTIONS": [
+            "每 #b2 回合，抵消所有低于 #b2 [#CCCCCC](+1每层)[] 的攻击伤害。",
+            "能够抵消低于 #g%d 的攻击伤害。",
+            ""
+        ]
+    },
+    "lunar:Daisy": {
+        "NAME": "轻子雏菊",
+        "FLAVOR": "它不会参与强作用，但它挺关心你的死亡与否。",
+        "DESCRIPTIONS": [
+            "在首领房战斗中的第 #b5 回合，为你回复 #b20% [#CCCCCC](+5%每层)[] 的生命值。",
+            "在首领房战斗中，第 #g5 回合开始时，为你回复 #g%d 点生命值，仅生效一次。",
+            ""
+        ]
+    },
+    "lunar:Scythe": {
+        "NAME": "收割者镰刀",
+        "FLAVOR": "“苦难只是人生的一部分，就像劳作一样，虽然有回报的几率很低，但我自己就可以完成，并不需要死神的帮助。”",
+        "DESCRIPTIONS": [
+            "每次攻击后，有 #b25% 的几率回复 #b4 [#CCCCCC](+2每层)[] 点生命值。",
+            "每次造成未被格挡的伤害后，回复 #g%d 点生命值。",
+            ""
+        ]
+    },
+    "lunar:GhorTome": {
+        "NAME": "古尔的巨著-卷X",
+        "FLAVOR": "“……只要通过一种猛烈的放血仪式，废铁也能转化成金……”——必须找到其他的卷，这些知识太重要了。",
+        "DESCRIPTIONS": [
+            "杀死一名敌人后，有 #b30% [#CCCCCC](+5%每层)[] 的几率在战斗奖励中增加一份金币奖励，有更小的几率出现一件异端物品奖励。",
+            "有 #g%d%% 的几率获得 #g%d~%d #y金币 奖励，有 #g%d%% 的几率获得一份品质不高于 #y稀有 的随机 #b异端 物品奖励。",
+            ""
+        ]
+    },
+    "lunar:CrowdFunder": {
+        "NAME": "资本的力量",
+        "FLAVOR": "货物的原主人不得不把它当掉，虽然你未曾在艰难时期资助过他。",
+        "DESCRIPTIONS": [
+            "#y装备 。开启时，每次攻击会失去一定数量的金币，同时使当次攻击伤害增加相应的百分比。无 #r冷却 且无法触发与装备激活或冷却有关的物品。 #p损失的金币数量随楼层变化 。",
+            "每次攻击损失 #r%d 金币，使当次攻击伤害增加 #g%d%% .",
+            "开启以获得详细信息。",
+            ""
+        ]
+    },
+    "lunar:Infusion": {
+        "NAME": "血液样本浸剂",
+        "FLAVOR": "含有各种生物的血液样本。只要连接到透析机和必要的设备，就可以将你的血液换成优良基因的血液——所有副作用需自行担当。",
+        "DESCRIPTIONS": [
+            "在你杀死一名敌人后，提高你的最大生命值 #b2 点，最多提高 #b20 [#CCCCCC](+20每层)[] 点。",
+            "当前总共增加 #g%d 点生命值上限。",
+            ""
+        ]
+    },
+    "lunar:BleederDagger": {
+        "NAME": "三尖匕首",
+        "FLAVOR": "你会用这把匕首划开受害者的伤口吗？仅仅是为了让更多无辜的人流血？",
+        "DESCRIPTIONS": [
+            "攻击时，有 #b10% [#CCCCCC](+10%每层)[] 的几率使目标 #y出血 。",
+            "有 #g%d%% 的几率使攻击目标出血。",
+            ""
+        ]
+    },
+    "lunar:Chronobauble": {
+        "NAME": "主观缓时装置",
+        "FLAVOR": "这东西能让狭义相对论……等等，我要说什么来着？哦，这东西能让狭义相对论……",
+        "DESCRIPTIONS": [
+            "攻击 #b3 次后，使目标 #y减速 #b60% ，持续 #b1 [#CCCCCC](+1每层)[] 回合。",
+            "有 #g%d%% 的几率使攻击目标出血。",
+            ""
+        ]
+    },
+    "lunar:TougherTimes": {
+        "NAME": "更艰难的时光",
+        "FLAVOR": "我想你会找到它。",
+        "DESCRIPTIONS": [
+            "有 #b15% [#CCCCCC](+15%每层)[] 的几率抵挡即将受到的伤害。不受幸运影响。",
+            "已经很艰难了，为什么你还要更艰难呢！",
+            ""
+        ]
+    },
+    "lunar:Crowbar": {
+        "NAME": "撬棍",
+        "FLAVOR": "“它很好，但说实话……有点过时了。”",
+        "DESCRIPTIONS": [
+            "对生命值大于 #b85% 的目标造成的攻击伤害增加 #b50% [#CCCCCC](+50%每层)[] .",
+            "对符合条件的目标造成的攻击伤害增加 #g%d%% .",
+            ""
+        ]
+    },
+    "lunar:RitualDagger": {
+        "NAME": "仪式匕首",
+        "FLAVOR": "“求求你快杀了我，用这把匕首杀了我！快，它们太近了，这是唯一的办法，听我的，马上杀了我！”",
+        "DESCRIPTIONS": [
+            "计数大于 #b0 时，在每回合开始召唤 #b3 把匕首攻击随机敌人，并失去 #b1 计数。每把匕首造成 #b50% [#CCCCCC](+25%每层)[] 的伤害。杀死一名敌人后，获得 #b3 计数。",
+            "下次召唤的匕首每把造成 #g%d 点伤害",
+            "当前无法召唤匕首。",
+            ""
+        ]
+    },
+    "lunar:ArmorPlate": {
+        "NAME": "反冲击护甲板",
+        "FLAVOR": "幸运的是，没有人在枪战中死亡。即使是在101号房中的人。当然，不包括你。",
+        "DESCRIPTIONS": [
+            "每 #b2 回合，减少你受到的任何伤害 #b3 [#CCCCCC](+2每层)[] 点，但不会低于 #b1 点。",
+            "能够减少 #g%d 点伤害，但不会将伤害减少到 #r1 以下。",
+            ""
+        ]
+    },
+    "lunar:TheGlasses": {
+        "NAME": "透镜制作者的眼镜",
+        "FLAVOR": "“我想我击中了它的要害。”",
+        "DESCRIPTIONS": [
+            "攻击时，有 #b10% [#CCCCCC](+10%每层)[] 的几率造成 #b150% 的伤害。",
+            "造成攻击伤害时，有 #g%d%% 的几率造成更多的伤害。",
+            ""
+        ]
+    },
+    "lunar:Medkit": {
+        "NAME": "医疗包",
+        "FLAVOR": "“我建议你呆在室内休息。”",
+        "DESCRIPTIONS": [
+            "受到伤害后且没有治疗效果时，在 #b2 回合内治疗你 #b2 点，外加你最大生命值 #b5% [#CCCCCC](+5%每层)[] 的生命值。",
+            "每次受到未被 #y格挡 的伤害后，获得 #g%d 点总治疗效果。",
+            ""
+        ]
+    },
+    "lunar:MissileMk1": {
+        "NAME": "家庭用导弹 Mk.1",
+        "FLAVOR": "你转过身来面对迎面而来的暴徒。导弹已经全部装载完毕。肾上腺素开始激增。然后，你逃跑了。",
+        "DESCRIPTIONS": [
+            "每次攻击时，有 #b10% 的几率发射一枚导弹攻击敌人，造成 #b200% [#CCCCCC](+50%每层)[] 的伤害。",
+            "每次攻击有 #g%d%% 的几率发射一枚导弹攻击目标，造成等同于当次伤害 #g%d%% 的伤害。",
+            ""
+        ]
+    },
+    "lunar:Stealthkit": {
+        "NAME": "老旧的战争潜行工具",
+        "FLAVOR": "实际上，你根本无法确定这件物品是否存在，但你很确信你带着它。",
+        "DESCRIPTIONS": [
+            "每 #b3 场战斗，当你的生命值首次低于 #b20% [#CCCCCC](+10%每层)[] 时，使你免疫任何伤害 #b2 回合并立即回复 #b10 点生命值。",
+            "当你的生命值低于 #g%d%% 时触发。",
+            "潜行装置暂时失效。",
+            ""
+        ]
+    },
+    "lunar:Aegis": {
+        "NAME": "羊皮盾",
+        "FLAVOR": "它很轻，应该完全是用来装饰的，没有任何用处。",
+        "DESCRIPTIONS": [
+            "将战斗中 #b50% [#CCCCCC](+25%每层)[] 溢出的生命回复效果转变为 #y格挡 。",
+            "战斗中溢出的生命回复效果的 #g%d%% 会被转变为等量的 #y格挡 。",
+            ""
+        ]
+    },
+    "lunar:HealingRack": {
+        "NAME": "回春支架",
+        "FLAVOR": "然而，唯有幻想才能治愈，你的灵魂。",
+        "DESCRIPTIONS": [
+            "战斗中的治疗效果增加 #b50% [#CCCCCC](+50%每层)[] 。",
+            "治疗效果增加 #g%d%% .",
+            ""
+        ]
+    },
+    "lunar:Spleen": {
+        "NAME": "易爆脾脏",
+        "FLAVOR": "没有人成功地解剖过一个恶魔的器官。",
+        "DESCRIPTIONS": [
+            "每当造成的伤害大于基础伤害的 #b150% 时，使目标 #y出血 。你造成的 #y出血 附带目标当前生命值 #b5% [#CCCCCC](+25%每层)[] 的伤害并且翻倍。",
+            "你造成的 #y出血 会附带目标当前生命值 #g%d%% 的伤害。",
+            ""
+        ]
+    },
+    "lunar:Knurl": {
+        "NAME": "巨型隆起",
+        "FLAVOR": "这快隆起的再生特性已被证实，虽然这看起来只是块石头。",
+        "DESCRIPTIONS": [
+            "最大生命值增加 #b20 [#CCCCCC](+20每层)[] 点。获得 #b1 [#CCCCCC](+1每层)[] 点 #y自然再生 。",
+            "最大生命值增加 #g%d 点，获得 #g%d 点 #y自然再生 。",
+            ""
+        ]
+    },
+    "lunar:JadeElephant": {
+        "NAME": "青玉巨象",
+        "FLAVOR": "亡者的灵魂已将这块神圣的石头净化，使其变得完整，如同大象一般庄严的存在。它的存在是为了防止你这般的屠杀者继续活下去。",
+        "DESCRIPTIONS": [
+            "#y装备 。获得 #b100 #y护甲 #b3 回合。 #r冷却 ：获得 #b140 点 #y格挡 。",
+            "最大生命值增加 #g%d 点，获得 #g%d 点 #y自然再生 。",
+            ""
+        ]
+    },
+    "lunar:Opus": {
+        "NAME": "杰出之作",
+        "FLAVOR": "“虽然这鼓让我们的粉丝都陷入了癫狂。不过，这确实是我们有史以来最成功的一次巡演。”",
+        "DESCRIPTIONS": [
+            "#y装备 。使你所有未 #y消耗 的攻击牌在本场战斗中的耗能减少 #b1 点。 #r冷却 ：手动使用 #b10 张耗能大于等于 #b1 的攻击牌。",
+            "最大生命值增加 #g%d 点，获得 #g%d 点 #y自然再生 。",
+            ""
+        ]
+    },
+    "lunar:Capacitor": {
+        "NAME": "皇家电容器",
+        "FLAVOR": "哦，记得别把它指向任何人。",
+        "DESCRIPTIONS": [
+            "#y装备 。召唤一道闪电攻击目标，造成你 #y攻击力 #b3000% 的伤害并使目标失去 #b5 点 #y力量 。 #y冷却 ：使用 #b18 张牌。",
+            "最大生命值增加 #g%d 点，获得 #g%d 点 #y自然再生 。",
+            ""
+        ]
+    },
+    "lunar:MissileLauncher": {
+        "NAME": "便携式导弹发射器",
+        "FLAVOR": "当游戏公司向他们展示最新的便携式导弹发射器组装套件时，观众们都惊呆了——因为他们没有手机。",
+        "DESCRIPTIONS": [
+            "#y装备 。发射 #b12 枚导弹攻击随机敌人。每发导弹造成你 #y攻击力 #b300% 的伤害。 #r冷却 ：造成 #b220 点攻击伤害。",
+            "最大生命值增加 #g%d 点，获得 #g%d 点 #y自然再生 。",
+            ""
+        ]
+    },
+    "lunar:AlienHead": {
+        "NAME": "外星脑袋",
+        "FLAVOR": "来自灵魂最深处的能量，使用时必须保持冷静。",
+        "DESCRIPTIONS": [
+            "每手动使用 #b6 [#CCCCCC](-1每层)[] 张技能牌，使你打出的下一张牌耗能为 #b0 .",
+            "每手动使用 #g%d 张技能牌，你打出的下一张牌耗能为 #b0 .",
+            ""
+        ]
+    },
+    "lunar:Crystal": {
+        "NAME": "凝神水晶",
+        "FLAVOR": "希望开发者不会把这东西的价格调高。",
+        "DESCRIPTIONS": [
+            "获得 #b2 [#CCCCCC](+2每层)[] 点 #y攻击力 。",
+            "总共获得 #g%d 点 #y攻击力 。",
+            ""
+        ]
+    },
+    "lunar:Syringe": {
+        "NAME": "士兵注射器",
+        "FLAVOR": "“我对药物的依赖没这么大，但是，你知道的，这确实能帮助我们渡过难关。”",
+        "DESCRIPTIONS": [
+            "连续打出攻击牌会使你的 #y攻击力 提高 #b3 [#CCCCCC](+3每层)[] 点。",
+            "连续打出攻击牌会获得 #g%d 点 #y攻击力 。",
+            ""
+        ]
+    },
+    "lunar:HopooFeather": {
+        "NAME": "Hopoo 羽毛",
+        "FLAVOR": "“此处严禁偷猎行为，为了让我们的孩子能够在有生之年再次见到 Hopoo 的样子。”",
+        "DESCRIPTIONS": [
+            "获得的 #y格挡 最低不会低于 #b4 [#CCCCCC](+2每层)[] 点。",
+            "你获得的 #y格挡 最低不会低于 #g%d 点。",
+            ""
+        ]
+    },
+    "lunar:Pearl": {
+        "NAME": "珍珠",
+        "FLAVOR": "他会带来负面影响，劝你还是早点丢弃为好。",
+        "DESCRIPTIONS": [
+            "最大生命值增加 #b10 [#CCCCCC](+10每层)[] 点。",
+            "",
+            ""
+        ]
+    },
+    "lunar:PerfectPearl": {
+        "NAME": "璀璨珍珠",
+        "FLAVOR": "哦，这珍珠太……完美了——别误会，他仍会对你产生负面影响。",
+        "DESCRIPTIONS": [
+            "最大生命值增加 #b10 [#CCCCCC](+10每层)[] 点。除运气外的所有基本属性增加 #b2 [#CCCCCC](+20%每层)[] 点。",
+            "",
+            ""
+        ]
+    },
+    "lunar:DioFriend": {
+        "NAME": "Dio 最好的朋友",
+        "FLAVOR": "“请一定要健康地活下去啊。”",
+        "DESCRIPTIONS": [
+            "欺骗死亡。",
+            "死亡时消耗 #b1 个该物品复活并获得 #b1 回合的 #y免疫 。",
+            ""
+        ]
+    },
+    "lunar:DioConsumed": {
+        "NAME": "Dio 最好的朋友（已消耗）",
+        "FLAVOR": "“请一定要健康地活下去啊。”",
+        "DESCRIPTIONS": [
+            "一个已用过的物品，没有任何剩余的效果。",
+            "你成功欺骗了死亡 #g%d 次。",
+            ""
+        ]
+    },
+    "lunar:WineAffliction": {
+        "NAME": "强心剂副作用",
+        "FLAVOR": "假酒害人。",
+        "DESCRIPTIONS": [
+            "不处于强心剂效果时，除运气外的所有基本属性减少 #b3 点 [#CCCCCC](+3每层)[]。",
+            "你被现实欺骗了 #r%d 次。",
+            ""
+        ]
+    },
+    "lunar:Slug": {
+        "NAME": "警慎蛞蝓",
+        "FLAVOR": "动物和其他外来生物可以感知到你无法感知的事物。",
+        "DESCRIPTIONS": [
+            "经过休息处的下场战斗开始时，使 #y自然再生 增加 #b3 [#CCCCCC](+1每层)[] 点，持续 #b2 回合。",
+            "下场战斗开始时，使 #y自然再生 增加 #g%d 点。",
+            "你还未经过休息处。",
+            ""
+        ]
+    },
+    "lunar:RustyKey": {
+        "NAME": "老钥匙",
+        "FLAVOR": "我不相信任何人，所以我会把钥匙寄给你。",
+        "DESCRIPTIONS": [
+            "能够打开上锁的箱子，箱子中带有 #b1 件异端物品。",
+            "非Boss宝箱中含有一个上锁的箱子，其中物品的稀有度与钥匙数量有关，打开箱子会消耗所有钥匙：普通(%d%%)、 #g罕见 (%d%%)、 #r稀有 (%d%%)",
+            ""
+        ]
+    },
+    "lunar:Predatory": {
+        "NAME": "掠食者本能",
+        "FLAVOR": "一个恶魔从天而将，强大到足以杀死造物者们。",
+        "DESCRIPTIONS": [
+            "#y暴击 时，获得 #b2 点 #y攻击力 #b2 回合。最多获得 #b6 [#CCCCCC](+4每层)[] 点 #y攻击力 。",
+            "最多获得 #g%d 点攻击力。",
+            ""
+        ]
+    },
+    "lunar:Ukulele": {
+        "NAME": "尤克里里",
+        "FLAVOR": "生活是多么地无情，但音乐能让事情变得不那么糟糕。",
+        "DESCRIPTIONS": [
+            "攻击时有 #b25% 的几率引发闪电链对其他最多 #b1 [#CCCCCC](+1每层)[] 名敌人造成 #b80% 的伤害。",
+            "闪电链最多连接到 #g%d 名敌人。",
+            ""
+        ]
+    },
+    "lunar:BlackholeCube": {
+        "NAME": "原始立方体",
+        "FLAVOR": "“这是一项历史性的突破，许多科学家为此发表了自己的意见——以及它对我们未来的意义。”",
+        "DESCRIPTIONS": [
+            "#y装备 。选择一名敌人，将所有敌人拉向该敌人的位置。所有被移动的敌人本回合造成的伤害会根据移动的距离减少。 #r冷却 ：打出 #b5 张能力牌。",
+            "闪电链最多连接到 #g%d 名敌人。",
+            ""
+        ]
+    },
+    "lunar:Behemoth": {
+        "NAME": "完美巨兽",
+        "FLAVOR": "没有什么武器能像火药一样永恒，并给你的敌人带来持续的恐惧。",
+        "DESCRIPTIONS": [
+            "攻击会造成一个范围 [#CCCCCC](+25%每层)[] 的爆炸，对其中所有目标造成 #b65% 的伤害。",
+            "",
+            ""
+        ]
+    }
+}

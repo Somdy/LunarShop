@@ -1,0 +1,166 @@
+{
+    "LunarPower": {
+        "NAME": "Power",
+        "DESCRIPTIONS": [
+            "Player",
+            ""
+        ]
+    },
+    "lunar:RachisPower": {
+        "NAME": "Power Up",
+        "DESCRIPTIONS": [
+            "[owner_name] deals #b[amt_0] % more damage.",
+            ""
+        ]
+    },
+    "lunar:CripplePower": {
+        "NAME": "Cripple",
+        "DESCRIPTIONS": [
+            "[owner_name]'s #yArmor is reduced by #b[amt_0] .",
+            ""
+        ]
+    },
+    "lunar:HelfirePower": {
+        "NAME": "Burn",
+        "DESCRIPTIONS": [
+            "[owner_name] loses #b[amt_0] HP at the end of turn.",
+            ""
+        ]
+    },
+    "lunar:OnFirePower": {
+        "NAME": "Burn",
+        "DESCRIPTIONS": [
+            "[owner_name] takes #b[amt_0] damage at the end of turn for #b[amt_1] turns.",
+            ""
+        ]
+    },
+    "lunar:TonicPower": {
+        "NAME": "Tonic Buff",
+        "DESCRIPTIONS": [
+            "[owner_name] deals #b175% more damage, restores #b20% lost HP and gains #b35 #yBlock for #b[amt_0] turns.",
+            ""
+        ]
+    },
+    "lunar:TonicDebuffPower": {
+        "NAME": "Tonic Debuff",
+        "DESCRIPTIONS": [
+            "[owner_name] restores #b75% less HP.",
+            ""
+        ]
+    },
+    "lunar:DeathMarkPower": {
+        "NAME": "Death Mark",
+        "DESCRIPTIONS": [
+            "[owner_name] takes #b50% more damage for #b[amt_0] turns.",
+            ""
+        ]
+    },
+    "lunar:ShatteringPower": {
+        "NAME": "Shattering",
+        "DESCRIPTIONS": [
+            "Attack [owner_name] another #b[amt_0] times to #yshatter it.",
+            ""
+        ]
+    },
+    "lunar:ShatteredPower": {
+        "NAME": "Shattered",
+        "DESCRIPTIONS": [
+            "[owner_name]'s #yArmor is reduced by #b[amt_0] for 3 turns.",
+            ""
+        ]
+    },
+    "lunar:BleedingPower": {
+        "NAME": "Bleeding",
+        "DESCRIPTIONS": [
+            "[owner_name] loses #b[amt_0] HP and #b1 Bleeding after taking damage.",
+            ""
+        ]
+    },
+    "lunar:SlowdownPower": {
+        "NAME": "Slowdown",
+        "DESCRIPTIONS": [
+            "[owner_name] deals #b[amt_0]% less damage and takes #b[amt_1]% more damage for #b[amt_2] turns.",
+            ""
+        ]
+    },
+    "lunar:BlazingPower": {
+        "NAME": "Blazing",
+        "DESCRIPTIONS": [
+            "[owner_name] #ignites the target for #b[amt_0] turns when dealing #yunblocked damage.",
+            ""
+        ]
+    },
+    "lunar:CelestinePower": {
+        "NAME": "Celestine",
+        "DESCRIPTIONS": [
+            "[owner_name] cannot be targeted by cards and applies #b60% #ySlowdown when dealing #yunblocked damage. This removes when taking damage.",
+            ""
+        ]
+    },
+    "lunar:GlacialPower": {
+        "NAME": "Glacial",
+        "DESCRIPTIONS": [
+            "Whenever [owner_name] is attacked, applies #b40% #ySlowdown for one turn and deals #b20% damage back to the attacker. This lasts for #b[amt_0] turns.",
+            ""
+        ]
+    },
+    "lunar:MalachitePower": {
+        "NAME": "Malachite",
+        "DESCRIPTIONS": [
+            "[owner_name] disables the healing of the target for #b[amt_0] turns when dealing #yunblocked damage.",
+            ""
+        ]
+    },
+    "lunar:HealingDisabledPower": {
+        "NAME": "Healing Disabled",
+        "DESCRIPTIONS": [
+            "[owner_name] cannot restore HP.",
+            ""
+        ]
+    },
+    "lunar:MirageNewtPower": {
+        "NAME": "Newt's Mirage",
+        "DESCRIPTIONS": [
+            "Newt's confused with your actions.",
+            "Newt's cross with you.",
+            "Newt's happy to have a battle with you.",
+            ""
+        ]
+    },
+    "lunar:ImmunePower": {
+        "NAME": "Immune",
+        "DESCRIPTIONS": [
+            "[owner_name] takes no damage and immune to ALL negative effects.",
+            "This lasts for #b[amt_0] turns.",
+            ""
+        ]
+    },
+    "lunar:ElephantPower": {
+        "NAME": "Jade Elephant",
+        "DESCRIPTIONS": [
+            "[owner_name] gains #b[amt_0] #yArmor .",
+            ""
+        ]
+    },
+    "lunar:MedkitPower": {
+        "NAME": "Healing",
+        "DESCRIPTIONS": [
+            "[owner_name] restores #b[amt_0] HP next turn. This lasts for #b[amt_1] turns.",
+            ""
+        ]
+    },
+    "lunar:SlugPower": {
+        "NAME": "Slug Healing",
+        "DESCRIPTIONS": [
+            "[owner_name] 's regeneration is increased by #b[amt_0] for #b[amt_1] turns.",
+            ""
+        ]
+    },
+    "lunar:PredatoryPower": {
+        "NAME": "Predatory Instinctive",
+        "DESCRIPTIONS": [
+            "[owner_name] 's attack is increased by #b[amt_0] for #b[amt_1] turns.",
+            ""
+        ]
+    }
+}

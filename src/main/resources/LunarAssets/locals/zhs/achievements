@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LunarAchv v="1.0.0">
+  <item key="0">
+    <title>谈拢</title>
+    <description>第一次击败纽特的化身</description>
+  </item>
+  <item key="1">
+    <title>生意人</title>
+    <description>解锁所有超时空集市额外内容</description>
+  </item>
+  <item key="2">
+    <title>此地之外</title>
+    <description>解锁随机超时空集市事件</description>
+  </item>
+  <item key="3">
+    <title>谁没钱？</title>
+    <description>以正常的方式买完超时空集市所有物品</description>
+  </item>
+  <item key="4">
+    <title>我是谁？</title>
+    <description>成功抢劫超时空集市</description>
+  </item>
+  <item key="5">
+    <title>到你了，兄弟</title>
+    <description>在超时空集市购买任意异端统率精魄</description>
+  </item>
+  <item key="6">
+    <title>这可不止8%</title>
+    <description>在一局游戏中拥有超过 3 个超然</description>
+  </item>
+  <item key="7">
+    <title>可别叠了</title>
+    <description>在一局游戏中拥有至少 1 个诡异花瓶，并使其计数超过 200</description>
+  </item>
+  <item key="8">
+    <title>坚不可摧？</title>
+    <description>使用陈旧的断头台在腐化之心坚不可摧为 0 的情况下将其杀死</description>
+  </item>
+  <item key="9">
+    <title>假酒害人</title>
+    <description>通过尖晶强心剂永久失去一些属性</description>
+  </item>
+  <item key="10">
+    <title>平静</title>
+    <description>携带至少 2 个纯粹赢得一局游戏</description>
+  </item>
+  <item key="11">
+    <title>正常</title>
+    <description>在拥有至少 3 个 57 片叶子的三叶草的情况下，不依靠三叶草连续触发 3 次低概率事件</description>
+  </item>
+  <item key="12">
+    <title>幸运儿</title>
+    <description>在运气至少为 5 点的情况下，成功一次不触发高概率事件</description>
+  </item>
+  <item key="13">
+    <title>纯净</title>
+    <description>在净化池事件中选择净化所有异端物品，并得到相同数量的璀璨珍珠</description>
+  </item>
+  <item key="14">
+    <title>高端</title>
+    <description>在一局游戏中获得超时空集市下的所有遗物，不包括装备</description>
+  </item>
+</LunarAchv>

@@ -1,0 +1,62 @@
+
+achvs.png
+size: 1298,164
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bg/COMMON
+  rotate: false
+  xy: 164, 2
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
+bg/LEGEND
+  rotate: false
+  xy: 488, 2
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
+bg/RARE
+  rotate: false
+  xy: 812, 2
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
+frame/COMMON
+  rotate: false
+  xy: 326, 2
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
+frame/LEGEND
+  rotate: false
+  xy: 650, 2
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
+frame/RARE
+  rotate: false
+  xy: 974, 2
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
+item/0
+  rotate: false
+  xy: 2, 2
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
+item/test
+  rotate: false
+  xy: 1136, 2
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
