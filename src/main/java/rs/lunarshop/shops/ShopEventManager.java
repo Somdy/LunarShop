@@ -7,7 +7,8 @@ import rs.lunarshop.subjects.AbstractLunarShop;
 import rs.lunarshop.utils.LunarUtils;
 import rs.lunarshop.utils.PotencyHelper;
 
-import static rs.lunarshop.shops.ShopType.*;
+import static rs.lunarshop.shops.ShopType.INVALID;
+import static rs.lunarshop.shops.ShopType.ReturnRndType;
 
 public final class ShopEventManager implements LunarUtils {
     private static final float BaseRndShopChance = 0.01F;

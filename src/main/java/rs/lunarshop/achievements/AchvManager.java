@@ -1,7 +1,6 @@
 package rs.lunarshop.achievements;
 
 import org.jetbrains.annotations.NotNull;
-import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.data.AchvID;
 import rs.lunarshop.subjects.AbstractLunarAchievement;
 import rs.lunarshop.subjects.lunarprops.LunarAchvData;

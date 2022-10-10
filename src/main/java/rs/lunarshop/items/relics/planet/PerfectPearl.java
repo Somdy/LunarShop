@@ -1,19 +1,19 @@
 package rs.lunarshop.items.relics.planet;
 
 import com.badlogic.gdx.math.MathUtils;
-import rs.lunarshop.data.ItemID;
-import rs.lunarshop.items.abstracts.SpecialRelic;
+import rs.lunarshop.items.abstracts.PlanetRelic;
 
-public class PerfectPearl extends SpecialRelic {
+public class PerfectPearl extends PlanetRelic {
     private int baseAmt;
     
     public PerfectPearl() {
-        super(ItemID.PerfectPearl);
+        super(55);
+        popupTierBg = 3;
         baseAmt = 2;
     }
     
     public PerfectPearl(int stack) {
-        super(ItemID.PerfectPearl, stack);
+        super(55, stack);
         baseAmt = 2 + MathUtils.ceil(2 * 1.2F * (stack - 1));
     }
     
@@ -37,7 +37,6 @@ public class PerfectPearl extends SpecialRelic {
     
     @Override
     public void onUnequip() {
-        super.onUnequip();
         cpr().decreaseMaxHealth(stack * 10);
     }
     

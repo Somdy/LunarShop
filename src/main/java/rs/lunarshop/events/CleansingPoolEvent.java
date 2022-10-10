@@ -2,7 +2,6 @@ package rs.lunarshop.events;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
@@ -10,7 +9,6 @@ import com.megacrit.cardcrawl.ui.DialogWord;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.data.AchvID;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.enums.LunarClass;
 import rs.lunarshop.items.relics.RelicManager;
 import rs.lunarshop.items.relics.planet.Pearl;
@@ -75,7 +73,7 @@ public class CleansingPoolEvent extends AbstractImageEvent implements LunarUtils
     static int countLunarItems() {
         int count = 0;
         for (AbstractRelic r : LMSK.Player().relics) {
-            if (r instanceof AbstractLunarRelic && ((AbstractLunarRelic) r).props.getClazz() != LunarClass.SPECIAL)
+            if (r instanceof AbstractLunarRelic && ((AbstractLunarRelic) r).prop.getClazz() != LunarClass.SPECIAL)
                 count++;
         }
         return count;
@@ -84,7 +82,7 @@ public class CleansingPoolEvent extends AbstractImageEvent implements LunarUtils
     static int countLunarItemStacks() {
         int count = 0;
         for (AbstractRelic r : LMSK.Player().relics) {
-            if (r instanceof AbstractLunarRelic && ((AbstractLunarRelic) r).props.getClazz() != LunarClass.SPECIAL)
+            if (r instanceof AbstractLunarRelic && ((AbstractLunarRelic) r).prop.getClazz() != LunarClass.SPECIAL)
                 count += ((AbstractLunarRelic) r).getStack();
         }
         return count;
@@ -142,14 +140,14 @@ public class CleansingPoolEvent extends AbstractImageEvent implements LunarUtils
         int[] pearl = new int[lunarItemStacks];
         Arrays.fill(pearl, 0);
         for (int i = 0; i < lunarItemStacks; i++) {
-            if (ItemHelper.RollLuck(AbstractDungeon.eventRng, 0.2F)) pearl[0]++;
+            if (ItemHelper.RollLuck("CleansingPool", 0.2F)) pearl[0]++;
             else pearl[1]++;
         }
         if (pearl[0] == lunarItemStacks && pearl[1] == 0) {
             AchvHelper.UnlockAchv(AchvID.ClearlyClear);
         }
         List<AbstractRelic> removeList = copyRelicList(LMSK.Player().relics, r -> r instanceof AbstractLunarRelic
-                && ((AbstractLunarRelic) r).props.getClazz() != LunarClass.SPECIAL);
+                && ((AbstractLunarRelic) r).prop.getClazz() != LunarClass.SPECIAL);
         for (AbstractRelic r : removeList) {
             LMSK.Player().loseRelic(r.relicId);
         }
@@ -166,10 +164,10 @@ public class CleansingPoolEvent extends AbstractImageEvent implements LunarUtils
         EventManager.AddRecord(KEY);
         int stack = ic.cleanseRelic();
         AbstractRelic pearl;
-        if (ItemHelper.RollLuck(AbstractDungeon.eventRng, 0.2F)) {
-            pearl = RelicManager.Get(ItemID.PerfectPearl, stack);
+        if (ItemHelper.RollLuck("CleansingPool", 0.2F)) {
+            pearl = RelicManager.Get(ItemHelper.GetProp(55), stack);
         } else {
-            pearl = RelicManager.Get(ItemID.Pearl, stack);
+            pearl = RelicManager.Get(ItemHelper.GetProp(54), stack);
         }
         instantObtain(pearl);
         if (phase != OUTER_MSG) {

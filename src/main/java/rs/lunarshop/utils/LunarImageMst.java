@@ -4,9 +4,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
+import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
+import rs.lunarshop.ui.loadout.LoadoutManager;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LunarImageMst {
+    public static final int LOADOUT_SELECTED_S = 68;
+    public static final int LOADOUT_MARK_S = 23;
+    public static final int LAYOUT_BG_W = 330;
+    public static final int LAYOUT_BG_H = 30;
+    public static final int INNER_FRAME_W = 262;
+    public static final int INNER_FRAME_H = 10;
+    public static final int TAB_GLOW_W = 308;
+    public static final int TAB_GLOW_H = 67;
+    
     public static TextureAtlas AchvAtlas;
     public static TextureAtlas.AtlasRegion BG_COMMON;
     public static TextureAtlas.AtlasRegion BG_RARE;
@@ -34,9 +48,41 @@ public class LunarImageMst {
     public static Texture BtnHighlighted;
     public static Texture BlurDot;
     public static Texture OldChest;
+    public static Texture LoadoutSelectedOutline;
+    public static Texture LoadoutSelectedMark;
+    public static Texture LoadoutTabGlow;
+    public static Texture LayoutBgTop;
+    public static Texture LayoutBgMid;
+    public static Texture LayoutBgBot;
+    public static Texture InnerFrameTop;
+    public static Texture InnerFrameMid;
+    public static Texture InnerFrameBot;
+    public static Texture RainLevelFrame;
+    public static Texture RainLevelHoveredFrame;
+    public static Texture EclipseHoveredFrame;
+    public static Texture LunarTipBoxTop;
+    public static Texture LunarTipBoxMid;
+    public static Texture LunarTipBoxBot;
+    public static Texture LunarTipHeaderBg;
+    public static Texture LunarTipBodyBg;
     
     public static Texture[] EquipSlots;
     public static Texture[] EclipseIcons;
+    public static Texture[] RainLevelIcons;
+    public static Texture[] TierBgs;
+    
+    public static Map<String, Texture> ArtifactIcons;
+    public static Map<String, Texture> ArtifactShadows;
+    
+    static  {
+        EquipSlots = new Texture[3];
+        EclipseIcons = new Texture[8];
+        TierBgs = new Texture[6];
+        RainLevelIcons = new Texture[3];
+        
+        ArtifactIcons = new HashMap<>();
+        ArtifactShadows = new HashMap<>();
+    }
     
     public static void Initialize() {
         LunarMod.LogInfo("Loading texture assets");
@@ -48,8 +94,6 @@ public class LunarImageMst {
         F_COMMON = AchvAtlas.findRegion("frame/COMMON");
         F_RARE = AchvAtlas.findRegion("frame/RARE");
         F_LEGEND = AchvAtlas.findRegion("frame/LEGEND");
-        
-        initArrays();
         
         Badge = load("LunarAssets/imgs/badge.png");
         Attack = load("LunarAssets/imgs/ui/attack.png");
@@ -70,22 +114,45 @@ public class LunarImageMst {
         BtnHighlighted = load("LunarAssets/imgs/ui/button_highlighted.png");
         BlurDot = load("LunarAssets/imgs/vfx/blurDot2.png");
         OldChest = load("LunarAssets/imgs/ui/reward/old_chest.png");
+        LoadoutSelectedOutline = load("LunarAssets/imgs/ui/loadout/loadout_selected_outline.png");
+        LoadoutSelectedMark = load("LunarAssets/imgs/ui/loadout/loadout_selected_mark.png");
+        LoadoutTabGlow = load("LunarAssets/imgs/ui/loadout/selected_glow.png");
+        LayoutBgTop = load("LunarAssets/imgs/ui/loadout/LayoutBgTop.png");
+        LayoutBgMid = load("LunarAssets/imgs/ui/loadout/LayoutBgMid.png");
+        LayoutBgBot = load("LunarAssets/imgs/ui/loadout/LayoutBgBot.png");
+        InnerFrameTop = load("LunarAssets/imgs/ui/loadout/InnerFrameTop.png");
+        InnerFrameMid = load("LunarAssets/imgs/ui/loadout/InnerFrameMid.png");
+        InnerFrameBot = load("LunarAssets/imgs/ui/loadout/InnerFrameBot.png");
+        RainLevelFrame = load("LunarAssets/imgs/ui/loadout/rainLevel/frame.png");
+        RainLevelHoveredFrame = load("LunarAssets/imgs/ui/loadout/rainLevel/hovered_frame.png");
+        EclipseHoveredFrame = load("LunarAssets/imgs/ui/loadout/eclipseLevel/hovered_frame.png");
+        LunarTipBoxTop = load("LunarAssets/imgs/ui/tipBox/tipBoxTop.png");
+        LunarTipBoxMid = load("LunarAssets/imgs/ui/tipBox/tipBoxMid.png");
+        LunarTipBoxBot = load("LunarAssets/imgs/ui/tipBox/tipBoxBot.png");
+        LunarTipBodyBg = load("LunarAssets/imgs/ui/tipBox/tipBg.png");
+        LunarTipHeaderBg = load("LunarAssets/imgs/ui/tipBox/tipHeaderBg.png");
         
         for (int i = 0; i < EquipSlots.length; i++) {
             EquipSlots[i] = load("LunarAssets/imgs/ui/equipmentSlots/slot" + (i + 1) + ".png");
         }
         for (int i = 0; i < EclipseIcons.length; i++) {
-            EclipseIcons[i] = load("LunarAssets/imgs/ui/eclipse/0" + (i + 1) + ".png");
+            EclipseIcons[i] = load("LunarAssets/imgs/ui/loadout/eclipseLevel/level_" + (i + 1) + ".png");
         }
-    }
-    
-    private static void initArrays() {
-        EquipSlots = new Texture[3];
-        EclipseIcons = new Texture[8];
+        for (int i = 0; i < RainLevelIcons.length; i++) {
+            RainLevelIcons[i] = load("LunarAssets/imgs/ui/loadout/rainLevel/level_" + i + ".png");
+        }
+        for (int i = 0; i < TierBgs.length; i++) {
+            TierBgs[i] = load("LunarAssets/imgs/ui/relictier/bg_tier" + (i + 1) + ".png");
+        }
     }
     
     private static Texture load(String path) {
         return ImageMaster.loadImage(path);
+    }
+    
+    public static Texture loadLocally(String prePath, String postPath) {
+        String lang = LunarUtils.GetLang();
+        return ImageMaster.loadImage(prePath + lang + postPath);
     }
     
     public static TextureAtlas.AtlasRegion FindAchvItem(int key) {
@@ -99,6 +166,41 @@ public class LunarImageMst {
     public static Texture EclipseOf(int level) {
         if (level > 8) level = 8;
         if (level < 1) level = 1;
-        return EclipseIcons[level];
+        return EclipseIcons[level - 1];
+    }
+    
+    public static Texture RainLevelOf(int level) {
+        if (level < 0) level = 0;
+        if (level > 2) level = 2;
+        LunarMod.LogInfo("Returning rain leve of " + level);
+        return RainLevelIcons[level];
+    }
+    
+    public static Texture TierBgOf(int tier) {
+        if (tier >= 7) tier = 6;
+        if (tier < 1) tier = 1;
+        return TierBgs[tier - 1];
+    }
+    
+    public static Texture ArtifactOf(String ID) {
+        if (ArtifactIcons.containsKey(ID))
+            return ArtifactIcons.get(ID);
+        Texture icon = load("LunarAssets/imgs/ui/loadout/artifacts/" + ID + ".png");
+        if (icon != null) {
+            ArtifactIcons.put(ID, icon);
+            return icon;
+        }
+        return ArtifactIcons.get(LoadoutManager.ARTIFACTS.KIN.toLowerCase());
+    }
+    
+    public static Texture ArtifactShadowOf(String ID) {
+        if (ArtifactShadows.containsKey(ID))
+            return ArtifactShadows.get(ID);
+        Texture icon = load("LunarAssets/imgs/ui/loadout/artifacts/shadow/" + ID + ".png");
+        if (icon != null) {
+            ArtifactShadows.put(ID, icon);
+            return icon;
+        }
+        return ArtifactShadows.get(LoadoutManager.ARTIFACTS.KIN.toLowerCase());
     }
 }

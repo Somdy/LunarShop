@@ -3,10 +3,9 @@ package rs.lunarshop.items.relics.lunar;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.powers.RegenPower;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.powers.MedkitPower;
+import rs.lunarshop.utils.NpcHelper;
 import rs.lunarshop.utils.PotencyHelper;
 
 public class Medkit extends LunarRelic {
@@ -14,7 +13,7 @@ public class Medkit extends LunarRelic {
     private float extraH;
     
     public Medkit() {
-        super(ItemID.Medkit);
+        super(39);
         heals = 2;
         extraH = 0.05F;
     }
@@ -31,7 +30,7 @@ public class Medkit extends LunarRelic {
     
     @Override
     public int onAttacked(DamageInfo info, int damageAmount) {
-        if (damageAmount > 0 && !MedkitPower.OnHeal) {
+        if (damageAmount > 0 && !MedkitPower.OnHeal && NpcHelper.InCombat()) {
             flash();
             addToBot(new ApplyPowerAction(cpr(), cpr(), new MedkitPower(cpr(), heals, 2)));
             MedkitPower.OnHeal = true;

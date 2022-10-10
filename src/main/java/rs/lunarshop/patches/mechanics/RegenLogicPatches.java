@@ -2,12 +2,13 @@ package rs.lunarshop.patches.mechanics;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
+import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
+import com.megacrit.cardcrawl.vfx.combat.HealEffect;
+import javassist.CtBehavior;
 import org.jetbrains.annotations.NotNull;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
@@ -55,6 +56,24 @@ public class RegenLogicPatches {
         public static void Prefix(AbstractCreature _inst) {
             if (RegenHelper.HasRegen(_inst)) {
                 RegenHelper.PublishRegen(_inst);
+            }
+        }
+    }
+    
+    @SpirePatch(clz = AbstractCreature.class, method = "heal", paramtypez = {int.class, boolean.class})
+    public static class ShowHealEffectPatch {
+        @SpireInsertPatch(locator = Locator.class)
+        public static void Insert(AbstractCreature _inst, int heal, boolean effect) {
+            if (RegenHelper.HasRegen(_inst) && !_inst.isPlayer && heal > 0 && effect) {
+                AbstractDungeon.effectsQueue.add(new HealEffect(_inst.hb.cX - _inst.animX, _inst.hb.cY, heal));
+            }
+        }
+        private static class Locator extends SpireInsertLocator {
+            @Override
+            public int[] Locate(CtBehavior ctBehavior) throws Exception {
+                Matcher.MethodCallMatcher matcher = new Matcher.MethodCallMatcher(AbstractCreature.class, 
+                        "healthBarUpdatedEvent");
+                return LineFinder.findInOrder(ctBehavior, matcher);
             }
         }
     }

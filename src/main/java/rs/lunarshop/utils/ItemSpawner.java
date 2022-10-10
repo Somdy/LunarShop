@@ -2,7 +2,6 @@ package rs.lunarshop.utils;
 
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.random.Random;
-import com.megacrit.cardcrawl.relics.Circlet;
 import org.jetbrains.annotations.NotNull;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
@@ -12,7 +11,10 @@ import rs.lunarshop.items.relics.RelicManager;
 import rs.lunarshop.items.relics.lunar.RustyKey;
 import rs.lunarshop.subjects.AbstractLunarRelic;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class ItemSpawner {
@@ -28,8 +30,7 @@ public class ItemSpawner {
             tmp.clear();
             tmp.add(new RustyKey());
         }
-        Random copy = rng.copy();
-        return LMSK.GetRandom(tmp, copy).get();
+        return LMSK.GetRandom(tmp, rng).get();
     }
     
     @NotNull
@@ -75,7 +76,7 @@ public class ItemSpawner {
     public static Optional<AbstractLunarRelic> PopulateLimitedRndRelicForReward(LunarRarity maxRarity) {
         List<AbstractLunarRelic> tmp = RelicManager.GetAllAvailableRelics();
         tmp.removeIf(r -> !r.canSpawnInReward());
-        tmp.removeIf(r -> r.props.getRarity().above(maxRarity));
+        tmp.removeIf(r -> r.prop.getRarity().above(maxRarity));
         if (tmp.isEmpty()) {
             LunarMod.LogInfo("No relics can spawn below the rarity of " + maxRarity.toString());
             return Optional.empty();

@@ -10,22 +10,30 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import org.jetbrains.annotations.NotNull;
 import rs.lazymankits.actions.CustomDmgInfo;
 import rs.lazymankits.actions.DamageSource;
-import rs.lunarshop.subjects.lunarprops.LunarItemID;
-import rs.lunarshop.subjects.AbstractLunarRelic;
-import rs.lunarshop.core.LunarMod;
 import rs.lazymankits.utils.LMGameGeneralUtils;
+import rs.lunarshop.core.LunarMod;
+import rs.lunarshop.subjects.AbstractLunarRelic;
+import rs.lunarshop.subjects.lunarprops.LunarItemProp;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.*;
+import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.player;
 
 public interface LunarUtils extends LMGameGeneralUtils {
     
+    default String getSupportedLang() {
+        return LMGameGeneralUtils.super.getSupportedLanguage(Settings.language);
+    }
+    
     default void log(Object what) {
         LunarMod.LogInfo(what);
+    }
+    
+    default void deLog(Object what) {
+        LunarMod.DebugLog(what);
     }
     
     default void warn(Object what) {
@@ -37,10 +45,10 @@ public interface LunarUtils extends LMGameGeneralUtils {
     }
 
     default boolean cprHasLunarRelic(int lunarID) {
-        return cprHasLunarRelic(r -> r.props.lunarID == lunarID);
+        return cprHasLunarRelic(r -> r.prop.lunarID == lunarID);
     }
     
-    default boolean cprHasLunarRelic(LunarItemID lunarID) {
+    default boolean cprHasLunarRelic(LunarItemProp lunarID) {
         return cprHasLunarRelic(lunarID.lunarID);
     }
     
@@ -50,7 +58,7 @@ public interface LunarUtils extends LMGameGeneralUtils {
     }
     
     default Optional<AbstractLunarRelic> cprExptRelic(int lunarID) {
-        return cprExptRelic(r -> r.props.lunarID == lunarID);
+        return cprExptRelic(r -> r.prop.lunarID == lunarID);
     }
     
     default void repositionMouseOnRelicPopup() {
@@ -91,6 +99,17 @@ public interface LunarUtils extends LMGameGeneralUtils {
     @NotNull
     static List<AbstractRelic> CopyRelicList(@NotNull List<AbstractRelic> from) {
         return CopyRelicList(from, r -> true);
+    }
+    
+    static String GetLang() {
+        switch(Settings.language) {
+            case ZHS:
+                return "zhs";
+            case ZHT:
+                return "zht";
+            default:
+                return "eng";
+        }
     }
     
     default void instantObtain(@NotNull AbstractRelic r) {

@@ -1,12 +1,11 @@
 package rs.lunarshop.items.relics.lunar;
 
-import rs.lunarshop.data.ItemID;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
-import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lazymankits.actions.utility.QuickAction;
+import rs.lunarshop.items.abstracts.LunarRelic;
 
 public class Corpsebloom extends LunarRelic {
     private float healBuff;
@@ -16,7 +15,7 @@ public class Corpsebloom extends LunarRelic {
     private boolean triggerEffect;
     
     public Corpsebloom() {
-        super(ItemID.Corpsebloom);
+        super(2);
         healBuff = 1F;
         maxHeal = 0.25F;
         storeHeal = 0;

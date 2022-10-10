@@ -9,7 +9,6 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.beyond.AwakenedOne;
 import com.megacrit.cardcrawl.monsters.beyond.Darkling;
 import rs.lazymankits.actions.utility.QuickAction;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.config.LunarConfig;
 import rs.lunarshop.config.RelicConfigBuilder;
 import rs.lunarshop.items.abstracts.LunarRelic;
@@ -26,7 +25,7 @@ public class CeremonialDagger extends LunarRelic {
     private boolean justStartBattle;
     
     public CeremonialDagger() {
-        super(ItemID.RitualDagger);
+        super(36);
         multiplier = 0.5F;
         counter = 0;
         justStartBattle = false;

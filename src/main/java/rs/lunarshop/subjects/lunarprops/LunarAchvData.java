@@ -1,8 +1,8 @@
 package rs.lunarshop.subjects.lunarprops;
 
-import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.enums.AchvTier;
-import rs.lunarshop.localizations.AchvLocales;
+import rs.lunarshop.localizations.AchvLocals;
+import rs.lunarshop.localizations.LunarLocalLoader;
 
 public class LunarAchvData {
     public final int key;
@@ -17,7 +17,7 @@ public class LunarAchvData {
     }
     
     void init() {
-        AchvLocales.SingleData data = LunarMod.LocalePack.getAchvLocales(key);
+        AchvLocals.SingleData data = LunarLocalLoader.GetAchvLocales(key);
         title = data.getTitle();
         description = data.getDescription();
     }

@@ -11,6 +11,7 @@ import rs.lazymankits.actions.utility.QuickAction;
 import rs.lunarshop.actions.common.BanCardAction;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.interfaces.powers.ArmorModifierPower;
+import rs.lunarshop.npcs.friendly.NewtMerchant;
 import rs.lunarshop.npcs.monsters.LunarSnecko;
 import rs.lunarshop.subjects.AbstractLunarPower;
 
@@ -29,7 +30,7 @@ public class MirageNewtPower extends AbstractLunarPower implements ArmorModifier
         super(POWER_ID, "mirage_newt", ExtraPowerType.SPECIAL, owner);
         setValues(-1);
         this.nerf = nerf;
-        isNewt = owner instanceof LunarSnecko;
+        isNewt = owner instanceof LunarSnecko || owner instanceof NewtMerchant;
         cardsPerTurn = nerf ? 20 : 14;
         banTurn = nerf ? 2 : 4;
         hpLossPerTurn = nerf ? MathUtils.ceil(owner.maxHealth * 0.34F) : MathUtils.ceil(owner.maxHealth * 0.25F);

@@ -10,7 +10,6 @@ import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 import com.megacrit.cardcrawl.vfx.combat.VerticalAuraEffect;
 import rs.lazymankits.actions.utility.QuickAction;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarEquipment;
 import rs.lunarshop.powers.CripplePower;
 import rs.lunarshop.subjects.AbstractLunarEquipment;
@@ -20,7 +19,7 @@ public class ReduceStrength extends LunarEquipment {
     private final int strLoss;
     
     public ReduceStrength() {
-        super(ItemID.ReduceStrength, 8);
+        super(13, 8);
         setTargetRequired(false);
         useLeft = 6;
         strLoss = 2;
@@ -40,8 +39,8 @@ public class ReduceStrength extends LunarEquipment {
     }
     
     @Override
-    protected void activate() {
-        super.activate();
+    protected void use() {
+        super.use();
         if (useLeft > 0) {
             if (isProxy()) {
                 addToBot(new VFXAction(new ShockWaveEffect(currentX, currentY, Color.SCARLET,

@@ -5,18 +5,17 @@ import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.vfx.combat.FlickCoinEffect;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarEquipment;
 
 public class CrowdFunder extends LunarEquipment {
-    private static int base = 18;
-    private static float multiplier = 1.5F;
+    private static final int base = 18;
+    private static final float multiplier = 1.5F;
     private int goldCost;
     private float damageMult;
     private boolean isOn;
     
     public CrowdFunder() {
-        super(ItemID.CrowdFunder, 0);
+        super(30, 0);
         isFunder = true;
         setTargetRequired(false);
         goldCost = base;
@@ -40,8 +39,8 @@ public class CrowdFunder extends LunarEquipment {
     }
     
     @Override
-    protected void activate() {
-        super.activate();
+    protected void use() {
+        super.use();
         isOn = !isOn;
         updateExtraTips();
     }

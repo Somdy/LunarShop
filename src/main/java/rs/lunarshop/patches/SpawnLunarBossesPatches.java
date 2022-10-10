@@ -7,7 +7,6 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.MonsterHelper;
 import com.megacrit.cardcrawl.monsters.MonsterGroup;
-import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.items.relics.lunar.Fealty;
 import rs.lunarshop.npcs.monsters.LunarSnecko;
 

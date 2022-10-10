@@ -8,7 +8,7 @@ public final class RelicConfigBuilder {
     private final LunarConfig config;
     
     public RelicConfigBuilder(AbstractLunarRelic relic) {
-        this.config = new LunarConfig(relic.props.lunarID);
+        this.config = new LunarConfig(relic.prop.lunarID);
     }
     
     public RelicConfigBuilder alterValue(boolean alter, int value1, int value2) {

@@ -27,7 +27,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public final class OmniPanel implements LunarUtils {
-    private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(LunarMod.Prefix("TopPanel"));
+    private static final UIStrings uiStrings = LunarMod.UIStrings("TopPanel");
     public static final String[] TEXT = uiStrings.TEXT;
     public static final String NAME = TEXT[0];
     public static final String AVAILABLE = TEXT[12];
@@ -168,7 +168,7 @@ public final class OmniPanel implements LunarUtils {
         int attack = LunarMaster.Attack(true);
         int regen = RegenHelper.GetRegen(LMSK.Player());
         int armor = ArmorHelper.GetArmor(LMSK.Player());
-        float armorRate = ArmorHelper.DamageMultiplier(LMSK.Player());
+        float armorRate = ArmorHelper.RoughDamageMultiplier(LMSK.Player());
         int coins = LunarMaster.LunarCoin();
         float luck = LunarMaster.Luck();
         StringBuilder sbr = new StringBuilder();

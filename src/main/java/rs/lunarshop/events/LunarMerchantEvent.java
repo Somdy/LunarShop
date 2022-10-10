@@ -9,9 +9,9 @@ import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.EventStrings;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.npcs.monsters.LunarSnecko;
+import rs.lunarshop.npcs.friendly.NewtMerchant;
 import rs.lunarshop.shops.LunarShop;
-import rs.lunarshop.utils.MonsterUtils;
+import rs.lunarshop.utils.NpcHelper;
 
 public class LunarMerchantEvent extends AbstractEvent {
     public static final byte KEY = 1;
@@ -39,10 +39,10 @@ public class LunarMerchantEvent extends AbstractEvent {
         body = DESCRIPTIONS[0];
         roomEventText.clear();
         roomEventText.addDialogOption(OPTIONS[0]);
-        roomEventText.addDialogOption(OPTIONS[4], true);
+        roomEventText.addDialogOption(OPTIONS[1], false);
         roomEventText.addDialogOption(OPTIONS[4], true);
         roomEventText.addDialogOption(OPTIONS[3]);
-        MonsterUtils.MakeMonsters(new LunarSnecko(0, 0));
+        NpcHelper.MakeMonsters(new NewtMerchant(0, 0));
         hasDialog = true;
         hasFocus = true;
     }
@@ -55,6 +55,8 @@ public class LunarMerchantEvent extends AbstractEvent {
                 AbstractDungeon.shopScreen.open();
                 break;
             case robbing:
+                enterCombat();
+                AbstractDungeon.lastCombatMetricKey = "Newt The Merchant";
                 break;
             case exploring:
                 break;

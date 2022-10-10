@@ -4,22 +4,21 @@ import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.powers.ShatteredPower;
 import rs.lunarshop.powers.ShatteringPower;
 
 public class Shattering extends LunarRelic {
     public static final int SHATTERED_NEED = 4;
-    public static int ArmorReduction = 30;
+    public static int ArmorReduction = 40;
     
     public Shattering() {
-        super(ItemID.Shattering);
+        super(23);
     }
     
     @Override
     public void refreshStats() {
-        ArmorReduction = 30 + MathUtils.ceil(30 * 0.1F * (stack - 1));
+        ArmorReduction = 40 + MathUtils.ceil(40 * 0.1F * (stack - 1));
     }
     
     @Override

@@ -1,6 +1,5 @@
 package rs.lunarshop.items.relics.lunar;
 
-import rs.lunarshop.data.ItemID;
 import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.modthespire.lib.ByRef;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
@@ -8,9 +7,10 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.items.abstracts.LunarRelic;
-import rs.lazymankits.utils.LMSK;
+import rs.lunarshop.utils.ItemHelper;
 
 public final class SharpedGlass extends LunarRelic {
     private static boolean ReturningMaxHp;
@@ -18,7 +18,7 @@ public final class SharpedGlass extends LunarRelic {
     private float damageBuff;
     
     public SharpedGlass() {
-        super(ItemID.SharpedGlass);
+        super(7);
         ReturningMaxHp = false;
         HpLimit = 12;
         damageBuff = 2F;
@@ -91,7 +91,7 @@ public final class SharpedGlass extends LunarRelic {
                 if (amt[0] < 0) amt[0] = 0;
                 if (amt[0] <= 0) {
                     LunarMod.PatchLog("Preventing " + _inst.name + " from increasing max health");
-                    LMSK.Player().getRelic(ItemID.SharpedGlass.internalID).flash();
+                    LMSK.Player().getRelic(ItemHelper.GetRelicID(7)).flash();
                     return SpireReturn.Return();
                 }
             }

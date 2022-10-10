@@ -1,20 +1,19 @@
 package rs.lunarshop.items.relics.lunar;
 
-import rs.lunarshop.actions.common.TargetGainGoldAction;
-import rs.lunarshop.data.ItemID;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lazymankits.actions.utility.QuickAction;
+import rs.lunarshop.actions.common.TargetGainGoldAction;
+import rs.lunarshop.items.abstracts.LunarRelic;
 
 public class Crown extends LunarRelic {
     private int golds;
     private float hpPercent;
     
     public Crown() {
-        super(ItemID.Crown);
+        super(1);
         golds = 18;
         hpPercent = 0.5F;
     }

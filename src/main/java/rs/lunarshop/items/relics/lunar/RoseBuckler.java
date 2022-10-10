@@ -1,13 +1,12 @@
 package rs.lunarshop.items.relics.lunar;
 
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
 public class RoseBuckler extends LunarRelic {
     private int armor;
     
     public RoseBuckler() {
-        super(ItemID.RoseBuckler);
+        super(22);
         armor = 5;
     }
     

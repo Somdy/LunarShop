@@ -2,7 +2,6 @@ package rs.lunarshop.vfx.misc;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import rs.lazymankits.abstracts.LMCustomGameEffect;
 import rs.lunarshop.achievements.AchvTracker;

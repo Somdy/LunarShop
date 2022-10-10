@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.utils.PotencyHelper;
 
@@ -12,7 +11,7 @@ public class Aegis extends LunarRelic {
     private float percent;
     
     public Aegis() {
-        super(ItemID.Aegis);
+        super(42);
         percent = 0.5F;
     }
     

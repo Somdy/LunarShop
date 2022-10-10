@@ -7,9 +7,9 @@ import com.megacrit.cardcrawl.events.RoomEventDialog;
 import com.megacrit.cardcrawl.neow.NeowEvent;
 import com.megacrit.cardcrawl.neow.NeowReward;
 import com.megacrit.cardcrawl.random.Random;
+import javassist.CtBehavior;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.rewards.LunarPassReward;
-import javassist.CtBehavior;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

@@ -5,7 +5,6 @@ import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.HealAction;
 import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.vfx.combat.SanctityEffect;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
 public class Daisy extends LunarRelic {
@@ -13,7 +12,7 @@ public class Daisy extends LunarRelic {
     private int turn;
     
     public Daisy() {
-        super(ItemID.Daisy);
+        super(27);
         setBattleUse();
         percent = 0.2F;
         turn = 1;

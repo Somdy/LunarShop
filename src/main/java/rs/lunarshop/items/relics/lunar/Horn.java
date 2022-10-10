@@ -4,7 +4,6 @@ import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.actions.utility.NewQueueCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import rs.lazymankits.actions.utility.QuickAction;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.subjects.AbstractLunarEquipment;
 
@@ -17,7 +16,7 @@ public class Horn extends LunarRelic {
     private int cardsToPlay;
     
     public Horn() {
-        super(ItemID.Horn);
+        super(12);
         cardsToPlay = 2;
     }
     

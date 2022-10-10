@@ -2,7 +2,6 @@ package rs.lunarshop.items.relics.lunar;
 
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.interfaces.relics.FreePlayRelic;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
@@ -11,7 +10,7 @@ public class AlienHead extends LunarRelic implements FreePlayRelic {
     private boolean active;
     
     public AlienHead() {
-        super(ItemID.AlienHead);
+        super(50);
         cardsNeed = 6;
         counter = cardsNeed;
         active = false;

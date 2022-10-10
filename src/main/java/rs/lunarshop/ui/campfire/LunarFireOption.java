@@ -28,7 +28,7 @@ public class LunarFireOption extends AbstractCampfireOption implements LunarUtil
     
     public LunarFireOption(boolean active) {
         label = TEXT[0];
-        description = TEXT[active ? 1 : 0];
+        description = TEXT[active ? 1 : 2];
         usable = active;
         exhausted = !active;
         img = LunarImageMst.LunarFireOpt;

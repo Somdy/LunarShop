@@ -6,7 +6,6 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.combat.HealEffect;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.interfaces.relics.LayDyingRelic;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.items.relics.special.DioConsumed;
@@ -14,7 +13,7 @@ import rs.lunarshop.powers.ImmunePower;
 
 public class DioFriend extends LunarRelic implements LayDyingRelic {
     public DioFriend() {
-        super(ItemID.DioFriend);
+        super(56);
     }
     
     @Override

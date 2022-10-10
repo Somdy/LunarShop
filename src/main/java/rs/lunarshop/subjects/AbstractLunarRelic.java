@@ -1,55 +1,59 @@
 package rs.lunarshop.subjects;
 
 import basemod.abstracts.CustomSavable;
-import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.unlock.UnlockTracker;
-import org.jetbrains.annotations.NotNull;
-import rs.lazymankits.actions.utility.QuickAction;
-import rs.lunarshop.data.ItemID;
-import rs.lunarshop.interfaces.relics.AttackModifierRelic;
-import rs.lunarshop.interfaces.relics.RegenModifierRelic;
-import rs.lunarshop.items.abstracts.PlanetRelic;
-import rs.lunarshop.subjects.lunarprops.LunarItemID;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.google.gson.reflect.TypeToken;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.PowerTip;
+import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.localization.RelicStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.screens.mainMenu.MainMenuScreen;
+import com.megacrit.cardcrawl.unlock.UnlockTracker;
+import org.jetbrains.annotations.NotNull;
+import rs.lazymankits.abstracts.LMCustomRelic;
+import rs.lazymankits.actions.common.BetterDamageAllEnemiesAction;
+import rs.lazymankits.actions.common.NullableSrcDamageAction;
+import rs.lazymankits.actions.utility.QuickAction;
+import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.config.LunarConfig;
 import rs.lunarshop.config.RelicConfigBuilder;
 import rs.lunarshop.core.LunarMaster;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.enums.LunarClass;
 import rs.lunarshop.interfaces.relics.ArmorModifierRelic;
+import rs.lunarshop.interfaces.relics.AttackModifierRelic;
 import rs.lunarshop.interfaces.relics.LuckModifierRelic;
+import rs.lunarshop.interfaces.relics.RegenModifierRelic;
 import rs.lunarshop.items.abstracts.LunarEquipment;
 import rs.lunarshop.items.abstracts.LunarRelic;
-import rs.lunarshop.items.relics.RelicAttrs;
-import rs.lazymankits.abstracts.LMCustomRelic;
-import rs.lunarshop.subjects.lunarprops.LunarItem;
+import rs.lunarshop.items.abstracts.PlanetRelic;
+import rs.lunarshop.subjects.lunarprops.LunarItemProp;
 import rs.lunarshop.ui.OmniPanel;
-import rs.lunarshop.utils.ColorHelper;
-import rs.lunarshop.utils.ItemHelper;
-import rs.lunarshop.utils.LunarUtils;
+import rs.lunarshop.utils.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.*;
+import java.util.function.Consumer;
 
 public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarUtils, ArmorModifierRelic, AttackModifierRelic, 
         RegenModifierRelic, CustomSavable<LunarConfig> {
     private static final RelicStrings LunarStrings = CardCrawlGame.languagePack.getRelicStrings(LunarMod.Prefix("LunarRelic"));
     private static final Map<Integer, Boolean> corruptedMap = new HashMap<>();
-    public final LunarItem props;
-    private List<PowerTip> info;
+    public final LunarItemProp prop;
+    private List<LunarTip> info;
+    public List<LunarTip> lunarTips;
     private boolean stackable;
     private boolean isEquipment;
     protected boolean isFunder;
@@ -65,13 +69,15 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     protected int battles;
     protected int baseTurn;
     protected int turns;
+    protected int popupTierBg;
 
-    private AbstractLunarRelic(int lunarID, String relicID, LunarClass clazz, int stack) {
-        super(relicID, ImageMaster.loadImage("LunarAssets/imgs/items/relics/" + lunarID + ".png"),
-                ImageMaster.loadImage("LunarAssets/imgs/items/relics/" + lunarID + ".png"), RelicTier.SPECIAL, 
-                LandingSound.CLINK);
-        props = new LunarItem(lunarID, relicID).setClazz(clazz);
+    private AbstractLunarRelic(LunarItemProp prop, LunarClass clazz, int stack) {
+        super(LunarMod.Prefix(prop.localID), ImageMaster.loadImage("LunarAssets/imgs/items/relics/"
+                        + prop.lunarID + ".png"), ImageMaster.loadImage("LunarAssets/imgs/items/relics/"
+                + prop.lunarID + ".png"), RelicTier.SPECIAL, prop.sound);
+        this.prop = prop.setClazz(clazz);
         info = new ArrayList<>();
+        lunarTips = new ArrayList<>();
         stackable = true;
         isEquipment = false;
         isFunder = false;
@@ -84,25 +90,12 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
         baseCooldown = cooldown = -1;
         baseBattle = battles = 0;
         baseTurn = turns = 0;
-        loadAttrs();
+        popupTierBg = this.prop.rarity.tier();
         updateExtraTips();
     }
     
-    protected AbstractLunarRelic(@NotNull LunarItemID itemID, LunarClass clazz, int stack) {
-        this(itemID.lunarID, itemID.internalID, clazz, stack);
-    }
-    
-    private void loadAttrs() {
-        props.setRarity(RelicAttrs.GetRarity(props.internalID));
-        try {
-            Field landingSFX = AbstractRelic.class.getDeclaredField("landingSFX");
-            landingSFX.setAccessible(true);
-            LandingSound sfx = RelicAttrs.GetSFX(props.internalID);
-            landingSFX.set(this, sfx);
-        } catch (Exception e) {
-            log("Failed to load landing sfx");
-            e.printStackTrace();
-        }
+    protected AbstractLunarRelic(int lunarID, LunarClass clazz, int stack) {
+        this(ItemHelper.GetProp(lunarID), clazz, stack);
     }
     
     @Override
@@ -132,7 +125,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
             updateExtraTips();
         }
         if (stack == 0) {
-            LunarMod.addToTop(new QuickAction(() -> cpr().loseRelic(props.internalID)));
+            LunarMod.addToTop(new QuickAction(() -> cpr().loseRelic(prop.getGameID())));
         }
         return this;
     }
@@ -148,9 +141,9 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     
     @Override
     public void instantObtain() {
-        if (cprHasLunarRelic(props.lunarID)) {
+        if (cprHasLunarRelic(prop.lunarID)) {
             if (stackable) {
-                Optional<AbstractLunarRelic> item = cprExptRelic(props.lunarID);
+                Optional<AbstractLunarRelic> item = cprExptRelic(prop.lunarID);
                 item.ifPresent(r -> r.stackAmt(1, true));
             }
         } else {
@@ -164,9 +157,9 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     
     @Override
     public void instantObtain(AbstractPlayer p, int slot, boolean callOnEquip) {
-        if (cprHasLunarRelic(props.lunarID)) {
+        if (cprHasLunarRelic(prop.lunarID)) {
             if (stackable) {
-                Optional<AbstractLunarRelic> item = cprExptRelic(props.lunarID);
+                Optional<AbstractLunarRelic> item = cprExptRelic(prop.lunarID);
                 item.ifPresent(r -> r.stackAmt(1, true));
             }
             isDone = true;
@@ -183,9 +176,9 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     
     @Override
     public void obtain() {
-        if (cprHasLunarRelic(props.lunarID)) {
+        if (cprHasLunarRelic(prop.lunarID)) {
             if (stackable) {
-                Optional<AbstractLunarRelic> item = cprExptRelic(props.lunarID);
+                Optional<AbstractLunarRelic> item = cprExptRelic(prop.lunarID);
                 item.ifPresent(r -> r.stackAmt(1, true));
             }
             hb.hovered = false;
@@ -213,7 +206,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
             p.loseRelic(rID);
             AbstractDungeon.topPanel.adjustRelicHbs();
         }
-        if (!isSeen) UnlockTracker.markRelicAsSeen(props.internalID);
+        if (!isSeen) UnlockTracker.markRelicAsSeen(prop.getGameID());
     }
     
     private boolean hasOtherEquipment() {
@@ -251,7 +244,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
                         }
                     }
                     if (useAutoActivate)
-                        autoActivate();
+                        autoUse();
                 }
             }
             log("Cooldown reduced: " + cooldown);
@@ -292,13 +285,13 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
         updateExtraTips();
     }
     
-    protected void corruptItem(@NotNull LunarItemID itemID) {
+    protected void corruptItem(@NotNull LunarItemProp itemID) {
         if (corruptedMap.get(itemID.lunarID)) return;
         corruptedMap.put(itemID.lunarID, true);
         log(itemID.lunarID + " has been corrupted");
     }
     
-    protected void clarifyItem(@NotNull LunarItemID itemID) {
+    protected void clarifyItem(@NotNull LunarItemProp itemID) {
         if (!corruptedMap.get(itemID.lunarID)) return;
         corruptedMap.put(itemID.lunarID, false);
         log(itemID.lunarID + " has been clarified");
@@ -320,25 +313,29 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     @Override
     public void atTurnStart() {
         super.atTurnStart();
-        if (isTurnBased && turns > 0) {
-            turns--;
-            if (turns == 0) recharge();
+        if (isTurnBased) {
+            if (turns > 0) 
+                turns--;
+            else if (turns <= 0) 
+                recharge();
         }
     }
     
     @Override
     public void atBattleStart() {
         super.atBattleStart();
-        if (isBattleBased && battles > 0) {
-            battles--;
-            if (battles == 0) recharge();
+        if (isBattleBased) {
+            if (battles > 0) 
+                battles--;
+            else if (battles <= 0) 
+                recharge();
         }
     }
     
     @Override
     public void renderCounter(SpriteBatch sb, boolean inTopPanel) {
         super.renderCounter(sb, inTopPanel);
-        if (stackable && stack > 1) {
+        if (stackable && stack >= 1) {
             try {
                 renderStack(sb, inTopPanel);
             } catch (Exception e) {
@@ -417,6 +414,36 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
         } catch (Exception e) {
             log("Failed to render custom amount: " + text);
             e.printStackTrace();
+        }
+    }
+    
+    @Override
+    public void renderBossTip(SpriteBatch sb) {
+        LunarTipHelper.QueueLunarTips(Settings.WIDTH * 0.63F, Settings.HEIGHT * 0.63F, lunarTips);
+    }
+    
+    @Override
+    public void renderTip(SpriteBatch sb) {
+        if (InputHelper.mX < 1400F * Settings.scale) {
+            if (CardCrawlGame.mainMenuScreen.screen == MainMenuScreen.CurScreen.RELIC_VIEW) {
+                LunarTipHelper.QueueLunarTips(90F * Settings.scale, Settings.HEIGHT * 0.7F, lunarTips);
+            } else if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.SHOP
+                    && this.tips.size() > 2 && !AbstractDungeon.player.hasRelic(relicId)) {
+                LunarTipHelper.QueueLunarTips(InputHelper.mX + 60F * Settings.scale, 
+                        InputHelper.mY + 180F * Settings.scale, lunarTips);
+            } else if (AbstractDungeon.player != null && AbstractDungeon.player.hasRelic(relicId)) {
+                LunarTipHelper.QueueLunarTips(InputHelper.mX + 60F * Settings.scale, 
+                        InputHelper.mY - 30F * Settings.scale, lunarTips);
+            } else if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.COMBAT_REWARD) {
+                LunarTipHelper.QueueLunarTips(360F * Settings.scale, 
+                        InputHelper.mY + 50F * Settings.scale, lunarTips);
+            } else {
+                LunarTipHelper.QueueLunarTips(InputHelper.mX + 50F * Settings.scale, 
+                        InputHelper.mY + 50F * Settings.scale, lunarTips);
+            }
+        } else {
+            LunarTipHelper.QueueLunarTips(InputHelper.mX - 350F * Settings.scale, 
+                    InputHelper.mY - 50F * Settings.scale, lunarTips);
         }
     }
     
@@ -509,7 +536,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     }
 
     public final boolean canSpawnInShop(int shopType) {
-        boolean correctType = shopType == props.getClazz().type;
+        boolean correctType = shopType == prop.getClazz().type;
         return correctType && canSpawnForShopping(shopType);
     }
     
@@ -540,52 +567,111 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
         LunarMod.LogInfo(name + ": " + what);
     }
     
+    public final boolean canUseOn(AbstractCreature s, AbstractCreature t) {
+        return !t.isDeadOrEscaped() && selfCanUseOn(s, t);
+    }
+    
+    protected boolean selfCanUseOn(AbstractCreature s, AbstractCreature t) {
+        return true;
+    }
+    
     @Override
     protected boolean onRightClick() {
-        if (!targetRequired && useAutoActivate) return false;
+        if (useAutoActivate) return false;
         if ((isEquipment() && canActivateEquipment()) || canActivate()) {
-            log("Activating...");
             if (targetRequired) {
-            
+                updateEquipmentTargetMode();
             } else {
-                setActivate();
+                onUse();
             }
             return true;
         }
         return false;
     }
     
-    public void autoActivate() {
+    public void autoUse() {
         if ((isEquipment() && canActivateEquipment()) || canActivate()) {
-            if (targetRequired) return;
-            log("Auto activating...");{
-                setActivate();
+            if (targetRequired) {
+                List<AbstractCreature> opts = getAllExptCreatures(c -> canUseOn(cpr(), c));
+                if (!opts.isEmpty()) {
+                    getRandom(opts, ItemHelper.GetItemRng()).ifPresent(c -> onTargetedUse(cpr(), c));
+                }
+                return;
+            }
+            log("auto using [" + prop.localname + "]");{
+                onUse();
             }
         }
     }
     
-    public final void setActivate() {
-        activate();
+    protected void updateEquipmentTargetMode() {
+        ItemHelper.UseTarget(this, cpr());
     }
     
-    protected void activate(AbstractCreature s, AbstractCreature t) {}
+    public final void onUse() {
+        use();
+    }
     
-    protected void activate() {}
+    public final void onTargetedUse(AbstractCreature s, AbstractCreature t) {
+        use(s, t);
+    }
+    
+    protected void use(AbstractCreature s, AbstractCreature t) {}
+    
+    protected void use() {}
     
     protected boolean rollCloverLuck(float chance) {
-        return ItemHelper.RollCloverLuck(props.lunarID, chance);
+        return ItemHelper.RollCloverLuck(prop, chance);
     }
     
     protected boolean rollCloverBadLuck(float chance) {
-        return ItemHelper.RollCloverBadLuck(props.lunarID, chance);
+        return ItemHelper.RollCloverBadLuck(prop, chance);
     }
     
     protected boolean rollStaticLuck(float chance) {
-        return ItemHelper.RollLuck(props.lunarID, chance);
+        return ItemHelper.RollLuck(prop, chance);
     }
     
     protected boolean rollStaticBadLuck(float chance) {
-        return ItemHelper.RollBadLuck(props.lunarID, chance);
+        return ItemHelper.RollBadLuck(prop, chance);
+    }
+    
+    @Override
+    protected void initializeTips() {
+        super.initializeTips();
+        if (!tips.isEmpty()) {
+            lunarTips = LunarTip.FromPowerTips(tips, true, t -> {
+                if (t.header.equals(name)) {
+                    t.hColor = getTipBgColor();
+                }
+            });
+        }
+    }
+    
+    private final Color getTipBgColor() {
+        Color color = selfGetTipBgColor();
+        if (color != null) return color;
+        if (prop != null) {
+            switch (prop.getRarity()) {
+                case COMMON:
+                    return Color.DARK_GRAY;
+                case UNCOMMON:
+                    return Color.OLIVE;
+                case RARE:
+                    return Color.GOLDENROD;
+                case LEGEND:
+                    return Color.FIREBRICK;
+                case MYTHIC:
+                    return Color.ROYAL;
+                default:
+                    return Color.VIOLET;
+            }
+        }
+        return Color.SKY;
+    }
+    
+    protected Color selfGetTipBgColor() {
+        return null;
     }
     
     public void constructInfo() {}
@@ -631,8 +717,8 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
         if (canDisplayStatsInfo()) {
             refreshStats();
             constructInfo();
-            initializeTips();
         }
+        initializeTips();
     }
     
     @Override
@@ -656,9 +742,13 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
         return ColorHelper.White;
     }
     
+    public final int getPopupTierBg() {
+        return popupTierBg;
+    }
+    
     @Override
     public int getPrice() {
-        return props.priceGolds();
+        return prop.priceGolds();
     }
     
     @Override
@@ -675,7 +765,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     
     @Override
     public void onLoad(LunarConfig lunarConfig) {
-        if (lunarConfig != null && lunarConfig.getSaver() == props.lunarID) {
+        if (lunarConfig != null && lunarConfig.getSaver() == prop.lunarID) {
             if (isEquipment)
                 cooldown = lunarConfig.getValue();
             else
@@ -695,6 +785,27 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     @Override
     public Type savedType() {
         return new TypeToken<LunarConfig>(){}.getType();
+    }
+    
+    protected NullableSrcDamageAction damage(AbstractCreature t, AbstractCreature s, int damage, 
+                                             DamageInfo.DamageType type, AbstractGameAction.AttackEffect effect) {
+        return new NullableSrcDamageAction(t, crtDmgInfo(s, damage, type), effect);
+    }
+    
+    protected NullableSrcDamageAction damage(AbstractCreature t, int damage, AbstractGameAction.AttackEffect effect) {
+        return new NullableSrcDamageAction(t, crtDmgInfo(cpr(), damage, DamageInfo.DamageType.THORNS), effect);
+    }
+    
+    protected BetterDamageAllEnemiesAction damageAll(AbstractCreature s, int baseDamage, boolean pure,
+                                                     DamageInfo.DamageType type, AbstractGameAction.AttackEffect effect,
+                                                     Consumer<AbstractCreature> func) {
+        int[] damage = DamageInfo.createDamageMatrix(baseDamage, pure);
+        return new BetterDamageAllEnemiesAction(damage, crtDmgSrc(s), type, effect, func);
+    }
+    
+    protected BetterDamageAllEnemiesAction damageAll(AbstractCreature s, int baseDamage, AbstractGameAction.AttackEffect effect) {
+        int[] damage = DamageInfo.createDamageMatrix(baseDamage, true);
+        return new BetterDamageAllEnemiesAction(damage, crtDmgSrc(s), DamageInfo.DamageType.THORNS, effect);
     }
     
     public void afterEqmtActivated(AbstractLunarEquipment equipment) {}

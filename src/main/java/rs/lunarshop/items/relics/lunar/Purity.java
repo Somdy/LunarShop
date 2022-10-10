@@ -1,30 +1,31 @@
 package rs.lunarshop.items.relics.lunar;
 
-import com.megacrit.cardcrawl.rooms.AbstractRoom;
-import rs.lunarshop.config.LunarConfig;
-import rs.lunarshop.config.RelicConfigBuilder;
-import rs.lunarshop.data.AchvID;
-import rs.lunarshop.data.ItemID;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.ui.panels.EnergyPanel;
-import rs.lunarshop.interfaces.relics.LuckModifierRelic;
-import rs.lunarshop.items.abstracts.LunarRelic;
 import javassist.CtBehavior;
 import rs.lazymankits.utils.LMSK;
+import rs.lunarshop.config.LunarConfig;
+import rs.lunarshop.config.RelicConfigBuilder;
+import rs.lunarshop.data.AchvID;
+import rs.lunarshop.interfaces.InstantOnUseCardInterface;
+import rs.lunarshop.interfaces.relics.LuckModifierRelic;
+import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.utils.AchvHelper;
+import rs.lunarshop.utils.ItemHelper;
 
-public final class Purity extends LunarRelic implements LuckModifierRelic {
+public final class Purity extends LunarRelic implements LuckModifierRelic, InstantOnUseCardInterface {
     private static int cardMulti;
     private static int maxEnergy;
     private int roomCount;
     
     public Purity() {
-        super(ItemID.Purity);
+        super(6);
         cardMulti = 1;
         maxEnergy = 3;
         roomCount = 0;
@@ -86,11 +87,20 @@ public final class Purity extends LunarRelic implements LuckModifierRelic {
     }
     
     private static void TriggerEffect() {
-        AbstractDungeon.player.getRelic(ItemID.Purity.internalID).flash();
+        AbstractDungeon.player.getRelic(ItemHelper.GetRelicID(6)).flash();
     }
     
     private static boolean Enabled() {
-        return LMSK.Player().hasRelic(ItemID.Purity.internalID);
+        return LMSK.Player().hasRelic(ItemHelper.GetRelicID(6));
+    }
+    
+    @Override
+    public void instantOnUseCard(AbstractCard card, AbstractPlayer p, AbstractMonster m) {
+        if (cprHasLunarRelic(6) && card != null) {
+            for (int i = 0; i < cardMulti; i++) {
+                card.use(p, m);
+            }
+        }
     }
     
     @SpirePatch(clz = AbstractPlayer.class, method = "useCard")

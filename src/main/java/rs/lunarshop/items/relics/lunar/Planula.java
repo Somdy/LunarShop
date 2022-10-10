@@ -2,14 +2,13 @@ package rs.lunarshop.items.relics.lunar;
 
 import com.megacrit.cardcrawl.actions.common.HealAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
 public class Planula extends LunarRelic {
     private int heals;
     
     public Planula() {
-        super(ItemID.Planula);
+        super(20);
         heals = 10;
     }
     

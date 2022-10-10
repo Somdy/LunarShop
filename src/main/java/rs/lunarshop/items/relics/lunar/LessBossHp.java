@@ -1,6 +1,5 @@
 package rs.lunarshop.items.relics.lunar;
 
-import rs.lunarshop.data.ItemID;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,9 +11,9 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import rs.lazymankits.actions.utility.QuickAction;
 import rs.lunarshop.core.LunarTime;
 import rs.lunarshop.items.abstracts.LunarRelic;
-import rs.lazymankits.actions.utility.QuickAction;
 
 public class LessBossHp extends LunarRelic {
     private float hpLoss;
@@ -25,7 +24,7 @@ public class LessBossHp extends LunarRelic {
     private boolean inBossBattle;
     
     public LessBossHp() {
-        super(ItemID.LessBossHp);
+        super(3);
         hpLoss = 0.25F;
         timeLimits = 180;
         timeLeft = 180;

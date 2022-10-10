@@ -1,15 +1,15 @@
 package rs.lunarshop.items.relics.planet;
 
-import rs.lunarshop.data.ItemID;
-import rs.lunarshop.items.abstracts.SpecialRelic;
+import rs.lunarshop.items.abstracts.PlanetRelic;
 
-public class Pearl extends SpecialRelic {
+public class Pearl extends PlanetRelic {
     public Pearl() {
-        super(ItemID.Pearl);
+        super(54);
     }
     
     public Pearl(int stack) {
-        super(ItemID.Pearl, stack);
+        super(54, stack);
+        popupTierBg = 3;
     }
     
     @Override

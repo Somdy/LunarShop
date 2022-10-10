@@ -1,19 +1,18 @@
 package rs.lunarshop.items.relics.lunar;
 
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
 public class Crystal extends LunarRelic {
     private int mod;
     
     public Crystal() {
-        super(ItemID.Crystal);
+        super(51);
         mod = 2;
     }
     
     @Override
     public void refreshStats() {
-        mod = 2 * stack;
+        mod = 1 + stack;
     }
     
     @Override

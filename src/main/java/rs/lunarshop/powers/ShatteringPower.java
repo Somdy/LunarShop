@@ -5,10 +5,10 @@ import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.items.relics.lunar.Shattering;
 import rs.lunarshop.subjects.AbstractLunarPower;
+import rs.lunarshop.utils.ItemHelper;
 
 public class ShatteringPower extends AbstractLunarPower {
     public static final String POWER_ID = LunarMod.Prefix("ShatteringPower");
@@ -22,10 +22,10 @@ public class ShatteringPower extends AbstractLunarPower {
     @Override
     public void stackPower(int stackAmount) {
         super.stackPower(stackAmount);
-        if (amount >= Shattering.SHATTERED_NEED && cprHasLunarRelic(ItemID.Shattering)) {
+        if (amount >= Shattering.SHATTERED_NEED && cprHasLunarRelic(ItemHelper.GetProp(23))) {
             flash();
             addToTop(new ApplyPowerAction(owner, owner, new ShatteredPower(owner)));
-            addToTop(new RelicAboveCreatureAction(owner, cpr().getRelic(ItemID.Shattering.internalID)));
+            addToTop(new RelicAboveCreatureAction(owner, cpr().getRelic(ItemHelper.GetRelicID(23))));
             addToTop(new RemoveSpecificPowerAction(owner, owner, this));
         }
     }

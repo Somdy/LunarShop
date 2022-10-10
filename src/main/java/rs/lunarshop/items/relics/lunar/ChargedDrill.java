@@ -4,12 +4,12 @@ import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
+import com.megacrit.cardcrawl.actions.utility.SFXAction;
 import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.vfx.combat.LightningEffect;
 import rs.lazymankits.actions.common.NullableSrcDamageAction;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
 public class ChargedDrill extends LunarRelic {
@@ -17,7 +17,7 @@ public class ChargedDrill extends LunarRelic {
     private float multiplier;
     
     public ChargedDrill() {
-        super(ItemID.ChargedDrill);
+        super(24);
         multiplier = 1.5F;
     }
     
@@ -35,6 +35,7 @@ public class ChargedDrill extends LunarRelic {
     public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
         if (damageAmount > 0 && info.owner == cpr() && target != cpr() && !target.isDeadOrEscaped() && rollCloverLuck(CHANCE)) {
             addToBot(new RelicAboveCreatureAction(target, this));
+            addToBot(new SFXAction("ORB_LIGHTNING_EVOKE"));
             addToBot(new VFXAction(new LightningEffect(target.hb.cX, target.hb.cY)));
             addToBot(new WaitAction(0.1F));
             int damage = MathUtils.ceil(damageAmount * multiplier);

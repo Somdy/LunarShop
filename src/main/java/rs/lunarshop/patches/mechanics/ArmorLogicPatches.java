@@ -57,11 +57,11 @@ public class ArmorLogicPatches {
             @SpirePatch(clz = AbstractPlayer.class, method = "damage"),
             @SpirePatch(clz = AbstractMonster.class, method = "damage")
     })
-    public static class PlayerDamagePatch {
+    public static class CreatureDamagePatch {
         @SpireInsertPatch(locator = Locator.class, localvars = {"damageAmount"})
         public static void Insert(AbstractCreature _inst, DamageInfo info, @ByRef int[] dmg) {
             if (ArmorHelper.HasArmor(_inst)) {
-                dmg[0] = MathUtils.round(dmg[0] * ArmorHelper.DamageMultiplier(_inst));
+                dmg[0] = MathUtils.round(dmg[0] * ArmorHelper.DamageMultiplier(_inst, dmg[0]));
             }
         }
         private static class Locator extends SpireInsertLocator {

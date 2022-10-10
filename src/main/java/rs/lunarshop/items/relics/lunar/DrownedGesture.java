@@ -1,7 +1,6 @@
 package rs.lunarshop.items.relics.lunar;
 
 import com.badlogic.gdx.math.MathUtils;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.subjects.AbstractLunarEquipment;
 
@@ -9,7 +8,7 @@ public class DrownedGesture extends LunarRelic {
     private float coolMult;
     
     public DrownedGesture() {
-        super(ItemID.DrownedGesture);
+        super(4);
         coolMult = 0.7F;
     }
     

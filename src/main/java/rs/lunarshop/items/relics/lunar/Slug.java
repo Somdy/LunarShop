@@ -1,7 +1,6 @@
 package rs.lunarshop.items.relics.lunar;
 
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.powers.SlugPower;
 
@@ -10,7 +9,7 @@ public class Slug extends LunarRelic {
     private boolean firstTurn;
     
     public Slug() {
-        super(ItemID.Slug);
+        super(59);
         counter = -1;
         regen = 3;
     }

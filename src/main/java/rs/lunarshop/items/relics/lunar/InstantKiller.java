@@ -12,7 +12,6 @@ import com.megacrit.cardcrawl.powers.InvinciblePower;
 import com.megacrit.cardcrawl.vfx.combat.WeightyImpactEffect;
 import org.jetbrains.annotations.NotNull;
 import rs.lunarshop.data.AchvID;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.utils.AchvHelper;
 
@@ -20,7 +19,7 @@ public class InstantKiller extends LunarRelic {
     private float threshold;
     
     public InstantKiller() {
-        super(ItemID.InstantKiller);
+        super(17);
         threshold = 0.11F;
     }
     

@@ -1,7 +1,6 @@
 package rs.lunarshop.items.relics.lunar;
 
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.interfaces.relics.BlockModifierRelic;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
@@ -9,7 +8,7 @@ public class HopooFeather extends LunarRelic implements BlockModifierRelic {
     private int least;
     
     public HopooFeather() {
-        super(ItemID.HopooFeather);
+        super(53);
         least = 4;
     }
     

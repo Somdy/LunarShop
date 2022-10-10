@@ -3,7 +3,6 @@ package rs.lunarshop.items.relics.lunar;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import rs.lunarshop.data.AchvID;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.utils.AchvHelper;
 
@@ -12,7 +11,7 @@ public class Vase extends LunarRelic {
     private int useLeft;
     
     public Vase() {
-        super(ItemID.Vase);
+        super(21);
         percent = 0.5F;
         useLeft = 2;
     }
@@ -36,7 +35,7 @@ public class Vase extends LunarRelic {
     }
     
     @Override
-    protected void activate() {
+    protected void use() {
         if (useLeft > 0 && counter > 0) {
             int block = MathUtils.round(counter / 2F);
             if (block > 0)

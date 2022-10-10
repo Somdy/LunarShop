@@ -1,7 +1,6 @@
 package rs.lunarshop.items.relics.lunar;
 
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
 public class ArmorPlate extends LunarRelic {
@@ -9,7 +8,7 @@ public class ArmorPlate extends LunarRelic {
     private boolean negated;
     
     public ArmorPlate() {
-        super(ItemID.ArmorPlate);
+        super(37);
         setTurnUse(2);
         reduction = 3;
         negated = false;

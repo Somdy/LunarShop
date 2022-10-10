@@ -3,14 +3,13 @@ package rs.lunarshop.items.relics.lunar;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
 public class Crowbar extends LunarRelic {
     private float damageMult;
     
     public Crowbar() {
-        super(ItemID.Crowbar);
+        super(35);
         damageMult = 0.5F;
     }
     

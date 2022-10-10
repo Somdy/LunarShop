@@ -6,9 +6,9 @@ import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import rs.lazymankits.utils.LMSK;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.powers.BleedingPower;
+import rs.lunarshop.utils.ItemHelper;
 import rs.lunarshop.utils.PotencyHelper;
 
 public class Spleen extends LunarRelic {
@@ -16,7 +16,7 @@ public class Spleen extends LunarRelic {
     private static float bleedPercent;
     
     public Spleen() {
-        super(ItemID.Spleen);
+        super(44);
         damageThreshold = 1.5F;
         bleedPercent = 0.05F;
     }
@@ -52,7 +52,7 @@ public class Spleen extends LunarRelic {
     }
     
     public static boolean On() {
-        return LMSK.Player().hasRelic(ItemID.Spleen.internalID);
+        return LMSK.Player().hasRelic(ItemHelper.GetRelicID(44));
     }
     
     public static float BleedBuff() {

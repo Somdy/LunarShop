@@ -10,9 +10,7 @@ import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.data.AchvID;
 import rs.lunarshop.enums.LunarRarity;
-import rs.lunarshop.items.relics.RelicManager;
 import rs.lunarshop.subjects.AbstractCommandEssence;
-import rs.lunarshop.subjects.AbstractLunarRelic;
 import rs.lunarshop.utils.AchvHelper;
 
 import java.util.ArrayList;

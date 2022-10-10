@@ -5,7 +5,6 @@ import com.megacrit.cardcrawl.actions.utility.LoseBlockAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import rs.lazymankits.actions.common.BetterDamageAllEnemiesAction;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.interfaces.relics.BlockModifierRelic;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
@@ -13,7 +12,7 @@ public class JumpHigher extends LunarRelic implements BlockModifierRelic {
     private int extraBlock;
     
     public JumpHigher() {
-        super(ItemID.JumpHigher);
+        super(11);
         setBattleUse();
         extraBlock = 2;
     }
@@ -37,7 +36,7 @@ public class JumpHigher extends LunarRelic implements BlockModifierRelic {
     }
     
     @Override
-    protected void activate() {
+    protected void use() {
         if (cpr().currentBlock > 0) {
             int damage = cpr().currentBlock;
             addToBot(new LoseBlockAction(cpr(), cpr(), damage));

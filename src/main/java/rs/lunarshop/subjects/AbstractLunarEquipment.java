@@ -9,7 +9,6 @@ import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import org.jetbrains.annotations.Nullable;
-import rs.lunarshop.subjects.lunarprops.LunarItemID;
 import rs.lunarshop.config.LunarConfig;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.enums.LunarClass;
@@ -19,8 +18,8 @@ public abstract class AbstractLunarEquipment extends AbstractLunarRelic {
     private AbstractLunarEquipment proxy;
     private boolean isProxy;
     
-    protected AbstractLunarEquipment(LunarItemID itemID, LunarClass clazz, int stack, int cooldown) {
-        super(itemID, clazz, stack);
+    protected AbstractLunarEquipment(int lunarID, LunarClass clazz, int stack, int cooldown) {
+        super(lunarID, clazz, stack);
         setEquipment(true);
         setCooldown(cooldown, true);
         isProxy = false;
@@ -59,7 +58,16 @@ public abstract class AbstractLunarEquipment extends AbstractLunarRelic {
     }
     
     public final void updateOnRightClick() {
-        if (isProxy) onRightClick();
+        if (isProxy) {
+            log("Using [" + prop.localname + "]");
+            onRightClick();
+        }
+    }
+    
+    @Override
+    protected final void updateEquipmentTargetMode() {
+        if (!isProxy) return;
+        super.updateEquipmentTargetMode();
     }
     
     @Override
@@ -68,17 +76,17 @@ public abstract class AbstractLunarEquipment extends AbstractLunarRelic {
     }
     
     @Override
-    protected void activate(AbstractCreature s, AbstractCreature t) {
-        super.activate(s, t);
+    protected void use(AbstractCreature s, AbstractCreature t) {
+        super.use(s, t);
         if (origin != null)
-            origin.activate(s, t);
+            origin.use(s, t);
     }
     
     @Override
-    protected void activate() {
-        super.activate();
+    protected void use() {
+        super.use();
         if (origin != null) {
-            origin.activate();
+            origin.use();
             if (!isFunder) {
                 for (AbstractRelic r : cpr().relics) {
                     if (r instanceof AbstractLunarRelic && !((AbstractLunarRelic) r).isEquipment()) {
@@ -90,10 +98,10 @@ public abstract class AbstractLunarEquipment extends AbstractLunarRelic {
     }
     
     @Override
-    public void autoActivate() {
-        super.autoActivate();
+    public void autoUse() {
+        super.autoUse();
         if (origin != null) {
-            origin.autoActivate();
+            origin.autoUse();
         }
     }
     

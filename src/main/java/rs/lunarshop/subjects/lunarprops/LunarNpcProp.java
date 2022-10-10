@@ -1,20 +1,22 @@
 package rs.lunarshop.subjects.lunarprops;
 
 public class LunarNpcProp {
-    public final Class<?> targetClz;
-    private int armor;
-    private int attack;
-    private int regen;
+    public final String ID;
+    private final int armor;
+    private final int attack;
+    private final int regen;
+    private final float dropRate;
+    private final int dropTierMin;
+    private final int dropTierMax;
     
-    public LunarNpcProp(Class<?> targetClz, int armor, int attack, int regen) {
-        this.targetClz = targetClz;
+    public LunarNpcProp(String ID, int armor, int attack, int regen, float dropRate, int dropTierMin, int dropTierMax) {
+        this.ID = ID;
         this.armor = armor;
         this.attack = attack;
         this.regen = regen;
-    }
-    
-    public Class<?> getTargetClz() {
-        return targetClz;
+        this.dropRate = dropRate;
+        this.dropTierMin = dropTierMin;
+        this.dropTierMax = dropTierMax;
     }
     
     public int getArmor() {
@@ -27,5 +29,17 @@ public class LunarNpcProp {
     
     public int getRegen() {
         return regen;
+    }
+    
+    public float getDropRate() {
+        return dropRate;
+    }
+    
+    public int getDropTierMin() {
+        return dropTierMin;
+    }
+    
+    public int getDropTierMax() {
+        return dropTierMax;
     }
 }

@@ -1,6 +1,5 @@
 package rs.lunarshop.items.relics.lunar;
 
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.utils.PotencyHelper;
 
@@ -8,7 +7,7 @@ public class HealingRack extends LunarRelic {
     private float healBuff;
     
     public HealingRack() {
-        super(ItemID.Rejuvenation);
+        super(43);
         healBuff = 0.5F;
     }
     

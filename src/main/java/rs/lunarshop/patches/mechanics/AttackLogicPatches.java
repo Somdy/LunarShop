@@ -2,21 +2,21 @@ package rs.lunarshop.patches.mechanics;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.evacipated.cardcrawl.modthespire.lib.ByRef;
-import com.evacipated.cardcrawl.modthespire.lib.SpireInsertPatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
+import com.badlogic.gdx.math.MathUtils;
+import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import javassist.CtBehavior;
 import org.jetbrains.annotations.NotNull;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.utils.AttackHelper;
 import rs.lunarshop.utils.LunarImageMst;
-import rs.lunarshop.utils.RegenHelper;
 
 import static rs.lunarshop.patches.mechanics.ArmorLogicPatches.BLOCK_ICON_X;
 import static rs.lunarshop.patches.mechanics.ArmorLogicPatches.BLOCK_ICON_Y;
@@ -73,9 +73,34 @@ public class AttackLogicPatches {
     
     @SpirePatch(clz = AbstractMonster.class, method = "calculateDamage")
     public static class CalculateMonsterDamagePatch {
-        @SpireInsertPatch(rloc = 41, localvars = {"tmp"})
+        @SpireInsertPatch(locator = Locator.class, localvars = {"tmp"})
         public static void Insert(AbstractMonster _inst, int dmg, @ByRef float[] tmp) {
             tmp[0] = AttackHelper.ApplyPowersToMonster(_inst, tmp[0]);
+        }
+        private static class Locator extends SpireInsertLocator {
+            @Override
+            public int[] Locate(CtBehavior ctBehavior) throws Exception {
+                Matcher.MethodCallMatcher matcher = new Matcher.MethodCallMatcher(MathUtils.class, "floor");
+                return LineFinder.findInOrder(ctBehavior, matcher);
+            }
+        }
+    }
+    
+    @SpirePatch(clz = DamageInfo.class, method = "applyPowers")
+    public static class CalculateMonsterDamageFixPatch {
+        @SpireInsertPatch(locator = Locator.class, localvars = {"tmp"})
+        public static void Insert(DamageInfo _inst, AbstractCreature owner, AbstractCreature target, @ByRef float[] tmp) {
+            if (owner instanceof AbstractMonster && _inst.type == DamageInfo.DamageType.NORMAL) {
+                tmp[0] = AttackHelper.ApplyPowersToMonster(owner, tmp[0]);
+                _inst.isModified = _inst.base != MathUtils.floor(tmp[0]);
+            }
+        }
+        private static class Locator extends SpireInsertLocator {
+            @Override
+            public int[] Locate(CtBehavior ctBehavior) throws Exception {
+                Matcher.MethodCallMatcher matcher = new Matcher.MethodCallMatcher(MathUtils.class, "floor");
+                return LineFinder.findInOrder(ctBehavior, matcher);
+            }
         }
     }
 }

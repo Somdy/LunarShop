@@ -1,16 +1,12 @@
 package rs.lunarshop.powers;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.common.HealAction;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.powers.DexterityPower;
-import com.megacrit.cardcrawl.powers.StrengthPower;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.items.equipments.FakeWine;
 import rs.lunarshop.subjects.AbstractLunarPower;
@@ -52,7 +48,7 @@ public final class TonicPower extends AbstractLunarPower {
     public void onRemove() {
         super.onRemove();
 //        addToBot(new ApplyPowerAction(owner, owner, new TonicDebuffPower(owner)));
-        if (ItemHelper.RollCloverBadLuck(ItemID.FakeWine.lunarID, 0.2F)) {
+        if (ItemHelper.RollCloverBadLuck(ItemHelper.GetProp(15), 0.2F)) {
             FakeWine.IncreaseLoss();
         }
     }

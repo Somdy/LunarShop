@@ -4,7 +4,6 @@ import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.powers.PredatoryPower;
 
@@ -12,17 +11,12 @@ public class PredatoryMask extends LunarRelic {
     public static int MaxStr = 6;
     
     public PredatoryMask() {
-        super(ItemID.Predatory);
+        super(61);
     }
     
     @Override
     public void refreshStats() {
         MaxStr = 4 * stack + 2;
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], MaxStr);
     }
     
     @Override

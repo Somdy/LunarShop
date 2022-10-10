@@ -1,7 +1,6 @@
 package rs.lunarshop.items.relics.lunar;
 
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.enums.LunarRarity;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.subjects.AbstractLunarRelic;
@@ -18,7 +17,7 @@ public class GhorTome extends LunarRelic {
     private float chanceForItem;
     
     public GhorTome() {
-        super(ItemID.GhorTome);
+        super(29);
         chance = 0.30F;
         chanceForItem = chance / 4F;
     }
@@ -34,13 +33,18 @@ public class GhorTome extends LunarRelic {
         createStatsInfo(DESCRIPTIONS[1], SciPercent(chance), baseGold, (baseGold + extraGold), SciPercent(chanceForItem));
     }
     
+    public float getChanceForItem() {
+        refreshStats();
+        return chanceForItem;
+    }
+    
     @Override
     public void onMonsterDeath(AbstractMonster m) {
         super.onMonsterDeath(m);
         if (rollCloverLuck(chance)) {
             int golds = baseGold;
             if (rollCloverLuck(EXTRA_GOLD))
-                golds += ItemHelper.GetItemRng(29).random(extraGold);
+                golds += ItemHelper.GetItemRng().random(extraGold);
             currRoom().addGoldToRewards(golds);
             flash();
         }

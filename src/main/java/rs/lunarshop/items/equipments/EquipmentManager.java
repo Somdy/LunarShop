@@ -1,14 +1,18 @@
 package rs.lunarshop.items.equipments;
 
+import basemod.AutoAdd;
 import basemod.BaseMod;
 import basemod.helpers.RelicType;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.jetbrains.annotations.NotNull;
-import rs.lunarshop.subjects.lunarprops.LunarItemID;
 import rs.lunarshop.core.LunarMod;
+import rs.lunarshop.items.abstracts.LunarEquipment;
 import rs.lunarshop.subjects.AbstractLunarEquipment;
+import rs.lunarshop.subjects.lunarprops.LunarItemProp;
+import rs.lunarshop.utils.MsgHelper;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -17,35 +21,25 @@ public final class EquipmentManager {
     private static final List<AbstractLunarEquipment> equipments = new ArrayList<>();
     
     public static void LoadEquipments() {
-        addLunarEquipments();
-    
-        List<AbstractLunarEquipment> tmp = new ArrayList<>(equipments);
-        
-        tmp.forEach(e -> {
-            BaseMod.addRelic(e.makeCopy(), RelicType.SHARED);
-            UnlockTracker.markRelicAsSeen(e.relicId);
-        });
-        
-        tmp.clear();
+        MsgHelper.PreLoad("EQUIPMENT LOADED");
+        new AutoAdd(LunarMod.MOD_ID)
+                .packageFilter(ReduceStrength.class)
+                .any(LunarEquipment.class, (i, r) -> {
+                    equipments.add(r);
+                    BaseMod.addRelic(r.makeCopy(), RelicType.SHARED);
+                    UnlockTracker.markRelicAsSeen(r.relicId);
+                    MsgHelper.Append(r.prop.lunarID);
+                });
+        MsgHelper.End();
+        equipments.sort(Comparator.comparingInt(o -> o.prop.getRarity().tier()));
     }
     
-    private static void addLunarEquipments() {
-        equipments.add(new ReduceStrength());
-        equipments.add(new Helfire());
-        equipments.add(new FakeWine());
-        equipments.add(new CrowdFunder());
-        equipments.add(new JadeElephant());
-        equipments.add(new Opus());
-        // TODO: Actual effects
-//        equipments.add(new Meteorite());
-    }
-    
-    public static Optional<AbstractLunarEquipment> Get(LunarItemID itemID) {
-        return equipments.stream().filter(r -> r.props.lunarID == itemID.lunarID).findFirst();
+    public static Optional<AbstractLunarEquipment> Get(LunarItemProp itemID) {
+        return equipments.stream().filter(r -> r.prop.lunarID == itemID.lunarID).findFirst();
     }
     
     public static Optional<AbstractLunarEquipment> Get(int lunarID) {
-        return equipments.stream().filter(r -> r.props.lunarID == lunarID).findFirst();
+        return equipments.stream().filter(r -> r.prop.lunarID == lunarID).findFirst();
     }
     
     public static Optional<AbstractLunarEquipment> GetExpt(Predicate<AbstractLunarEquipment> expt) {

@@ -1,6 +1,5 @@
 package rs.lunarshop.items.relics.lunar;
 
-import rs.lunarshop.data.ItemID;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
@@ -34,7 +33,7 @@ public class Gouge extends LunarRelic {
     private Map<String, Integer> saves = new HashMap<>();
     
     public Gouge() {
-        super(ItemID.Gouge);
+        super(10);
         setStackable(false);
         againstElite = false;
         difficultyScale = 1F;
@@ -134,7 +133,7 @@ public class Gouge extends LunarRelic {
     }
     
     @Override
-    protected void activate() {
+    protected void use() {
         //createTreasureEntry(getCurrMapNode(), false);
     }
     

@@ -14,8 +14,8 @@ import rs.lunarshop.items.relics.lunar.RustyKey;
 import rs.lunarshop.subjects.AbstractLunarRelic;
 import rs.lunarshop.utils.LunarUtils;
 
-import static rs.lunarshop.patches.MiscRewardEnum.OLD_CHEST;
 import static rs.lunarshop.patches.MiscRewardEnum.LUNAR_COIN;
+import static rs.lunarshop.patches.MiscRewardEnum.OLD_CHEST;
 
 public class LunarMiscReward extends CustomReward implements LunarUtils {
     private static final UIStrings uiStrings = LunarMod.UIStrings(LunarMod.Prefix("MiscReward"));

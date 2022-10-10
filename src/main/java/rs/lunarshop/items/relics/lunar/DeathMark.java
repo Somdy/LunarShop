@@ -6,7 +6,6 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import org.jetbrains.annotations.NotNull;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.powers.DeathMarkPower;
 
@@ -18,7 +17,7 @@ public class DeathMark extends LunarRelic {
     private int turns;
     
     public DeathMark() {
-        super(ItemID.DeathMark);
+        super(18);
         turns = 2;
     }
     

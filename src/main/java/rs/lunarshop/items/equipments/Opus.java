@@ -7,20 +7,19 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 import rs.lazymankits.actions.utility.QuickAction;
 import rs.lazymankits.utils.LMSK;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarEquipment;
 
 import java.util.List;
 
 public class Opus extends LunarEquipment {
     public Opus() {
-        super(ItemID.Opus, 10);
+        super(47, 10);
         setTargetRequired(false);
     }
     
     @Override
-    protected void activate() {
-        super.activate();
+    protected void use() {
+        super.use();
         if (isProxy()) {
             addToBot(new VFXAction(new ShockWaveEffect(hb.cX, hb.cY, Color.ORANGE.cpy(), ShockWaveEffect.ShockWaveType.CHAOTIC), 
                     0.2F));

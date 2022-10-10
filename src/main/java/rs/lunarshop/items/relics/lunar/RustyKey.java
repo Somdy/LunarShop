@@ -7,7 +7,6 @@ import org.jetbrains.annotations.NotNull;
 import rs.lazymankits.actions.utility.QuickAction;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.enums.LunarRarity;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.subjects.AbstractLunarRelic;
@@ -22,7 +21,7 @@ public class RustyKey extends LunarRelic {
     private boolean treasure;
     
     public RustyKey() {
-        super(ItemID.RustyKey);
+        super(60);
         keyNum = 1;
         treasure = false;
     }
@@ -51,12 +50,12 @@ public class RustyKey extends LunarRelic {
     @NotNull
     public static AbstractLunarRelic SpawnItemForChest() {
         Predicate<AbstractLunarRelic> expt;
-        if (ItemHelper.RollCloverLuck(ItemID.RustyKey, opts[2])) {
-            expt = r -> r.props.getRarity() == LunarRarity.RARE;
-        } else if (ItemHelper.RollCloverLuck(ItemID.RustyKey, opts[1])) {
-            expt = r -> r.props.getRarity() == LunarRarity.UNCOMMON;
+        if (ItemHelper.RollCloverLuck(ItemHelper.GetProp(60), opts[2])) {
+            expt = r -> r.prop.getRarity() == LunarRarity.RARE;
+        } else if (ItemHelper.RollCloverLuck(ItemHelper.GetProp(60), opts[1])) {
+            expt = r -> r.prop.getRarity() == LunarRarity.UNCOMMON;
         } else {
-            expt = r -> r.props.getRarity() == LunarRarity.COMMON;
+            expt = r -> r.prop.getRarity() == LunarRarity.COMMON;
         }
         AbstractLunarRelic item = ItemSpawner.ReturnRndExptItem(LMSK.TreasureRng(), expt);
         LunarMod.LogInfo("Get " + item.name + " from old chest");
@@ -65,7 +64,7 @@ public class RustyKey extends LunarRelic {
     
     public static void ConsumeAll() {
         keyNum = 0;
-        LunarMod.addToBot(new QuickAction(() -> LMSK.Player().loseRelic(ItemID.RustyKey.internalID)));
+        LunarMod.addToBot(new QuickAction(() -> LMSK.Player().loseRelic(ItemHelper.GetRelicID(60))));
     }
     
     @Override

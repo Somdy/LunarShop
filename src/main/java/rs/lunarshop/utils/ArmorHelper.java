@@ -9,15 +9,30 @@ import rs.lunarshop.interfaces.powers.ArmorModifierPower;
 import rs.lunarshop.patches.mechanics.ArmorField;
 
 public class ArmorHelper {
-    private static final float ArmorFactor = 50F;
+    private static final float BaseArmorFactor = 50F;
     
-    public static float DamageMultiplier(AbstractCreature target) {
+    public static float RoughDamageMultiplier(AbstractCreature target) {
         float multiplier;
         int armor = GetArmor(target);
         if (armor >= 0) {
-            multiplier = (1 - (armor / (armor + ArmorFactor)));
+            multiplier = (1F - (armor / (armor + BaseArmorFactor)));
         } else {
-            multiplier = (2 - (ArmorFactor / (ArmorFactor - armor)));
+            multiplier = (2.1F - (BaseArmorFactor / (BaseArmorFactor - armor)));
+        }
+        return multiplier;
+    }
+    
+    public static float DamageMultiplier(AbstractCreature target, float damageToTake) {
+        float multiplier;
+        int armor = GetArmor(target);
+        if (armor >= 0) {
+            float armorFix = damageToTake <= armor ? BaseArmorFactor :
+                    BaseArmorFactor - BaseArmorFactor * Math.min(0.15F, (damageToTake - armor) / 50F);
+            float stackFix = armorFix <= armor ? 0 : Math.min(0.95F, 0.2F * ((armor - armorFix) / armorFix));
+            float adjustedArmor = armor - armor * stackFix > armorFix ? armor - armor * stackFix : armor;
+            multiplier = (1F - (adjustedArmor / (adjustedArmor + armorFix)));
+        } else {
+            multiplier = (2.1F - (BaseArmorFactor / (BaseArmorFactor - armor)));
         }
         return multiplier;
     }

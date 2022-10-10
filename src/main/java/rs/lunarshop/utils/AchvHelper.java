@@ -3,7 +3,6 @@ package rs.lunarshop.utils;
 import org.jetbrains.annotations.NotNull;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.relics.lunar.Purity;
 import rs.lunarshop.subjects.lunarprops.LunarAchvData;
 
@@ -30,8 +29,8 @@ public class AchvHelper {
     }
     
     static void checkPurityVictoryAchv() {
-        if (LMSK.Player().hasRelic(ItemID.Purity.internalID)) {
-            Purity p = (Purity) LMSK.Player().getRelic(ItemID.Purity.internalID);
+        if (LMSK.Player().hasRelic(ItemHelper.GetRelicID(6))) {
+            Purity p = (Purity) LMSK.Player().getRelic(ItemHelper.GetRelicID(6));
             p.checkAchv();
         }
     }

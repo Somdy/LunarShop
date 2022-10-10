@@ -1,7 +1,6 @@
 package rs.lunarshop.items.relics.lunar;
 
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
 public class Microbots extends LunarRelic {
@@ -9,7 +8,7 @@ public class Microbots extends LunarRelic {
     private boolean negated;
     
     public Microbots() {
-        super(ItemID.Microbots);
+        super(26);
         setTurnUse(2);
         threshold = 2;
         negated = false;

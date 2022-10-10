@@ -1,8 +1,7 @@
 package rs.lunarshop.items.relics.lunar;
 
-import rs.lunarshop.actions.unique.RachisBuffAction;
-import rs.lunarshop.data.ItemID;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import rs.lunarshop.actions.unique.RachisBuffAction;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.utils.ItemHelper;
 
@@ -13,7 +12,7 @@ public class PowerRachis extends LunarRelic {
     private int buffTimes;
     
     public PowerRachis() {
-        super(ItemID.PowerRachis);
+        super(5);
         buffTimes = 2;
     }
     
@@ -45,6 +44,6 @@ public class PowerRachis extends LunarRelic {
             return Optional.of(cpr());
         }
         livings.removeIf(c -> c.isPlayer);
-        return getRandom(livings, ItemHelper.GetItemRng(ItemID.PowerRachis.lunarID));
+        return getRandom(livings, ItemHelper.GetItemRng());
     }
 }

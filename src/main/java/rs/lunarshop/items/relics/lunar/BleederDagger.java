@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.powers.BleedingPower;
 
@@ -12,7 +11,7 @@ public class BleederDagger extends LunarRelic {
     private float chance;
     
     public BleederDagger() {
-        super(ItemID.BleederDagger);
+        super(32);
         chance = 0.1F;
     }
     

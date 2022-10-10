@@ -8,19 +8,18 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
 import rs.lazymankits.actions.utility.QuickAction;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarEquipment;
 import rs.lunarshop.powers.HelfirePower;
 
 public class Helfire extends LunarEquipment {
     public Helfire() {
-        super(ItemID.Helfire, 12);
+        super(14, 12);
         setTargetRequired(false);
     }
     
     @Override
-    protected void activate() {
-        super.activate();
+    protected void use() {
+        super.use();
         if (isProxy()) {
             addToBot(new QuickAction(() -> {
                 for (AbstractCreature crt : getAllLivingCreatures()) {

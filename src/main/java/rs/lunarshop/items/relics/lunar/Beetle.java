@@ -1,12 +1,11 @@
 package rs.lunarshop.items.relics.lunar;
 
-import rs.lunarshop.data.AchvID;
-import rs.lunarshop.data.ItemID;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.powers.BarricadePower;
+import rs.lunarshop.data.AchvID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.utils.AchvHelper;
 
@@ -16,7 +15,7 @@ public final class Beetle extends LunarRelic {
     private boolean damagedThisTurn;
     
     public Beetle() {
-        super(ItemID.Beetle);
+        super(8);
         hpBuff = 0.5F;
         armor = 0;
     }

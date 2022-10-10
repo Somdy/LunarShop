@@ -24,7 +24,7 @@ public class LunarLegendEss extends AbstractCommandEssence {
     @Override
     public void init() {
         super.init();
-        List<AbstractLunarRelic> tmp = ItemSpawner.PopulateLimitedRelicLists(r -> !r.props.getRarity().above(LunarRarity.LEGEND));
+        List<AbstractLunarRelic> tmp = ItemSpawner.PopulateLimitedRelicLists(r -> !r.prop.getRarity().above(LunarRarity.LEGEND));
         relics.clear();
         tmp.forEach(r -> relics.add(r.makeCopy()));
     }

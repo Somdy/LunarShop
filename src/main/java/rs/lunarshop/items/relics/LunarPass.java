@@ -1,31 +1,40 @@
 package rs.lunarshop.items.relics;
 
-import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.shop.ShopScreen;
 import com.megacrit.cardcrawl.ui.campfire.AbstractCampfireOption;
+import com.megacrit.cardcrawl.vfx.RelicAboveCreatureEffect;
 import rs.lazymankits.abstracts.LMCustomRelic;
-import rs.lazymankits.actions.utility.QuickAction;
 import rs.lunarshop.core.LunarMaster;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.items.relics.lunar.Beetle;
+import rs.lunarshop.items.relics.lunar.GhorTome;
+import rs.lunarshop.subjects.AbstractLunarRelic;
 import rs.lunarshop.subjects.AbstractLunarShop;
+import rs.lunarshop.subjects.lunarprops.LunarItemProp;
+import rs.lunarshop.subjects.lunarprops.LunarNpcProp;
 import rs.lunarshop.ui.campfire.LunarFireOption;
 import rs.lunarshop.ui.cmdpicker.ItemContainer;
 import rs.lunarshop.ui.cmdpicker.PickerCaller;
-import rs.lunarshop.utils.AchvHelper;
 import rs.lunarshop.utils.ItemHelper;
+import rs.lunarshop.utils.ItemSpawner;
+import rs.lunarshop.utils.LunarUtils;
+import rs.lunarshop.utils.NpcHelper;
 
 import java.util.ArrayList;
 
-public final class LunarPass extends LMCustomRelic implements PickerCaller {
+public final class LunarPass extends LMCustomRelic implements LunarUtils, PickerCaller {
     public static final String ID = LunarMod.Prefix("LunarPass");
     public static final int LUNAR = 0;
     public static final int VOID = 1;
     public static final int TABOO = 2;
     private static final boolean[] PASSES = new boolean[] {false, false, false};
+    private static final float BASE_DROP_CHANCE = 0.1F;
+    private static float DROP_CHANCE = BASE_DROP_CHANCE;
     
     public LunarPass(int pass) {
         super(ID, ImageMaster.loadImage("LunarAssets/imgs/items/relics/prism.png"),
@@ -123,12 +132,69 @@ public final class LunarPass extends LMCustomRelic implements PickerCaller {
     public void atBattleStart() {
         super.atBattleStart();
         float baseChance = LunarMaster.LunarCoin() > 5 ? 0.25F : 0.6F;
-        if (ItemHelper.RollCloverLuck(-1, baseChance)) {
+        if (ItemHelper.RollCloverLuck("LunarPass", baseChance)) {
             int drops = cardRandomRng().random(2, 3);
-            if (ItemHelper.RollCloverLuck(-1, 0.15F))
+            if (ItemHelper.RollCloverLuck("LunarPass", 0.15F))
                 drops += cardRandomRng().random(3, 6);
             currRoom().rewards.add(ItemHelper.GetLunarCoinReward(drops));
         }
+    }
+    
+    @Override
+    public void onMonsterDeath(AbstractMonster m) {
+        super.onMonsterDeath(m);
+        LunarNpcProp prop = NpcHelper.GetProp(m.id);
+        if (prop != null) {
+            float baseDropRate = prop.getDropRate();
+            float dropRate = weightDropRate(baseDropRate);
+            boolean canDropItem = ItemHelper.RollCloverLuck("LunarPass", dropRate);
+            if (!canDropItem) {
+                DROP_CHANCE += miscRng().random(0.1F, 0.15F) * dropRate;
+                log("no dropping item [" + DROP_CHANCE + "]");
+                return;
+            }
+            DROP_CHANCE = BASE_DROP_CHANCE;
+            int minTier = prop.getDropTierMin();
+            int maxTier = prop.getDropTierMax();
+            if (minTier < maxTier) {
+                float higherTierChance = 0.25F;
+                boolean rollTier = ItemHelper.RollLuck("LunarPass", higherTierChance);
+                while (minTier < maxTier && rollTier) {
+                    minTier++;
+                    higherTierChance *= 0.5F;
+                    rollTier = ItemHelper.RollLuck("LunarPass", higherTierChance);
+                }
+                maxTier = minTier;
+                minTier = prop.getDropTierMin();
+            }
+            maxTier = minTier < maxTier ? miscRng().random(minTier, maxTier) : minTier;
+            final float min = minTier;
+            final float max = maxTier;
+            AbstractLunarRelic r = ItemSpawner.ReturnRndExptItem(relicRng(), relic -> {
+                LunarItemProp data = relic.prop;
+                return data.getTier() >= min && data.getTier() <= max;
+            });
+            effectToList(new RelicAboveCreatureEffect(m.hb.cX - m.animX, m.hb.cY + m.hb.height / 2F - m.animY, r.makeCopy()));
+            currRoom().addRelicToRewards(r);
+        }
+    }
+    
+    private float weightDropRate(float baseRate) {
+        if (baseRate <= 0 || !currRoom().rewardAllowed) return 0;
+        float rate = baseRate + DROP_CHANCE;
+        if (!currRoom().rewards.isEmpty()) {
+            for (RewardItem reward : currRoom().rewards) {
+                if (reward.type == RewardItem.RewardType.RELIC && reward.relic instanceof AbstractLunarRelic) {
+                    rate = rate * (1F - 0.05F);
+                }
+            }
+        }
+        if (cprHasLunarRelic(ItemHelper.GetProp(29))) {
+            AbstractRelic tome = cpr().getRelic(ItemHelper.GetRelicID(29));
+            if (tome instanceof GhorTome)
+                rate += ((GhorTome) tome).getChanceForItem();
+        }
+        return rate;
     }
     
     @Override

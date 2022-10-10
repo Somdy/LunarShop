@@ -1,18 +1,16 @@
 package rs.lunarshop.items.abstracts;
 
-import rs.lunarshop.subjects.lunarprops.LunarItemID;
 import rs.lunarshop.enums.LunarClass;
 import rs.lunarshop.subjects.AbstractLunarRelic;
 
 public class LunarRelic extends AbstractLunarRelic {
-    
-    protected LunarRelic(LunarItemID itemID, int stack) {
-        super(itemID, LunarClass.LUNAR, stack);
+    protected LunarRelic(int lunarID, int stack) {
+        super(lunarID, LunarClass.LUNAR, stack);
         setStackable(true);
     }
     
-    public LunarRelic(LunarItemID itemID) {
-        this(itemID, 1);
+    public LunarRelic(int lunarID) {
+        this(lunarID, 1);
     }
     
 }

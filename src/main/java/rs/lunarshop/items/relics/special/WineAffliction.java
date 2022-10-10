@@ -1,6 +1,5 @@
 package rs.lunarshop.items.relics.special;
 
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.SpecialRelic;
 import rs.lunarshop.powers.TonicPower;
 
@@ -8,7 +7,7 @@ public class WineAffliction extends SpecialRelic {
     private int debuff;
     
     public WineAffliction() {
-        super(ItemID.WineAffliction);
+        super(58);
         debuff = 3;
     }
     

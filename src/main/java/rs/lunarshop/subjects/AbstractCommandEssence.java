@@ -11,7 +11,6 @@ import com.megacrit.cardcrawl.helpers.TipHelper;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import org.jetbrains.annotations.NotNull;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.enums.EssCallerType;
 import rs.lunarshop.interfaces.EssenceCaller;
@@ -22,7 +21,6 @@ import rs.lunarshop.vfx.misc.EssenceCoreEffect;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 public abstract class AbstractCommandEssence implements LunarUtils, PickerCaller {
     private EssenceCoreEffect effect;

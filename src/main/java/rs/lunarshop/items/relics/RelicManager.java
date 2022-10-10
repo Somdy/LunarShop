@@ -1,23 +1,25 @@
 package rs.lunarshop.items.relics;
 
+import basemod.AutoAdd;
 import basemod.BaseMod;
 import basemod.helpers.RelicType;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.Circlet;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.jetbrains.annotations.NotNull;
+import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.enums.LunarClass;
 import rs.lunarshop.items.abstracts.LunarEquipment;
 import rs.lunarshop.items.abstracts.LunarRelic;
-import rs.lunarshop.items.relics.planet.Pearl;
-import rs.lunarshop.items.relics.planet.PerfectPearl;
-import rs.lunarshop.items.relics.special.DioConsumed;
-import rs.lunarshop.items.relics.special.WineAffliction;
-import rs.lunarshop.subjects.lunarprops.LunarItemID;
-import rs.lunarshop.core.LunarMod;
+import rs.lunarshop.items.abstracts.PlanetRelic;
+import rs.lunarshop.items.abstracts.SpecialRelic;
 import rs.lunarshop.items.equipments.EquipmentManager;
-import rs.lunarshop.items.relics.lunar.*;
+import rs.lunarshop.items.relics.lunar.Fealty;
+import rs.lunarshop.items.relics.planet.Pearl;
+import rs.lunarshop.items.relics.special.DioConsumed;
 import rs.lunarshop.subjects.AbstractLunarRelic;
+import rs.lunarshop.subjects.lunarprops.LunarItemProp;
+import rs.lunarshop.utils.MsgHelper;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -36,88 +38,57 @@ public final class RelicManager {
     public static void LoadRelics() {
         Functions.add(0, new LunarPass());
         Functions.add(1, CETemplate.Get());
-        
+        Functions.forEach(r -> {
+            BaseMod.addRelic(r.makeCopy(), RelicType.SHARED);
+            UnlockTracker.markRelicAsSeen(r.relicId);
+        });
+    
+        MsgHelper.PreLoad("RELIC LOADED");
         addLunarRelics();
         addPlanetRelics();
         addSpecialRelics();
+        MsgHelper.End();
         
-        LunarPool.sort(Comparator.comparingInt(o -> o.props.getRarity().coins()));
-        PlanetPool.sort(Comparator.comparingInt(o -> o.props.getRarity().coins()));
+        LunarPool.sort(Comparator.comparingInt(o -> o.prop.getRarity().tier()));
+        PlanetPool.sort(Comparator.comparingInt(o -> o.prop.getRarity().tier()));
         
         RelicPool.clear();
         RelicPool.addAll(LunarPool);
         RelicPool.addAll(PlanetPool);
         RelicPool.addAll(SpecialPool);
-        
-        Functions.forEach(r -> {
-            BaseMod.addRelic(r.makeCopy(), RelicType.SHARED);
-            UnlockTracker.markRelicAsSeen(r.relicId);
-        });
-        
-        RelicPool.forEach(r -> {
-            BaseMod.addRelic(r.makeCopy(), RelicType.SHARED);
-            UnlockTracker.markRelicAsSeen(r.relicId);
-        });
     }
     
     private static void addLunarRelics() {
-        LunarPool.add(new Fealty());
-        LunarPool.add(new Crown());
-        LunarPool.add(new Corpsebloom());
-        LunarPool.add(new LessBossHp());
-        LunarPool.add(new DrownedGesture());
-        LunarPool.add(new PowerRachis());
-        LunarPool.add(new Purity());
-        LunarPool.add(new SharpedGlass());
-        LunarPool.add(new Beetle());
-        LunarPool.add(new Gouge());
-        LunarPool.add(new Clover());
-        LunarPool.add(new JumpHigher());
-        LunarPool.add(new Horn());
-        LunarPool.add(new LeechingSeed());
-        LunarPool.add(new Planula());
-        LunarPool.add(new DeathMark());
-        LunarPool.add(new InstantKiller());
-        LunarPool.add(new Vase());
-        LunarPool.add(new RoseBuckler());
-        LunarPool.add(new Shattering());
-        LunarPool.add(new ChargedDrill());
-        LunarPool.add(new BossBullet());
-        LunarPool.add(new Microbots());
-        LunarPool.add(new Daisy());
-        LunarPool.add(new Scythe());
-        LunarPool.add(new GhorTome());
-        LunarPool.add(new Infusion());
-        LunarPool.add(new BleederDagger());
-        LunarPool.add(new Chronobauble());
-        LunarPool.add(new TougherTimes());
-        LunarPool.add(new Crowbar());
-        LunarPool.add(new CeremonialDagger());
-        LunarPool.add(new ArmorPlate());
-        LunarPool.add(new TheGlasses());
-        LunarPool.add(new Medkit());
-        LunarPool.add(new Aegis());
-        LunarPool.add(new HealingRack());
-        LunarPool.add(new Spleen());
-        LunarPool.add(new Knurl());
-        LunarPool.add(new AlienHead());
-        LunarPool.add(new Crystal());
-        LunarPool.add(new Syringe());
-        LunarPool.add(new HopooFeather());
-        LunarPool.add(new DioFriend());
-        LunarPool.add(new Slug());
-        LunarPool.add(new RustyKey());
-        LunarPool.add(new PredatoryMask());
+        new AutoAdd(LunarMod.MOD_ID)
+                .packageFilter(Fealty.class)
+                .any(LunarRelic.class, (i, r) -> {
+                    LunarPool.add(r);
+                    BaseMod.addRelic(r.makeCopy(), RelicType.SHARED);
+                    UnlockTracker.markRelicAsSeen(r.relicId);
+                    MsgHelper.Append(r.prop.lunarID);
+                });
     }
     
     private static void addPlanetRelics() {
-        PlanetPool.add(new Pearl());
-        PlanetPool.add(new PerfectPearl());
+        new AutoAdd(LunarMod.MOD_ID)
+                .packageFilter(Pearl.class)
+                .any(PlanetRelic.class, (i, r) -> {
+                    PlanetPool.add(r);
+                    BaseMod.addRelic(r.makeCopy(), RelicType.SHARED);
+                    UnlockTracker.markRelicAsSeen(r.relicId);
+                    MsgHelper.Append(r.prop.lunarID);
+                });
     }
     
     private static void addSpecialRelics() {
-        SpecialPool.add(new DioConsumed());
-        SpecialPool.add(new WineAffliction());
+        new AutoAdd(LunarMod.MOD_ID)
+                .packageFilter(DioConsumed.class)
+                .any(SpecialRelic.class, (i, r) -> {
+                    SpecialPool.add(r);
+                    BaseMod.addRelic(r.makeCopy(), RelicType.SHARED);
+                    UnlockTracker.markRelicAsSeen(r.relicId);
+                    MsgHelper.Append(r.prop.lunarID);
+                });
     }
     
     @NotNull
@@ -129,13 +100,13 @@ public final class RelicManager {
     }
     
     @NotNull
-    public static AbstractRelic Get(LunarItemID itemID) {
+    public static AbstractRelic Get(LunarItemProp itemID) {
         return Get(itemID, 0);
     }
     
     @NotNull
-    public static AbstractRelic Get(LunarItemID itemID, int extraStack) {
-        Optional<AbstractLunarRelic> opt = RelicPool.stream().filter(r -> r.props.lunarID == itemID.lunarID).findFirst();
+    public static AbstractRelic Get(LunarItemProp itemID, int extraStack) {
+        Optional<AbstractLunarRelic> opt = RelicPool.stream().filter(r -> r.prop.lunarID == itemID.lunarID).findFirst();
         if (opt.isPresent()) {
             AbstractLunarRelic r = (AbstractLunarRelic) opt.get().makeCopy();
             r.stackAmt(extraStack, false);
@@ -153,7 +124,7 @@ public final class RelicManager {
     public static List<AbstractLunarRelic> GetAllAvailableRelics() {
         List<AbstractLunarRelic> tmp = new ArrayList<>();
         RelicPool.forEach(r -> tmp.add((AbstractLunarRelic) r.makeCopy()));
-        tmp.removeIf(r -> r.props.getClazz() == LunarClass.SPECIAL);
+        tmp.removeIf(r -> r.prop.getClazz() == LunarClass.SPECIAL);
         return tmp;
     }
     

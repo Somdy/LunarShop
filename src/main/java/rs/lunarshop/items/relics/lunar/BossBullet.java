@@ -4,14 +4,13 @@ import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
 public class BossBullet extends LunarRelic {
     private float extra;
     
     public BossBullet() {
-        super(ItemID.BossBullet);
+        super(25);
         extra = 0.25F;
     }
     

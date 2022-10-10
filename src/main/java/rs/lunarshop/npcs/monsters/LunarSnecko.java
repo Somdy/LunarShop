@@ -22,7 +22,10 @@ import rs.lunarshop.actions.unique.LunarSneckoConfuseAction;
 import rs.lunarshop.actions.unique.SneckoFireMissilesAction;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.data.NpcID;
-import rs.lunarshop.powers.*;
+import rs.lunarshop.powers.BlazingPower;
+import rs.lunarshop.powers.CelestinePower;
+import rs.lunarshop.powers.GlacialPower;
+import rs.lunarshop.powers.MalachitePower;
 import rs.lunarshop.powers.unique.MirageNewtPower;
 import rs.lunarshop.subjects.AbstractLunarMonster;
 import rs.lunarshop.utils.ArmorHelper;
@@ -112,8 +115,8 @@ public class LunarSnecko extends AbstractLunarMonster {
         switch (nextMove) {
             case lightning:
                 addToBot(new ChangeStateAction(this, "ATTACK_2"));
-                addToBot(new VFXAction(new LightningEffect(cpr().drawX, cpr().drawY), 0.25F));
                 addToBot(new SFXAction("ORB_LIGHTNING_EVOKE"));
+                addToBot(new VFXAction(new LightningEffect(cpr().drawX, cpr().drawY), 0.25F));
                 if (hardTime()) {
                     addToBot(new LoseBlockAction(cpr(), this, getBlock(lightning)));
                 }

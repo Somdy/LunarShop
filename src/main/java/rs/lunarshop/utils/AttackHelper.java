@@ -1,9 +1,7 @@
 package rs.lunarshop.utils;
 
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import org.jetbrains.annotations.NotNull;
 import rs.lunarshop.core.LunarMaster;
@@ -12,17 +10,29 @@ import rs.lunarshop.patches.mechanics.AttackField;
 
 public class AttackHelper {
     
-    public static float ApplyPowersToMonster(AbstractMonster m, float damage) {
+    public static float ApplyPowersToMonster(AbstractCreature m, float damage) {
         int attack = GetAttack(m);
+        if (attack >= 0) {
+            if (damage < 0) 
+                damage = attack;
+            else 
+                damage += attack;
+        } else {
+            damage -= Math.abs(attack);
+        }
         return damage;
     }
     
     public static float ApplyPowersToCard(AbstractPlayer p, float damage) {
         int attack = GetAttack(p);
-        if (attack >= 0 && damage < attack)
-            damage = attack;
-        else if (attack < 0)
+        if (attack >= 0) {
+            if (damage < 0)
+                damage = attack;
+            else
+                damage += attack;
+        } else {
             damage -= Math.abs(attack);
+        }
         return damage;
     }
     
@@ -42,8 +52,8 @@ public class AttackHelper {
         return attack;
     }
     
-    public static void SetAttack(@NotNull AbstractCreature target, int armor) {
+    public static void SetAttack(@NotNull AbstractCreature target, int attack) {
         if (target.isPlayer) return;
-        AttackField.attack.set(target, armor);
+        AttackField.attack.set(target, attack);
     }
 }

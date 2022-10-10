@@ -3,14 +3,13 @@ package rs.lunarshop.items.relics.lunar;
 import com.megacrit.cardcrawl.actions.common.HealAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
 public class LeechingSeed extends LunarRelic {
     private int heals;
     
     public LeechingSeed() {
-        super(ItemID.LeechingSeed);
+        super(19);
         heals = 1;
     }
     

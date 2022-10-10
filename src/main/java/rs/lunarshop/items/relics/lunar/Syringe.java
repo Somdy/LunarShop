@@ -2,7 +2,6 @@ package rs.lunarshop.items.relics.lunar;
 
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
 public class Syringe extends LunarRelic {
@@ -11,7 +10,7 @@ public class Syringe extends LunarRelic {
     private boolean trigger;
     
     public Syringe() {
-        super(ItemID.Syringe);
+        super(52);
         lastType = null;
         mod = 3;
         trigger = false;

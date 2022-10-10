@@ -12,9 +12,9 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import rs.lazymankits.utils.LMSK;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.subjects.AbstractLunarEquipment;
+import rs.lunarshop.utils.ItemHelper;
 import rs.lunarshop.utils.LunarImageMst;
 import rs.lunarshop.utils.LunarUtils;
 
@@ -45,13 +45,13 @@ public final class EquipmentProxy implements LunarUtils {
         if (proxy.equipment != null)
             log("Replacing equipment proxy " + proxy.equipment.name + " by " + equipment.name);
         proxy.attach(equipment);
-        if (cprHasLunarRelic(ItemID.DrownedGesture))
+        if (cprHasLunarRelic(ItemHelper.GetProp(4)))
             equipment.setUseAutoActivate(true);
     }
     
     public void dissociate() {
         if (proxy.equipment != null) {
-            log("Dropping equipment proxy: " + proxy.equipment.props.lunarID);
+            log("Dropping equipment proxy: " + proxy.equipment.prop.lunarID);
             LMSK.Player().relics.remove(proxy.equipment);
             proxy.dissociate();
         }
@@ -69,17 +69,23 @@ public final class EquipmentProxy implements LunarUtils {
     private void updateFrame() {
         frame.update();
         if (frame.hovered && !AbstractDungeon.isScreenUp) {
-            if (InputHelper.justClickedRight && proxy.equipment != null) {
-                justClickedRight = true;
+            if (proxy.equipment != null) {
+                proxy.equipment.hb.hovered = true;
+                if (InputHelper.justClickedRight) {
+                    justClickedRight = true;
+                }
+                if (justClickedRight && InputHelper.justReleasedClickRight) {
+                    clickedRight = true;
+                    justClickedRight = false;
+                }
+                if (clickedRight) {
+                    clickedRight = false;
+                    proxy.equipment.updateOnRightClick();
+                }
             }
-            if (justClickedRight && InputHelper.justReleasedClickRight) {
-                clickedRight = true;
-                justClickedRight = false;
-            }
-            if (clickedRight && proxy.equipment != null) {
-                clickedRight = false;
-                proxy.equipment.updateOnRightClick();
-            }
+        }
+        if (!frame.hovered && proxy.equipment != null) {
+            proxy.equipment.hb.hovered = false;
         }
     }
     
@@ -91,7 +97,7 @@ public final class EquipmentProxy implements LunarUtils {
     private void locateFrame() {
         if (LMSK.Player() != null && AbstractDungeon.getCurrRoom() != null) {
             AbstractPlayer p = LMSK.Player();
-            frame.move(p.drawX + p.hb.width / 1.25F, p.drawY + p.hb.height / 1.5F);
+            frame.move(p.drawX - p.hb.width / 1.25F, p.drawY + p.hb.height / 1.25F);
         }
     }
     
@@ -130,12 +136,6 @@ public final class EquipmentProxy implements LunarUtils {
         return proxy.equipment != null;
     }
     
-    public boolean isEquipping(int lunarID) {
-        if (proxy.equipment == null)
-            return false;
-        return proxy.equipment.props.lunarID == lunarID;
-    }
-    
     public boolean isEquipping(AbstractLunarEquipment equipment) {
         if (proxy.equipment == null)
             return false;
@@ -163,7 +163,7 @@ public final class EquipmentProxy implements LunarUtils {
             if (equipment != null) {
                 equipment.update();
                 if (equipment.isUseAutoActivate() && equipment.canActivateEquipment())
-                    equipment.autoActivate();
+                    equipment.autoUse();
                 equipment.targetX = equipment.currentX = cx;
                 equipment.targetY = equipment.currentY = cy;
             }

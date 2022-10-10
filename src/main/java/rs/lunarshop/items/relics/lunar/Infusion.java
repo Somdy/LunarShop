@@ -1,7 +1,6 @@
 package rs.lunarshop.items.relics.lunar;
 
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
 public class Infusion extends LunarRelic {
@@ -11,7 +10,7 @@ public class Infusion extends LunarRelic {
     private int currHp;
     
     public Infusion() {
-        super(ItemID.Infusion);
+        super(31);
         currHp = 0;
     }
     

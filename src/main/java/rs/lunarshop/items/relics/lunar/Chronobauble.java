@@ -3,7 +3,6 @@ package rs.lunarshop.items.relics.lunar;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import rs.lunarshop.actions.common.ApplySlowdownAction;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
 import java.util.HashMap;
@@ -15,13 +14,13 @@ public class Chronobauble extends LunarRelic {
     private int turns;
     
     public Chronobauble() {
-        super(ItemID.Chronobauble);
-        turns = 1;
+        super(33);
+        turns = 2;
     }
     
     @Override
     public void refreshStats() {
-        turns = stack;
+        turns = stack + 1;
     }
     
     @Override
@@ -37,7 +36,7 @@ public class Chronobauble extends LunarRelic {
             if (map.containsKey(target)) {
                 int times = map.get(target);
                 if (times % 2 == 0) {
-                    addToBot(new ApplySlowdownAction(target, cpr(), slowRate, 3));
+                    addToBot(new ApplySlowdownAction(target, cpr(), slowRate, turns));
                     map.remove(target);
                 }
                 else

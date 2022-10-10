@@ -1,6 +1,5 @@
 package rs.lunarshop.items.relics.lunar;
 
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.utils.PotencyHelper;
 
@@ -9,7 +8,7 @@ public class Knurl extends LunarRelic {
     private int regen;
     
     public Knurl() {
-        super(ItemID.Knurl);
+        super(45);
         regen = 1;
     }
     

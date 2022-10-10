@@ -42,7 +42,7 @@ public class LunarStoreRelic implements LunarUtils {
     private void initPrice() {
         price = relic.getPrice();
         if (relic instanceof AbstractLunarRelic) {
-            price = ((AbstractLunarRelic) relic).props.shopPrice(shop.type);
+            price = ((AbstractLunarRelic) relic).prop.shopPrice(shop.type);
         }
     }
     

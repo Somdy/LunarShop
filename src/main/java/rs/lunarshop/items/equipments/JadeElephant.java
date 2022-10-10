@@ -3,20 +3,19 @@ package rs.lunarshop.items.equipments;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.interfaces.relics.GainedBlockRelic;
 import rs.lunarshop.items.abstracts.LunarEquipment;
 import rs.lunarshop.powers.ElephantPower;
 
 public class JadeElephant extends LunarEquipment implements GainedBlockRelic {
     public JadeElephant() {
-        super(ItemID.JadeElephant, 140);
+        super(46, 140);
         setTargetRequired(false);
     }
     
     @Override
-    protected void activate() {
-        super.activate();
+    protected void use() {
+        super.use();
         if (isProxy()) {
             addToBot(new ApplyPowerAction(cpr(), cpr(), new ElephantPower(cpr(), 100, 3)));
             startCooldown();

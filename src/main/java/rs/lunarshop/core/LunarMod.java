@@ -9,29 +9,33 @@ import basemod.eventUtil.util.Condition;
 import basemod.interfaces.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.Loader;
+import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
+import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.*;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardSave;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import rs.lazymankits.LMDebug;
 import rs.lazymankits.LManager;
 import rs.lazymankits.interfaces.OnGainBlockSubscriber;
 import rs.lazymankits.interfaces.OnInitializeSubscriber;
 import rs.lazymankits.utils.LMSK;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
-import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
-import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.relics.AbstractRelic;
 import rs.lunarshop.achievements.AchvGrid;
 import rs.lunarshop.achievements.AchvManager;
 import rs.lunarshop.achievements.AchvTracker;
 import rs.lunarshop.config.MiscConfig;
+import rs.lunarshop.data.LunarDataLoader;
 import rs.lunarshop.enums.LunarClass;
 import rs.lunarshop.events.CleansingPoolEvent;
 import rs.lunarshop.events.EventManager;
@@ -39,11 +43,8 @@ import rs.lunarshop.events.LunarMerchantEvent;
 import rs.lunarshop.interfaces.relics.BlockModifierRelic;
 import rs.lunarshop.items.equipments.EquipmentManager;
 import rs.lunarshop.items.relics.LunarPass;
-import rs.lunarshop.items.relics.RelicAttrs;
 import rs.lunarshop.items.relics.RelicManager;
-import org.jetbrains.annotations.Nullable;
-import rs.lazymankits.LMDebug;
-import rs.lunarshop.localizations.LocaleManager;
+import rs.lunarshop.localizations.LunarLocalLoader;
 import rs.lunarshop.patches.MiscRewardEnum;
 import rs.lunarshop.rewards.LunarMiscReward;
 import rs.lunarshop.subjects.AbstractLunarRelic;
@@ -51,6 +52,7 @@ import rs.lunarshop.ui.EquipmentProxy;
 import rs.lunarshop.ui.OmniPanel;
 import rs.lunarshop.ui.cmdpicker.PickerCaller;
 import rs.lunarshop.ui.cmdpicker.PickerScreen;
+import rs.lunarshop.ui.loadout.LoadoutManager;
 import rs.lunarshop.utils.*;
 
 import java.nio.charset.StandardCharsets;
@@ -60,6 +62,7 @@ import java.util.*;
 public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubscriber, EditKeywordsSubscriber, EditStringsSubscriber, 
         PostDungeonUpdateSubscriber, PostRenderSubscriber, PostInitializeSubscriber, OnGainBlockSubscriber, OnInitializeSubscriber,
         PostCreateStartingRelicsSubscriber, PostUpdateSubscriber, AddAudioSubscriber, MaxHPChangeSubscriber {
+    public static final String MOD_ID = "LunarShop";
     public static final String MOD_NAME = "Bazaars Between Time";
     public static final String[] AUTHORS = {"Somdy"};
     public static final String DESCRIPTION = "Mainly based on risk of rain 2";
@@ -71,8 +74,6 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
     public static OmniPanel OmniPanel;
     public static EquipmentProxy EqmtProxy;
     public static PickerScreen ItemPicker;
-    
-    public static LocaleManager LocalePack;
     
     public static AchvTracker achvTracker;
     public static AchvGrid achvGrid;
@@ -186,6 +187,11 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
         return config.getBool(key);
     }
     
+    public static String GetString(String key) {
+        SpireConfig config = makeConfig();
+        return config.getString(key);
+    }
+    
     public static void SaveInt(String key, int value) {
         SpireConfig config = makeConfig();
         config.setInt(key, value);
@@ -195,6 +201,12 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
     public static void SaveBool(String key, boolean value) {
         SpireConfig config = makeConfig();
         config.setBool(key, value);
+        save(config);
+    }
+    
+    public static void SaveString(String key, String value) {
+        SpireConfig config = makeConfig();
+        config.setString(key, value);
         save(config);
     }
     
@@ -248,21 +260,28 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
         return LunarPotencies[slot];
     }
     
+    @NotNull
     public static String Prefix(String origin) {
         return PREFIX + ":" + origin;
     }
 
     public static void LogInfo(Object what) {
-        LMDebug.Log(lunar, "LUNAR [LOG] ==> " + what);
+        LMDebug.deLog(lunar, "LUNAR [LOG] ==> " + what);
+    }
+    
+    public static void DebugLog(Object what) {
+        if (Loader.DEBUG) {
+            LMDebug.deLog(lunar, "LUNAR [LOG] ==> " + what);
+        }
     }
     
     public static void WarnInfo(Object what) {
         if (!Loader.DEBUG) Loader.DEBUG = true;
-        LMDebug.Log(lunar, "LUNAR [WARN] ==> " + what);
+        LMDebug.deLog(lunar, "LUNAR [WARN] ==> " + what);
     }
 
     public static void PatchLog(Object what) {
-        LMDebug.Log(lunar, "LUNAR [PATCH] ==> " + what);
+        LMDebug.deLog(lunar, "LUNAR [PATCH] ==> " + what);
     }
     
     public static UIStrings UIStrings(String ID) {
@@ -314,7 +333,7 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
     
     @Override
     public void receiveEditKeywords() {
-        String lang = getSupportedLanguage(Settings.language);
+        String lang = getSupportedLang();
         Gson gson = new Gson();
         String keywordJson = Gdx.files.internal("LunarAssets/locals/" + lang + "/keywords.json")
                 .readString(String.valueOf(StandardCharsets.UTF_8));
@@ -329,7 +348,6 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
     public void receiveEditRelics() {
         achvTracker.checkUnlocks();
         
-        RelicAttrs.Initialize();
         RelicManager.LoadRelics();
         EquipmentManager.LoadEquipments();
     }
@@ -346,13 +364,15 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
     
     @Override
     public void receiveOnInitialize() {
-        LocalePack = new LocaleManager();
+        LunarDataLoader.Initialize();
+        LunarLocalLoader.Initialize();
     }
     
     @Override
     public void receivePostInitialize() {
         LunarImageMst.Initialize();
-        
+        LunarFont.Initialize();
+        LoadoutManager.Inst.init();
         BaseMod.registerCustomReward(MiscRewardEnum.LUNAR_COIN, 
                 (onLoad) -> {
                     return ItemHelper.GetLunarCoinReward(onLoad.amount);
@@ -390,7 +410,7 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
                 })
                 .eventType(EventUtils.EventType.SHRINE)
                 .create());
-//        BaseMod.addEvent(new AddEventParams.Builder(LunarMerchantEvent.ID, LunarMerchantEvent.class).create());
+        BaseMod.addEvent(new AddEventParams.Builder(LunarMerchantEvent.ID, LunarMerchantEvent.class).create());
     }
     
     private static void makeModPanels() {
@@ -438,7 +458,7 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
     
     public static void OpenCleansingPicker(PickerCaller caller, int amount, boolean anyNumber) {
         List<AbstractRelic> relics = LunarUtils.CopyRelicList(LMSK.Player().relics, 
-                r -> r instanceof AbstractLunarRelic && ((AbstractLunarRelic) r).props.getClazz() != LunarClass.SPECIAL);
+                r -> r instanceof AbstractLunarRelic && ((AbstractLunarRelic) r).prop.getClazz() != LunarClass.SPECIAL);
         ItemPicker.distinctItems(false);
         ItemPicker.open(caller, relics, amount, anyNumber, true, true, false);
     }

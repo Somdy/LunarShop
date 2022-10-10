@@ -5,7 +5,6 @@ import com.megacrit.cardcrawl.actions.common.HealAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.vfx.combat.FlyingOrbEffect;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.LunarRelic;
 
 public class Scythe extends LunarRelic {
@@ -13,7 +12,7 @@ public class Scythe extends LunarRelic {
     private int healAmt;
     
     public Scythe() {
-        super(ItemID.Scythe);
+        super(28);
         healAmt = 4;
     }
     

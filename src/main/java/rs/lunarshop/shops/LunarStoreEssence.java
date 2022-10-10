@@ -15,7 +15,6 @@ import rs.lunarshop.items.relics.CETemplate;
 import rs.lunarshop.subjects.AbstractCommandEssence;
 import rs.lunarshop.subjects.AbstractLunarShop;
 import rs.lunarshop.utils.LunarUtils;
-import rs.lunarshop.vfx.misc.LunarStoreRelicEffect;
 
 public class LunarStoreEssence implements LunarUtils {
     private static final float RELIC_GOLD_OFFSET_X = -56.0F * Settings.scale;

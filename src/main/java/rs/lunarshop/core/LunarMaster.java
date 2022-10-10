@@ -5,42 +5,42 @@ import basemod.abstracts.CustomSavable;
 import basemod.interfaces.OnStartBattleSubscriber;
 import basemod.interfaces.PostDungeonUpdateSubscriber;
 import basemod.interfaces.StartGameSubscriber;
-import com.google.gson.reflect.TypeToken;
-import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
+import com.google.gson.reflect.TypeToken;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
-import rs.lazymankits.interfaces.TurnStartSubscriber;
+import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.data.AchvID;
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.interfaces.powers.ArmorModifierPower;
 import rs.lunarshop.interfaces.powers.AttackModifierPower;
 import rs.lunarshop.interfaces.relics.ArmorModifierRelic;
 import rs.lunarshop.interfaces.relics.AttackModifierRelic;
 import rs.lunarshop.interfaces.relics.LuckModifierRelic;
-import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.interfaces.relics.RegenModifierRelic;
 import rs.lunarshop.items.relics.LunarPass;
 import rs.lunarshop.items.relics.lunar.Clover;
 import rs.lunarshop.patches.mechanics.ArmorField;
 import rs.lunarshop.patches.mechanics.RegenField;
 import rs.lunarshop.shops.ShopEventManager;
+import rs.lunarshop.ui.loadout.LoadoutManager;
+import rs.lunarshop.ui.loadout.LoadoutTab;
 import rs.lunarshop.utils.AchvHelper;
+import rs.lunarshop.utils.ItemHelper;
 import rs.lunarshop.utils.LunarUtils;
 
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @SpireInitializer
 public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Integer>>, PostDungeonUpdateSubscriber, 
         OnStartBattleSubscriber, StartGameSubscriber {
-    private static Random itemRng1;
-    private static Random itemRng2;
+    private static Random itemRng;
     private static Random shopRng;
     private static int attack;
     private static int regen;
@@ -78,15 +78,14 @@ public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Intege
         return true;
     }
     
-    public static boolean RollLuck(int lunarID, float chance, boolean clover) {
+    public static boolean RollLuck(String from, float chance, boolean clover) {
         refreshLuckStats();
         if (chance <= 0F) return false;
         if (chance >= 1F) {
             LunarMod.WarnInfo("Chance meets 100 percent, returning true");
             return true;
         }
-        LunarMod.LogInfo("Rolling luck for " + lunarID + " at base chance: " + chance);
-        Random rng = GetRng(lunarID);
+        Random rng = GetItemRng();
         int extraRoll = clover ? MathUtils.ceil(Math.abs(luck)) : 0;
         float luckyTime = rng.random(0F, 1F);
         float initLucky = luckyTime;
@@ -94,17 +93,19 @@ public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Intege
             float boundary = rng.random(0F, 1F);
             luckyTime = luck > 0F ? Math.min(luckyTime, boundary) : Math.max(luckyTime, boundary);
         }
-        if (lunarID >= 0 && clover) {
+        if (clover) {
             checkJustLucky(chance, initLucky, luckyTime);
             checkTooLucky(chance, initLucky, luckyTime);
         }
         if (initLucky > chance && luckyTime <= chance) {
-            if (ShopManager.cprHasLunarRelic(ItemID.Clover.lunarID)) {
-                Clover r = (Clover) LMSK.Player().getRelic(ItemID.Clover.internalID);
+            if (ShopManager.cprHasLunarRelic(ItemHelper.GetProp(9))) {
+                Clover r = (Clover) LMSK.Player().getRelic(ItemHelper.GetRelicID(9));
                 if (r != null) r.gotLucky();
             }
         }
-        return luckyTime <= chance;
+        boolean lucky = luckyTime <= chance;
+        LunarMod.LogInfo("Rolled luck for [" + from + "] at [" + chance + "] " + lucky);
+        return lucky;
     }
     
     static void checkJustLucky(float chance, float initLucky, float luckyTime) {
@@ -125,11 +126,11 @@ public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Intege
             AchvHelper.UnlockAchv(AchvID.TooLucky);
     }
      
-    public static Random GetRng(int lunarID) {
-        return lunarID % 2 == 0 ? itemRng1 : itemRng2;
+    public static Random GetItemRng() {
+        return itemRng;
     }
     
-    public static Random GetRngForRelicPool() {
+    public static Random GetShopRng() {
         return shopRng;
     }
     
@@ -229,10 +230,8 @@ public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Intege
     @Override
     public void receiveStartGame() {
         if (!CardCrawlGame.loadingSave) {
-            log("Initializing new lunar any things");
+            log("Initializing new lunar things");
             ShopManager = new ShopEventManager();
-            itemRng1 = new Random(Settings.seed);
-            itemRng2 = new Random(Settings.seed);
             shopRng = new Random(Settings.seed);
             LunarPass.ResetPass();
             LunarMod.ReloadPanel();
@@ -245,10 +244,8 @@ public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Intege
     }
     
     private void checkRngs() {
-        if (itemRng1 == null)
-            itemRng1 = new Random(Settings.seed);
-        if (itemRng2 == null)
-            itemRng2 = new Random(Settings.seed);
+        if (itemRng == null)
+            itemRng = new Random(Settings.seed);
         if (shopRng == null)
             shopRng = new Random(Settings.seed);
     }
@@ -264,8 +261,7 @@ public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Intege
         Map<String, Integer> map = new HashMap<>();
         checkRngs();
         checkShopManager();
-        map.put("itemRng1", itemRng1.counter);
-        map.put("itemRng2", itemRng2.counter);
+        map.put("itemRng", itemRng.counter);
         map.put("shopRng", shopRng.counter);
         map.put("shopFloorLast", ShopManager.getFloorLastShop());
         map.put("justLucky", justLuckyCounter);
@@ -280,15 +276,14 @@ public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Intege
             checkShopManager();
             lunarCoins = LunarMod.GetInt("LunarCoins");
             log("Loading lunar masters");
+            checkRngs();
             saveFields.forEach((k, v) -> {
-                if (k.equals("itemRng1")) {
-                    itemRng1.counter = v;
-                }
-                else if (k.equals("itemRng2")) {
-                    itemRng2.counter = v;
-                }
-                else if (k.equals("shopRng")) {
+                if (k.equals("itemRng")) {
+                    itemRng.counter = v;
+                    log("Loading item rng counter [" + v + "]");
+                } else if (k.equals("shopRng")) {
                     shopRng.counter = v;
+                    log("Loading shop rng counter [" + v + "]");
                 }
                 else if (k.equals("shopFloorLast")) {
                     ShopManager.setFloorLastShop(v);

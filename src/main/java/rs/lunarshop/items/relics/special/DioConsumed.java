@@ -1,11 +1,10 @@
 package rs.lunarshop.items.relics.special;
 
-import rs.lunarshop.data.ItemID;
 import rs.lunarshop.items.abstracts.SpecialRelic;
 
 public class DioConsumed extends SpecialRelic {
     public DioConsumed() {
-        super(ItemID.DioConsumed);
+        super(57);
     }
     
     @Override
