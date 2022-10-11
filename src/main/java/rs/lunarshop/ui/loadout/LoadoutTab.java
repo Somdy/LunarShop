@@ -187,6 +187,11 @@ public abstract class LoadoutTab implements LunarUtils {
             options.add(option);
     }
     
+    protected void updateManagerValues() {
+        manager.updateTotalLevel();
+        manager.updateSelectedGroup();
+    }
+    
     protected abstract void updateOnHovering();
     protected abstract void updateOnUnhovering();
     protected abstract void saveConfig(LoadoutConfig config);

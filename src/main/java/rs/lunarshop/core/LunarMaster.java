@@ -4,18 +4,22 @@ import basemod.BaseMod;
 import basemod.abstracts.CustomSavable;
 import basemod.interfaces.OnStartBattleSubscriber;
 import basemod.interfaces.PostDungeonUpdateSubscriber;
+import basemod.interfaces.StartActSubscriber;
 import basemod.interfaces.StartGameSubscriber;
 import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.reflect.TypeToken;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import org.jetbrains.annotations.Nullable;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.data.AchvID;
+import rs.lunarshop.data.DifficultyMod;
 import rs.lunarshop.interfaces.powers.ArmorModifierPower;
 import rs.lunarshop.interfaces.powers.AttackModifierPower;
 import rs.lunarshop.interfaces.relics.ArmorModifierRelic;
@@ -27,6 +31,7 @@ import rs.lunarshop.items.relics.lunar.Clover;
 import rs.lunarshop.patches.mechanics.ArmorField;
 import rs.lunarshop.patches.mechanics.RegenField;
 import rs.lunarshop.shops.ShopEventManager;
+import rs.lunarshop.subjects.lunarprops.LunarNpcProp;
 import rs.lunarshop.ui.loadout.LoadoutManager;
 import rs.lunarshop.ui.loadout.LoadoutTab;
 import rs.lunarshop.utils.AchvHelper;
@@ -39,7 +44,9 @@ import java.util.Map;
 
 @SpireInitializer
 public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Integer>>, PostDungeonUpdateSubscriber, 
-        OnStartBattleSubscriber, StartGameSubscriber {
+        OnStartBattleSubscriber, StartGameSubscriber, StartActSubscriber {
+    private static final Map<Integer, DifficultyMod> DIFFICULTY_MOD_MAP = new HashMap<>();
+    
     private static Random itemRng;
     private static Random shopRng;
     private static int attack;
@@ -48,10 +55,9 @@ public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Intege
     protected static int lunarCoins;
     private static float luck;
     protected static int eclipse;
-    
     private static int justLuckyCounter;
-    
     public static ShopEventManager ShopManager;
+    public static int ProgModCount;
     
     public static void initialize() {
         LunarMaster master = new LunarMaster();
@@ -63,6 +69,18 @@ public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Intege
         eclipse = 0;
         BaseMod.subscribe(master);
         BaseMod.addSaveField("LunarMaster", master);
+    }
+    
+    public static void AddDifficultyMod(DifficultyMod mod) {
+        DIFFICULTY_MOD_MAP.put(mod.level, mod);
+    }
+    
+    @Nullable
+    public static DifficultyMod GetDifficultyMod(int level) {
+        if (DIFFICULTY_MOD_MAP.containsKey(level))
+            return DIFFICULTY_MOD_MAP.get(level);
+        LunarMod.LogInfo("UNDEFINED DIFFICULTY LEVEL [" + level + "]");
+        return null;
     }
     
     public static void PickUpLunarCoin(int gain) {
@@ -222,27 +240,6 @@ public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Intege
         eclipse = level;
     }
     
-    @Override
-    public void receiveOnBattleStart(AbstractRoom r) {
-        checkRngs();
-    }
-    
-    @Override
-    public void receiveStartGame() {
-        if (!CardCrawlGame.loadingSave) {
-            log("Initializing new lunar things");
-            ShopManager = new ShopEventManager();
-            shopRng = new Random(Settings.seed);
-            LunarPass.ResetPass();
-            LunarMod.ReloadPanel();
-        }
-    }
-    
-    @Override
-    public void receivePostDungeonUpdate() {
-        checkShopManager();
-    }
-    
     private void checkRngs() {
         if (itemRng == null)
             itemRng = new Random(Settings.seed);
@@ -266,6 +263,7 @@ public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Intege
         map.put("shopFloorLast", ShopManager.getFloorLastShop());
         map.put("justLucky", justLuckyCounter);
         map.put("eclipse", eclipse);
+        map.put("progModCount", ProgModCount);
         return map;
     }
     
@@ -294,6 +292,9 @@ public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Intege
                 else if (k.equals("eclipse")) {
                     eclipse = v;
                 }
+                else if (k.equals("progModCount")) {
+                    ProgModCount = v;
+                }
             });
         }
     }
@@ -301,5 +302,36 @@ public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Intege
     @Override
     public Type savedType() {
         return new TypeToken<Map<String, Integer>>(){}.getType();
+    }
+    
+    @Override
+    public void receiveOnBattleStart(AbstractRoom r) {
+        checkRngs();
+    }
+    
+    @Override
+    public void receiveStartGame() {
+        if (!CardCrawlGame.loadingSave) {
+            log("Initializing new lunar things");
+            ShopManager = new ShopEventManager();
+            itemRng = new Random(Settings.seed);
+            shopRng = new Random(Settings.seed);
+            ProgModCount = 0;
+            LunarPass.ResetPass();
+            LunarMod.ReloadPanel();
+        }
+    }
+    
+    @Override
+    public void receivePostDungeonUpdate() {
+        checkShopManager();
+    }
+    
+    @Override
+    public void receiveStartAct() {
+        if (AbstractDungeon.floorNum > 1) {
+            ProgModCount++;
+            log("Transiting dungeon to next one, current progcount [" + ProgModCount + "]");
+        }
     }
 }

@@ -94,6 +94,7 @@ public abstract class LoadoutOption implements LunarUtils {
     
     private void onLeftClick() {
         selfOnLeftClick();
+        tab.updateManagerValues();
         tab.manager.saveConfig();
     }
     

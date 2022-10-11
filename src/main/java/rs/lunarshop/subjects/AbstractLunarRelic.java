@@ -427,17 +427,21 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
         if (InputHelper.mX < 1400F * Settings.scale) {
             if (CardCrawlGame.mainMenuScreen.screen == MainMenuScreen.CurScreen.RELIC_VIEW) {
                 LunarTipHelper.QueueLunarTips(90F * Settings.scale, Settings.HEIGHT * 0.7F, lunarTips);
-            } else if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.SHOP
+            }
+            else if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.SHOP
                     && this.tips.size() > 2 && !AbstractDungeon.player.hasRelic(relicId)) {
                 LunarTipHelper.QueueLunarTips(InputHelper.mX + 60F * Settings.scale, 
                         InputHelper.mY + 180F * Settings.scale, lunarTips);
-            } else if (AbstractDungeon.player != null && AbstractDungeon.player.hasRelic(relicId)) {
+            }
+            else if (AbstractDungeon.player != null && AbstractDungeon.player.hasRelic(relicId)) {
                 LunarTipHelper.QueueLunarTips(InputHelper.mX + 60F * Settings.scale, 
                         InputHelper.mY - 30F * Settings.scale, lunarTips);
-            } else if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.COMBAT_REWARD) {
-                LunarTipHelper.QueueLunarTips(360F * Settings.scale, 
+            }
+            else if (AbstractDungeon.screen == AbstractDungeon.CurrentScreen.COMBAT_REWARD) {
+                LunarTipHelper.QueueLunarTips(260F * Settings.scale, 
                         InputHelper.mY + 50F * Settings.scale, lunarTips);
-            } else {
+            }
+            else {
                 LunarTipHelper.QueueLunarTips(InputHelper.mX + 50F * Settings.scale, 
                         InputHelper.mY + 50F * Settings.scale, lunarTips);
             }

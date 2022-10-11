@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import rs.lunarshop.core.LunarMaster;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.enums.LunarRarity;
 import rs.lunarshop.subjects.lunarprops.LunarItemProp;
@@ -64,7 +65,7 @@ public class LunarDataLoader {
             DifficultyMod[] mods = gson.fromJson(dataJson, DifficultyMod[].class);
             assert mods != null;
             for (DifficultyMod m : mods) {
-                LoadoutManager.AddDifficultyMod(m);
+                LunarMaster.AddDifficultyMod(m);
                 MsgHelper.Append(m.level);
             }
         }

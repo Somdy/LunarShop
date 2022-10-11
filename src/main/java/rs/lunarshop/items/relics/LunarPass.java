@@ -20,6 +20,7 @@ import rs.lunarshop.subjects.lunarprops.LunarNpcProp;
 import rs.lunarshop.ui.campfire.LunarFireOption;
 import rs.lunarshop.ui.cmdpicker.ItemContainer;
 import rs.lunarshop.ui.cmdpicker.PickerCaller;
+import rs.lunarshop.ui.loadout.LoadoutManager;
 import rs.lunarshop.utils.ItemHelper;
 import rs.lunarshop.utils.ItemSpawner;
 import rs.lunarshop.utils.LunarUtils;
@@ -143,6 +144,10 @@ public final class LunarPass extends LMCustomRelic implements LunarUtils, Picker
     @Override
     public void onMonsterDeath(AbstractMonster m) {
         super.onMonsterDeath(m);
+        dropItemOnMonsterDeath(m);
+    }
+    
+    private void dropItemOnMonsterDeath(AbstractMonster m) {
         LunarNpcProp prop = NpcHelper.GetProp(m.id);
         if (prop != null) {
             float baseDropRate = prop.getDropRate();

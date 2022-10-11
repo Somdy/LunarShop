@@ -18,6 +18,7 @@ public class MonsterStatsPatch {
     public static void Postfix(AbstractMonster __instance) {
         LunarNpcProp prop = NpcHelper.GetProp(__instance.id);
         if (prop != null) {
+            prop = prop.modify();
             ArmorHelper.SetArmor(__instance, prop.getArmor());
             AttackHelper.SetAttack(__instance, prop.getAttack());
             RegenHelper.SetRegen(__instance, prop.getRegen());

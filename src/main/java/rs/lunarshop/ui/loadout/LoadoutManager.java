@@ -1,5 +1,6 @@
 package rs.lunarshop.ui.loadout;
 
+import basemod.BaseMod;
 import basemod.abstracts.CustomSavable;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -16,15 +17,11 @@ import rs.lunarshop.data.DifficultyMod;
 import rs.lunarshop.utils.LunarImageMst;
 import rs.lunarshop.utils.LunarUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SuppressWarnings("unused")
 public class LoadoutManager implements LunarUtils, CustomSavable<Map<String, String>> {
     public static final LoadoutManager Inst = new LoadoutManager();
-    private static final Map<Integer, DifficultyMod> DIFFICULTY_MOD_MAP = new HashMap<>();
     
     public static final Texture LOADOUT_BUTTON = LunarImageMst.loadLocally("LunarAssets/imgs/ui/loadout/LoadoutButton_", ".png");
     public static final Texture LOADOUT_BUTTON_PRESSED = LunarImageMst.loadLocally("LunarAssets/imgs/ui/loadout/LoadoutButton_pressed_", ".png");
@@ -50,7 +47,7 @@ public class LoadoutManager implements LunarUtils, CustomSavable<Map<String, Str
     private int difficultyLevel;
     private int rainLevel;
     private int eclipseLevel;
-    private List<String> artifacts = new ArrayList<>();
+    private List<String> selectedArtifacts = new ArrayList<>();
     
     private LoadoutManager() {
         tabs.add(new DifficultyTab(this));
@@ -59,17 +56,7 @@ public class LoadoutManager implements LunarUtils, CustomSavable<Map<String, Str
         loadoutHb = new Hitbox(scale(LOADOUT_W), scale(LOADOUT_H));
         difficultyLevel = rainLevel + eclipseLevel;
         init();
-    }
-    
-    public static void AddDifficultyMod(DifficultyMod mod) {
-        DIFFICULTY_MOD_MAP.put(mod.level, mod);
-    }
-    
-    public static DifficultyMod GetDifficultyMod(int level) {
-        if (DIFFICULTY_MOD_MAP.containsKey(level))
-            return DIFFICULTY_MOD_MAP.get(level);
-        LunarMod.LogInfo("UNDEFINED DIFFICULTY LEVEL [" + level + "]");
-        return DifficultyMod.MockingMod();
+        BaseMod.addSaveField("LoadoutManager", this);
     }
     
     public void init() {
@@ -108,7 +95,6 @@ public class LoadoutManager implements LunarUtils, CustomSavable<Map<String, Str
             pressed = false;
         updateTabs();
         updateRenderArea();
-        updateTotalLevel();
     }
     
     private void updateTabs() {
@@ -132,12 +118,6 @@ public class LoadoutManager implements LunarUtils, CustomSavable<Map<String, Str
         }
     }
     
-    private void updateTotalLevel() {
-        rainLevel = tabs.get(0).getLoadoutValue();
-        eclipseLevel = tabs.get(1).getLoadoutValue();
-        difficultyLevel = rainLevel + eclipseLevel;
-    }
-    
     private void updateRenderArea() {
         int last = tabs.size() - 1;
         LoadoutTab tab = tabs.get(last);
@@ -147,6 +127,17 @@ public class LoadoutManager implements LunarUtils, CustomSavable<Map<String, Str
         float topLine = loadoutHb.y + loadoutHb.height + LunarImageMst.LAYOUT_BG_H;
         layoutMidRenderHeight = topLine - (layoutMidRenderY + LunarImageMst.LAYOUT_BG_H);
         layoutTopRenderY = layoutMidRenderY + layoutMidRenderHeight;
+    }
+    
+    protected void updateTotalLevel() {
+        rainLevel = tabs.get(0).getLoadoutValue();
+        eclipseLevel = tabs.get(1).getLoadoutValue();
+        difficultyLevel = rainLevel + eclipseLevel;
+    }
+    
+    protected void updateSelectedGroup() {
+        selectedArtifacts.clear();
+        selectedArtifacts.addAll(tabs.get(2).getLoadoutValues());
     }
     
     public void render(SpriteBatch sb) {
@@ -218,12 +209,21 @@ public class LoadoutManager implements LunarUtils, CustomSavable<Map<String, Str
         return eclipseLevel;
     }
     
+    public boolean isArtifactEnabled(String artifactID) {
+        return selectedArtifacts.contains(artifactID);
+    }
+    
     @Override
     public Map<String, String> onSave() {
         log("Saving in-game loadout values");
         Map<String, String> map = new HashMap<>();
         map.put(RAIN_KEY, String.valueOf(rainLevel));
         map.put(ECLIPSE_KEY, String.valueOf(eclipseLevel));
+        if (!selectedArtifacts.isEmpty()) {
+            for (String ID : selectedArtifacts) {
+                map.put(ARTIFACT_KEY + ID, String.valueOf(true));
+            }
+        }
         return map;
     }
     
@@ -231,7 +231,27 @@ public class LoadoutManager implements LunarUtils, CustomSavable<Map<String, Str
     public void onLoad(Map<String, String> map) {
         if (map != null) {
             log("Loading in-game loadout values");
+            selectedArtifacts.clear();
+            map.forEach((k ,v) -> {
+                if (RAIN_KEY.equals(k))
+                    rainLevel = Integer.parseInt(v);
+                if (ECLIPSE_KEY.equals(k))
+                    eclipseLevel = Integer.parseInt(v);
+                if (k.startsWith(ARTIFACT_KEY)) {
+                    String artifactID = k.split("_")[1];
+                    if (!ARTIFACTS.MANAGED.contains(artifactID)) {
+                        throw new RuntimeException("[" + artifactID + "] is not an artifact");
+                    }
+                    selectedArtifacts.add(artifactID);
+                }
+                log("loadout: [" + k + ", " + v + "]");
+            });
+            clearMessOnLoad();
         }
+    }
+    
+    private void clearMessOnLoad() {
+        difficultyLevel = rainLevel + eclipseLevel;
     }
     
     public static class DIFFICULTIES {
@@ -260,5 +280,9 @@ public class LoadoutManager implements LunarUtils, CustomSavable<Map<String, Str
         public static final String ENIGMA = "Enigma";
         public static final String SPITE = "Spite";
         public static final String METAMORPHOSIS = "Metamorphosis";
+        
+        public static final List<String> MANAGED = new ArrayList<>(Arrays.asList(
+                SACRIFICE, SWARMS, EVOLUTION, KIN, COMMAND, ENIGMA, SPITE, METAMORPHOSIS
+        ));
     }
 }

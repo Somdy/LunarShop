@@ -14,6 +14,7 @@ import rs.lazymankits.utils.LMGameGeneralUtils;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.subjects.AbstractLunarRelic;
 import rs.lunarshop.subjects.lunarprops.LunarItemProp;
+import rs.lunarshop.ui.loadout.LoadoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +87,14 @@ public interface LunarUtils extends LMGameGeneralUtils {
         return CopyRelicList(from, expt);
     }
     
+    default void instantObtain(@NotNull AbstractRelic r) {
+        r.instantObtain();
+    }
+    
+    default boolean isCrit(int damageAmount, DamageInfo info) {
+        return damageAmount >= MathUtils.floor(info.base * 1.5F);
+    }
+    
     @NotNull
     static List<AbstractRelic> CopyRelicList(@NotNull List<AbstractRelic> from, Predicate<AbstractRelic> expt) {
         List<AbstractRelic> copy = new ArrayList<>();
@@ -101,6 +110,18 @@ public interface LunarUtils extends LMGameGeneralUtils {
         return CopyRelicList(from, r -> true);
     }
     
+    static int RainLevel() {
+        return LoadoutManager.Inst.getRainLevel();
+    }
+    
+    static int EclipseLevel() {
+        return LoadoutManager.Inst.getEclipseLevel();
+    }
+    
+    static boolean ArtifactEnabled(String artifactID) {
+        return LoadoutManager.Inst.isArtifactEnabled(artifactID);
+    }
+    
     static String GetLang() {
         switch(Settings.language) {
             case ZHS:
@@ -110,13 +131,5 @@ public interface LunarUtils extends LMGameGeneralUtils {
             default:
                 return "eng";
         }
-    }
-    
-    default void instantObtain(@NotNull AbstractRelic r) {
-        r.instantObtain();
-    }
-    
-    default boolean isCrit(int damageAmount, DamageInfo info) {
-        return damageAmount >= MathUtils.floor(info.base * 1.5F);
     }
 }
