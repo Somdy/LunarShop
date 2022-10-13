@@ -21,21 +21,13 @@ public class Corpsebloom extends LunarRelic {
         storeHeal = 0;
         turnHeal = 0;
         triggerEffect = true;
+        presetInfo(s -> createInfo(s, SciPercent(healBuff), MathUtils.ceil(maxHeal * cpr().maxHealth), storeHeal));
     }
     
     @Override
     public void refreshStats() {
         healBuff = 1F + 0.5F * (stack - 1);
         maxHeal = 0.25F * 1 / stack;
-    }
-    
-    @Override
-    public void constructInfo() {
-        if (storeHeal > 0) {
-            createStatsInfo(DESCRIPTIONS[2], SciPercent(healBuff), MathUtils.ceil(maxHeal * cpr().maxHealth), storeHeal);
-        } else {
-            createStatsInfo(DESCRIPTIONS[1], SciPercent(healBuff), MathUtils.ceil(maxHeal * cpr().maxHealth));
-        }
     }
     
     @Override

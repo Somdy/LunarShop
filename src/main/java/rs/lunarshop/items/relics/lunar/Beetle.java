@@ -18,6 +18,7 @@ public final class Beetle extends LunarRelic {
         super(8);
         hpBuff = 0.5F;
         armor = 0;
+        presetInfo(s -> createInfo(s, armor, MathUtils.ceil(armor * 0.5F)));
     }
     
     @Override

@@ -12,19 +12,19 @@ public class Slug extends LunarRelic {
         super(59);
         counter = -1;
         regen = 3;
+        presetInfo(this::setInfo);
     }
     
     @Override
     public void refreshStats() {
         regen = 2 + stack;
     }
-    
-    @Override
-    public void constructInfo() {
+
+    private void setInfo(String[] s) {
         if (counter == -2) {
-            createStatsInfo(DESCRIPTIONS[1], regen);
+            s[0] = createInfo(DESCRIPTIONS[1], regen);
         } else {
-            createStatsInfo(DESCRIPTIONS[2]);
+            s[0] = createInfo(DESCRIPTIONS[2]);
         }
     }
     

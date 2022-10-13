@@ -2,8 +2,8 @@ package rs.lunarshop.achievements;
 
 import org.jetbrains.annotations.NotNull;
 import rs.lunarshop.data.AchvID;
-import rs.lunarshop.subjects.AbstractLunarAchievement;
-import rs.lunarshop.subjects.lunarprops.LunarAchvData;
+import rs.lunarshop.abstracts.AbstractLunarAchievement;
+import rs.lunarshop.abstracts.lunarprops.LunarAchvData;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

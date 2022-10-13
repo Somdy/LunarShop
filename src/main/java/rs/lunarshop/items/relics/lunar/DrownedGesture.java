@@ -2,7 +2,7 @@ package rs.lunarshop.items.relics.lunar;
 
 import com.badlogic.gdx.math.MathUtils;
 import rs.lunarshop.items.abstracts.LunarRelic;
-import rs.lunarshop.subjects.AbstractLunarEquipment;
+import rs.lunarshop.abstracts.AbstractLunarEquipment;
 
 public class DrownedGesture extends LunarRelic {
     private float coolMult;
@@ -10,16 +10,12 @@ public class DrownedGesture extends LunarRelic {
     public DrownedGesture() {
         super(4);
         coolMult = 0.7F;
+        presetInfo(s -> createInfo(s, SciPercent(1 - coolMult)));
     }
     
     @Override
     public void refreshStats() {
         coolMult = (float) (0.7F * Math.pow((1 - 0.1F), stack - 1));
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], SciPercent(1 - coolMult));
     }
     
     @Override

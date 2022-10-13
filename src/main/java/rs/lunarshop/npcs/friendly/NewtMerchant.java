@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.actions.common.RollMoveAction;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import rs.lunarshop.data.NpcID;
 import rs.lunarshop.powers.unique.MirageNewtPower;
-import rs.lunarshop.subjects.AbstractLunarMonster;
+import rs.lunarshop.abstracts.AbstractLunarMonster;
 import rs.lunarshop.vfx.combat.NewtChargingGlowEffect;
 
 public class NewtMerchant extends AbstractLunarMonster {

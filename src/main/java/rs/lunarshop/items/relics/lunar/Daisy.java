@@ -16,17 +16,12 @@ public class Daisy extends LunarRelic {
         setBattleUse();
         percent = 0.2F;
         turn = 1;
+        presetInfo(s -> createInfo(s, MathUtils.ceil(cpr().maxHealth * percent)));
     }
     
     @Override
     public void refreshStats() {
         percent = 0.2F + 0.05F * (stack - 1);
-    }
-    
-    @Override
-    public void constructInfo() {
-        int healAmt = MathUtils.ceil(cpr().maxHealth * percent);
-        createStatsInfo(DESCRIPTIONS[1], healAmt);
     }
     
     @Override

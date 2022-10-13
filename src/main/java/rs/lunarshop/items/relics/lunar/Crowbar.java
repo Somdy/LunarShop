@@ -11,16 +11,12 @@ public class Crowbar extends LunarRelic {
     public Crowbar() {
         super(35);
         damageMult = 0.5F;
+        presetInfo(s -> createInfo(s, SciPercent(damageMult)));
     }
     
     @Override
     public void refreshStats() {
         damageMult = 0.5F * stack;
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], SciPercent(damageMult));
     }
     
     @Override

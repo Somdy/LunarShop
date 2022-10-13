@@ -14,17 +14,17 @@ public class ShopType {
     public static final int INVALID = -1;
     public static final int LUNAR = 0;
     public static final int VOID = 1;
-    public static final int TABOO = 2;
+    public static final int LEGACY = 2;
     public static final int DEV = 3;
     public static final int PLANET = 4;
 
     protected static boolean ValidType(int type) {
-        return type > INVALID && type <= TABOO;
+        return type > INVALID && type <= LEGACY;
     }
 
     protected static int ReturnRndType() {
-        int type1 = AbstractDungeon.eventRng.random(LUNAR, TABOO);
-        int type2 = AbstractDungeon.eventRng.random(LUNAR, TABOO);
+        int type1 = AbstractDungeon.eventRng.random(LUNAR, LEGACY);
+        int type2 = AbstractDungeon.eventRng.random(LUNAR, LEGACY);
         return type1 == type2 ? type1 : ReturnRndType();
     }
     
@@ -34,7 +34,7 @@ public class ShopType {
                 return TEXT[0];
             case VOID:
                 return TEXT[1];
-            case TABOO:
+            case LEGACY:
                 return TEXT[2];
             case DEV:
                 return TEXT[3];

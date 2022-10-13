@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.combat.DaggerSprayEffect;
 import rs.lunarshop.items.abstracts.LunarRelic;
-import rs.lunarshop.utils.AttackHelper;
+import rs.lunarshop.utils.mechanics.AttackHelper;
 
 public class Razorwire extends LunarRelic {
     private static final int BASE_DAMAGE = 2;
@@ -20,12 +20,6 @@ public class Razorwire extends LunarRelic {
     @Override
     public void refreshStats() {
         damage = BASE_DAMAGE * stack;
-    }
-    
-    @Override
-    public void constructInfo() {
-        int attack = AttackHelper.GetAttack(cpr());
-        createStatsInfo(DESCRIPTIONS[1], damage + attack);
     }
     
     @Override

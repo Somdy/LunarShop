@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.items.relics.lunar.DeathMark;
-import rs.lunarshop.subjects.AbstractLunarPower;
+import rs.lunarshop.abstracts.AbstractLunarPower;
 
 public class DeathMarkPower extends AbstractLunarPower {
     public static final String POWER_ID = LunarMod.Prefix("DeathMarkPower");

@@ -5,8 +5,8 @@ import com.megacrit.cardcrawl.helpers.PowerTip;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.enums.EssCallerType;
 import rs.lunarshop.enums.LunarRarity;
-import rs.lunarshop.subjects.AbstractCommandEssence;
-import rs.lunarshop.subjects.AbstractLunarRelic;
+import rs.lunarshop.abstracts.AbstractCommandEssence;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
 import rs.lunarshop.utils.ItemSpawner;
 import rs.lunarshop.utils.PotencyHelper;
 

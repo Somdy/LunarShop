@@ -19,11 +19,6 @@ public class Knurl extends LunarRelic {
     }
     
     @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], hp, regen);
-    }
-    
-    @Override
     protected void onStackAmt(int amt, boolean stacking) {
         if (!stacking) return;
         for (int i = 0; i < amt; i++) {

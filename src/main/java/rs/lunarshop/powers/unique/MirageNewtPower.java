@@ -10,12 +10,12 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import rs.lazymankits.actions.utility.QuickAction;
 import rs.lunarshop.actions.common.BanCardAction;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.interfaces.powers.ArmorModifierPower;
+import rs.lunarshop.interfaces.ArmorModifierInterface;
 import rs.lunarshop.npcs.friendly.NewtMerchant;
 import rs.lunarshop.npcs.monsters.LunarSnecko;
-import rs.lunarshop.subjects.AbstractLunarPower;
+import rs.lunarshop.abstracts.AbstractLunarPower;
 
-public class MirageNewtPower extends AbstractLunarPower implements ArmorModifierPower {
+public class MirageNewtPower extends AbstractLunarPower implements ArmorModifierInterface {
     public static final String POWER_ID = LunarMod.Prefix("MirageNewtPower");
     private final boolean nerf;
     private final boolean isNewt;
@@ -105,7 +105,7 @@ public class MirageNewtPower extends AbstractLunarPower implements ArmorModifier
             origin += amount;
         if (extraAmt > 0)
             origin += extraAmt;
-        return ArmorModifierPower.super.modifyArmor(origin);
+        return ArmorModifierInterface.super.modifyArmor(origin);
     }
     
     @Override

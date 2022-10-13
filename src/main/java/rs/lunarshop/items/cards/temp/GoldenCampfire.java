@@ -26,7 +26,7 @@ public class GoldenCampfire extends LMCustomCard {
     
     @Override
     public void onChoseThisOption() {
-        LunarMaster.ShopManager.setCurrShop(ShopType.TABOO);
+        LunarMaster.ShopManager.setCurrShop(ShopType.LEGACY);
         LunarMaster.PickUpLunarCoin(20);
         LunarMod.addToBot(new QuickAction(() -> LunarMaster.ShopManager.openShop()));
     }

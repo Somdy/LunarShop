@@ -21,6 +21,7 @@ public class CrowdFunder extends LunarEquipment {
         goldCost = base;
         damageMult = 0F;
         isOn = false;
+        presetInfo(this::setInfo);
     }
     
     @Override
@@ -29,12 +30,11 @@ public class CrowdFunder extends LunarEquipment {
         damageMult = goldCost * (1.5F + currFloor() * 0.01F) / 100F;
     }
     
-    @Override
-    public void constructInfo() {
+    private void setInfo(String[] s) {
         if (isOn) {
-            createStatsInfo(DESCRIPTIONS[1], goldCost, SciPercent(damageMult));
+            s[0] = createInfo(DESCRIPTIONS[1], goldCost, SciPercent(damageMult));
         } else {
-            createStatsInfo(DESCRIPTIONS[2]);
+            s[0] = createInfo(DESCRIPTIONS[2]);
         }
     }
     

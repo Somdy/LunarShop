@@ -13,14 +13,10 @@ public class DifficultyOption extends LoadoutOption {
     public static final LunarTipLocals tipBuilder = LunarLocalLoader.GetTipBuilder("DifficultyOption");
     public static final int IMAGE_S = 48;
     public static final int FRAME_S = 68;
-    private final Texture frame;
-    private final Texture hovered_frame;
     
     public DifficultyOption(DifficultyTab tab, int level) {
         super(tab, LunarImageMst.RainLevelOf(level), IMAGE_S, IMAGE_S, 68F, 68F, Settings.scale);
         this.valueInt = level;
-        frame = LunarImageMst.RainLevelFrame;
-        hovered_frame = LunarImageMst.RainLevelHoveredFrame;
         makeLunarTip(tipBuilder, valueInt, getTipColor(), LunarTip.B_DEFAULT);
     }
     
@@ -49,13 +45,15 @@ public class DifficultyOption extends LoadoutOption {
             sb.setColor(Color.WHITE.cpy());
             if (!selected) {
                 if (!hovered) {
-                    sb.draw(frame, hb.cX - FRAME_S / 2F, hb.cY - FRAME_S / 2F, FRAME_S / 2F, FRAME_S / 2F,
-                            FRAME_S, getRenderHeight(FRAME_S), scale, scale, 0F, 0, FRAME_S - getSrcRenderHeight(FRAME_S),
-                            FRAME_S, getSrcRenderHeight(FRAME_S), false, false);
+                    sb.draw(LunarImageMst.RainLevelFrame, hb.cX - FRAME_S / 2F, hb.cY - FRAME_S / 2F, FRAME_S / 2F, 
+                            FRAME_S / 2F, FRAME_S, getRenderHeight(FRAME_S), scale, scale, 0F, 0, 
+                            FRAME_S - getSrcRenderHeight(FRAME_S), FRAME_S, getSrcRenderHeight(FRAME_S), 
+                            false, false);
                 } else {
-                    sb.draw(hovered_frame, hb.cX - FRAME_S / 2F, hb.cY - FRAME_S / 2F, FRAME_S / 2F, FRAME_S / 2F,
-                            FRAME_S, getRenderHeight(FRAME_S), scale, scale, 0F, 0, FRAME_S - getSrcRenderHeight(FRAME_S),
-                            FRAME_S, getSrcRenderHeight(FRAME_S), false, false);
+                    sb.draw(LunarImageMst.RainLevelHoveredFrame, hb.cX - FRAME_S / 2F, hb.cY - FRAME_S / 2F, 
+                            FRAME_S / 2F, FRAME_S / 2F, FRAME_S, getRenderHeight(FRAME_S), scale, scale, 0F, 
+                            0, FRAME_S - getSrcRenderHeight(FRAME_S), FRAME_S, getSrcRenderHeight(FRAME_S), 
+                            false, false);
                 }
             }
             if (selected) {

@@ -10,11 +10,6 @@ public class Fealty extends LunarRelic {
     }
     
     @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1]);
-    }
-    
-    @Override
     public void atBattleStart() {
         super.atBattleStart();
         int coins = 2;

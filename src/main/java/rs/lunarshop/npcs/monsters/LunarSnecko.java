@@ -27,8 +27,8 @@ import rs.lunarshop.powers.CelestinePower;
 import rs.lunarshop.powers.GlacialPower;
 import rs.lunarshop.powers.MalachitePower;
 import rs.lunarshop.powers.unique.MirageNewtPower;
-import rs.lunarshop.subjects.AbstractLunarMonster;
-import rs.lunarshop.utils.ArmorHelper;
+import rs.lunarshop.abstracts.AbstractLunarMonster;
+import rs.lunarshop.utils.mechanics.ArmorHelper;
 import rs.lunarshop.utils.PotencyHelper;
 import rs.lunarshop.vfx.combat.FireIgniteEffect;
 

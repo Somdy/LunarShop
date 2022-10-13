@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.items.relics.lunar.Shattering;
-import rs.lunarshop.subjects.AbstractLunarPower;
+import rs.lunarshop.abstracts.AbstractLunarPower;
 import rs.lunarshop.utils.ItemHelper;
 
 public class ShatteringPower extends AbstractLunarPower {

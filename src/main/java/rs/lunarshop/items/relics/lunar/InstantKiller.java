@@ -21,16 +21,12 @@ public class InstantKiller extends LunarRelic {
     public InstantKiller() {
         super(17);
         threshold = 0.11F;
+        presetInfo(s -> createInfo(s, threshold));
     }
     
     @Override
     public void refreshStats() {
         threshold = 1 - 1 / (1 + 0.125F * stack);
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], SciPercent(threshold));
     }
     
     @Override

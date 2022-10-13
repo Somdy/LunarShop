@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.subjects.AbstractLunarPower;
+import rs.lunarshop.abstracts.AbstractLunarPower;
 
 public final class TonicDebuffPower extends AbstractLunarPower {
     public static final String POWER_ID = LunarMod.Prefix("TonicDebuffPower");

@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import rs.lazymankits.interfaces.powers.CardProofPower;
 import rs.lunarshop.actions.common.ApplySlowdownAction;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.subjects.AbstractLunarPower;
+import rs.lunarshop.abstracts.AbstractLunarPower;
 
 public class CelestinePower extends AbstractLunarPower implements CardProofPower {
     public static final String POWER_ID = LunarMod.Prefix("CelestinePower");

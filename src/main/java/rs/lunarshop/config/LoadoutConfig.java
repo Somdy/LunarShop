@@ -41,15 +41,15 @@ public class LoadoutConfig implements LunarUtils {
     public void pushToPrefs(@NotNull Prefs pref) {
         intMap.forEach((k, v) -> {
             pref.putInteger(k, v);
-            deLog("Saved loadout value [" + k + ", " + v + "]");
+            deLog("Saved loadout: [" + k + ", " + v + "]");
         });
         boolMap.forEach((k, v) -> {
             pref.putBoolean(k, v);
-            deLog("Saved loadout value [" + k + ", " + v + "]");
+            deLog("Saved loadout: [" + k + ", " + v + "]");
         });
         stringMap.forEach((k, v) -> {
             pref.putString(k, v);
-            deLog("Saved loadout value [" + k + ", " + v + "]");
+            deLog("Saved loadout: [" + k + ", " + v + "]");
         });
     }
 }

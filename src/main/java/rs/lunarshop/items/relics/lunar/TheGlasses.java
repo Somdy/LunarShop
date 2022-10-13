@@ -1,10 +1,8 @@
 package rs.lunarshop.items.relics.lunar;
 
-import com.badlogic.gdx.math.MathUtils;
-import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.core.AbstractCreature;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.utils.PotencyHelper;
+import rs.lunarshop.utils.mechanics.CritHelper;
 
 public class TheGlasses extends LunarRelic {
     private float critRate;
@@ -12,6 +10,7 @@ public class TheGlasses extends LunarRelic {
     public TheGlasses() {
         super(38);
         critRate = 0.1F;
+        presetInfo(s -> createInfo(s, SciPercent(CritHelper.GetChance(cpr()))));
     }
     
     @Override
@@ -20,17 +19,9 @@ public class TheGlasses extends LunarRelic {
     }
     
     @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], SciPercent(critRate));
-    }
-    
-    @Override
-    public void preModifyDamage(DamageInfo info, AbstractCreature who) {
-        if (info.owner == cpr() && info.type == DamageInfo.DamageType.NORMAL && info.output > 0
-                && rollCloverLuck(critRate)) {
-            info.output = MathUtils.ceil(info.output * 1.5F);
-        }
-        super.preModifyDamage(info, who);
+    public float modifyCritChance(float origin) {
+        origin += critRate;
+        return super.modifyCritChance(origin);
     }
     
     @Override

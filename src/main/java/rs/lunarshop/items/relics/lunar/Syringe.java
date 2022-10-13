@@ -14,16 +14,12 @@ public class Syringe extends LunarRelic {
         lastType = null;
         mod = 3;
         trigger = false;
+        presetInfo(s -> createInfo(s, mod));
     }
     
     @Override
     public void refreshStats() {
         mod = 3 * stack;
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], mod);
     }
     
     @Override

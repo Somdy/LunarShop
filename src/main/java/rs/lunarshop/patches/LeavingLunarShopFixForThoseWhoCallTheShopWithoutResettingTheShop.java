@@ -5,7 +5,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.shop.ShopScreen;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.subjects.AbstractLunarShop;
+import rs.lunarshop.abstracts.AbstractLunarShop;
 
 public class LeavingLunarShopFixForThoseWhoCallTheShopWithoutResettingTheShop {
     

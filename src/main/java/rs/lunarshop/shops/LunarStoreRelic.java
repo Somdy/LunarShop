@@ -12,8 +12,8 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import org.jetbrains.annotations.NotNull;
 import rs.lunarshop.enums.ShopRelicEffect;
-import rs.lunarshop.subjects.AbstractLunarRelic;
-import rs.lunarshop.subjects.AbstractLunarShop;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
+import rs.lunarshop.abstracts.AbstractLunarShop;
 import rs.lunarshop.utils.LunarUtils;
 import rs.lunarshop.vfx.misc.LunarStoreRelicEffect;
 

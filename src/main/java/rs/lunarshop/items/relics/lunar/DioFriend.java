@@ -17,11 +17,6 @@ public class DioFriend extends LunarRelic implements LayDyingRelic {
     }
     
     @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1]);
-    }
-    
-    @Override
     public int priority() {
         return 10;
     }

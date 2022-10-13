@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.subjects.AbstractLunarRelic;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
 
 public class StackRelicFixes {
     @SpirePatch(clz = AbstractRoom.class, method = "spawnRelicAndObtain")

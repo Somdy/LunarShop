@@ -1,7 +1,7 @@
 package rs.lunarshop.items.abstracts;
 
 import rs.lunarshop.enums.LunarClass;
-import rs.lunarshop.subjects.AbstractLunarRelic;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
 
 public class LunarRelic extends AbstractLunarRelic {
     protected LunarRelic(int lunarID, int stack) {

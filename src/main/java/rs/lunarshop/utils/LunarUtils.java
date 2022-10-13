@@ -5,16 +5,19 @@ import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import org.jetbrains.annotations.NotNull;
 import rs.lazymankits.actions.CustomDmgInfo;
 import rs.lazymankits.actions.DamageSource;
 import rs.lazymankits.utils.LMGameGeneralUtils;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.subjects.AbstractLunarRelic;
-import rs.lunarshop.subjects.lunarprops.LunarItemProp;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
+import rs.lunarshop.abstracts.lunarprops.LunarItemProp;
 import rs.lunarshop.ui.loadout.LoadoutManager;
+import rs.lunarshop.utils.mechanics.CritHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,8 +94,8 @@ public interface LunarUtils extends LMGameGeneralUtils {
         r.instantObtain();
     }
     
-    default boolean isCrit(int damageAmount, DamageInfo info) {
-        return damageAmount >= MathUtils.floor(info.base * 1.5F);
+    default boolean isCrit(DamageInfo info) {
+        return CritHelper.IsCritical(info);
     }
     
     @NotNull
@@ -131,5 +134,21 @@ public interface LunarUtils extends LMGameGeneralUtils {
             default:
                 return "eng";
         }
+    }
+    
+    static boolean RoomChecker(Class<? extends AbstractRoom> clz, AbstractRoom.RoomPhase phase) {
+        return RoomAvailable() && clz.isInstance(AbstractDungeon.getCurrRoom()) && AbstractDungeon.getCurrRoom().phase == phase;
+    }
+    
+    static boolean RoomChecker(Class<? extends AbstractRoom> clz) {
+        return RoomAvailable() && clz.isInstance(AbstractDungeon.getCurrRoom());
+    }
+    
+    static boolean RoomChecker(AbstractRoom.RoomPhase phase) {
+        return RoomAvailable() && AbstractDungeon.getCurrRoom().phase == phase;
+    }
+    
+    static boolean RoomAvailable() {
+        return AbstractDungeon.getCurrMapNode() != null && AbstractDungeon.getCurrRoom() != null;
     }
 }

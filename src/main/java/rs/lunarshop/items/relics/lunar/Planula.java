@@ -18,11 +18,6 @@ public class Planula extends LunarRelic {
     }
     
     @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], heals);
-    }
-    
-    @Override
     public void onLoseHp(int damageAmount) {
         if (damageAmount > 0) {
             addToBot(new RelicAboveCreatureAction(cpr(), this));

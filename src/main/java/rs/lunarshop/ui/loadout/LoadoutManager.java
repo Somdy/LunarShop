@@ -12,8 +12,8 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.screens.charSelect.CharacterOption;
 import com.megacrit.cardcrawl.screens.charSelect.CharacterSelectScreen;
 import rs.lunarshop.config.LoadoutConfig;
+import rs.lunarshop.core.LunarMaster;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.data.DifficultyMod;
 import rs.lunarshop.utils.LunarImageMst;
 import rs.lunarshop.utils.LunarUtils;
 
@@ -28,9 +28,6 @@ public class LoadoutManager implements LunarUtils, CustomSavable<Map<String, Str
     public static final int LOADOUT_W = 309;
     public static final int LOADOUT_H = 71;
     public static final float TAB_ANIM_SPEED = 12F;
-    public static final Texture BG_TOP = LunarImageMst.LayoutBgTop;
-    public static final Texture BG_MID = LunarImageMst.LayoutBgMid;
-    public static final Texture BG_BOT = LunarImageMst.LayoutBgBot;
     public static final String RAIN_KEY = "rainLevel";
     public static final String ECLIPSE_KEY = "eclipseLevel";
     public static final String ARTIFACT_KEY = "artifact_";
@@ -47,7 +44,7 @@ public class LoadoutManager implements LunarUtils, CustomSavable<Map<String, Str
     private int difficultyLevel;
     private int rainLevel;
     private int eclipseLevel;
-    private List<String> selectedArtifacts = new ArrayList<>();
+    private final List<String> selectedArtifacts = new ArrayList<>();
     
     private LoadoutManager() {
         tabs.add(new DifficultyTab(this));
@@ -152,11 +149,11 @@ public class LoadoutManager implements LunarUtils, CustomSavable<Map<String, Str
     
     protected void renderLayoutBg(SpriteBatch sb) {
         sb.setColor(Color.WHITE.cpy());
-        sb.draw(BG_TOP, loadoutHb.cX - scale(LOADOUT_W) / 2F - scale(10.5F), layoutTopRenderY,
+        sb.draw(LunarImageMst.LayoutBgTop, loadoutHb.cX - scale(LOADOUT_W) / 2F - scale(10.5F), layoutTopRenderY,
                 scale(LunarImageMst.LAYOUT_BG_W), LunarImageMst.LAYOUT_BG_H);
-        sb.draw(BG_BOT, loadoutHb.cX - scale(LOADOUT_W) / 2F - scale(10.5F), layoutBotRenderY,
+        sb.draw(LunarImageMst.LayoutBgBot, loadoutHb.cX - scale(LOADOUT_W) / 2F - scale(10.5F), layoutBotRenderY,
                 scale(LunarImageMst.LAYOUT_BG_W), LunarImageMst.LAYOUT_BG_H);
-        sb.draw(BG_MID, loadoutHb.cX - scale(LOADOUT_W) / 2F - scale(10.5F), layoutMidRenderY,
+        sb.draw(LunarImageMst.LayoutBgMid, loadoutHb.cX - scale(LOADOUT_W) / 2F - scale(10.5F), layoutMidRenderY,
                 scale(LunarImageMst.LAYOUT_BG_W), layoutMidRenderHeight);
     }
     

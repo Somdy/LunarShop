@@ -1,6 +1,6 @@
 package rs.lunarshop.npcs.monsters;
 
-import rs.lunarshop.subjects.lunarprops.LunarNpcProp;
+import rs.lunarshop.abstracts.lunarprops.LunarNpcProp;
 
 import java.util.HashMap;
 import java.util.Map;

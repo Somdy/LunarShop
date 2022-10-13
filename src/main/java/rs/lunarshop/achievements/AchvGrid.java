@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.subjects.AbstractLunarAchievement;
+import rs.lunarshop.abstracts.AbstractLunarAchievement;
 import rs.lunarshop.utils.LunarUtils;
 
 import java.util.ArrayList;

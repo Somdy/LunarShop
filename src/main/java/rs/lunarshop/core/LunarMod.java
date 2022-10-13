@@ -36,7 +36,6 @@ import rs.lunarshop.achievements.AchvManager;
 import rs.lunarshop.achievements.AchvTracker;
 import rs.lunarshop.config.MiscConfig;
 import rs.lunarshop.data.LunarDataLoader;
-import rs.lunarshop.enums.LunarClass;
 import rs.lunarshop.events.CleansingPoolEvent;
 import rs.lunarshop.events.EventManager;
 import rs.lunarshop.events.LunarMerchantEvent;
@@ -47,7 +46,7 @@ import rs.lunarshop.items.relics.RelicManager;
 import rs.lunarshop.localizations.LunarLocalLoader;
 import rs.lunarshop.patches.MiscRewardEnum;
 import rs.lunarshop.rewards.LunarMiscReward;
-import rs.lunarshop.subjects.AbstractLunarRelic;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
 import rs.lunarshop.ui.EquipmentProxy;
 import rs.lunarshop.ui.OmniPanel;
 import rs.lunarshop.ui.cmdpicker.PickerCaller;
@@ -125,7 +124,7 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
             WarnInfo("Missing rs.lunarshop.config file");
             return;
         }
-        LunarMaster.lunarCoins = config.getInt("LunarCoins");
+        LunarMaster.LunarCoins = config.getInt("LunarCoins");
         TimeScalingDifficultyMode = config.getBool("timeScalesMode");
         MakePassAStarterRelic = config.getBool("makePassStarting");
         
@@ -356,6 +355,7 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
     public void receiveEditStrings() {
         String lang = getSupportedLanguage(Settings.language);
         BaseMod.loadCustomStringsFile(RelicStrings.class, "LunarAssets/locals/" + lang + "/relics.json");
+        BaseMod.loadCustomStringsFile(RelicStrings.class, "LunarAssets/locals/" + lang + "/lunar_relics.json");
         BaseMod.loadCustomStringsFile(UIStrings.class, "LunarAssets/locals/" + lang + "/ui.json");
         BaseMod.loadCustomStringsFile(EventStrings.class, "LunarAssets/locals/" + lang + "/events.json");
         BaseMod.loadCustomStringsFile(PowerStrings.class, "LunarAssets/locals/" + lang + "/powers.json");
@@ -458,7 +458,7 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
     
     public static void OpenCleansingPicker(PickerCaller caller, int amount, boolean anyNumber) {
         List<AbstractRelic> relics = LunarUtils.CopyRelicList(LMSK.Player().relics, 
-                r -> r instanceof AbstractLunarRelic && ((AbstractLunarRelic) r).prop.getClazz() != LunarClass.SPECIAL);
+                r -> r instanceof AbstractLunarRelic && ((AbstractLunarRelic) r).canBeCleansed());
         ItemPicker.distinctItems(false);
         ItemPicker.open(caller, relics, amount, anyNumber, true, true, false);
     }

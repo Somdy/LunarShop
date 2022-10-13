@@ -1,6 +1,6 @@
 package rs.lunarshop.config;
 
-import rs.lunarshop.subjects.AbstractLunarRelic;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
 
 import java.util.Map;
 

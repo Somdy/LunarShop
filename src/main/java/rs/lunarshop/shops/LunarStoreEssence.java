@@ -12,8 +12,8 @@ import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import org.jetbrains.annotations.NotNull;
 import rs.lunarshop.items.relics.CETemplate;
-import rs.lunarshop.subjects.AbstractCommandEssence;
-import rs.lunarshop.subjects.AbstractLunarShop;
+import rs.lunarshop.abstracts.AbstractCommandEssence;
+import rs.lunarshop.abstracts.AbstractLunarShop;
 import rs.lunarshop.utils.LunarUtils;
 
 public class LunarStoreEssence implements LunarUtils {

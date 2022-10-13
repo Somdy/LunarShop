@@ -21,11 +21,6 @@ public class PowerRachis extends LunarRelic {
         buffTimes = 2 + (stack - 1);
     }
     
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], buffTimes);
-    }
-    
 //    @Override
 //    public void atBattleStart() {
 //        addToBot(new RachisBuffAction(buffTimes, this, false));

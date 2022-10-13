@@ -6,9 +6,9 @@ import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import rs.lazymankits.actions.common.NullableSrcDamageAction;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.subjects.AbstractLunarPower;
+import rs.lunarshop.abstracts.AbstractLunarPower;
+import rs.lunarshop.utils.DamageInfoTag;
 
 public class HelfirePower extends AbstractLunarPower {
     public static final String POWER_ID = LunarMod.Prefix("HelfirePower");
@@ -27,8 +27,8 @@ public class HelfirePower extends AbstractLunarPower {
         super.atEndOfTurn(isPlayer);
         if (amount > 0 && !owner.isDeadOrEscaped()) {
             checkDamage();
-            addToBot(new NullableSrcDamageAction(owner, crtDmgInfo(null, extraAmt, DamageInfo.DamageType.HP_LOSS),
-                    AbstractGameAction.AttackEffect.FIRE));
+            addToBot(damage(owner, null, extraAmt, DamageInfo.DamageType.HP_LOSS, 
+                    AbstractGameAction.AttackEffect.FIRE, DamageInfoTag.FIRE));
             addToBot(new ReducePowerAction(owner, owner, this, 1));
         }
     }

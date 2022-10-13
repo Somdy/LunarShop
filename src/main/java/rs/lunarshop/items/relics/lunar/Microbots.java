@@ -20,11 +20,6 @@ public class Microbots extends LunarRelic {
     }
     
     @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], threshold);
-    }
-    
-    @Override
     public int onAttackedToChangeDamage(DamageInfo info, int damageAmount) {
         if (canActivate() && info.type == DamageInfo.DamageType.NORMAL && damageAmount < threshold && damageAmount > 0) {
             damageAmount = 0;

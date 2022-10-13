@@ -13,16 +13,12 @@ public class BleederDagger extends LunarRelic {
     public BleederDagger() {
         super(32);
         chance = 0.1F;
+        presetInfo(s -> createInfo(s, SciPercent(chance)));
     }
     
     @Override
     public void refreshStats() {
         chance = 0.1F * stack;
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], SciPercent(chance));
     }
     
     @Override

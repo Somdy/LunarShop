@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.MathHelper;
 import rs.lazymankits.abstracts.LMCustomGameEffect;
-import rs.lunarshop.subjects.AbstractLunarAchievement;
+import rs.lunarshop.abstracts.AbstractLunarAchievement;
 import rs.lunarshop.utils.LunarUtils;
 
 public class BroadcastAchvEffect extends LMCustomGameEffect implements LunarUtils {

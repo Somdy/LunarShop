@@ -14,13 +14,11 @@ public class EclipseOption extends LoadoutOption {
     public static final int IMAGE_S = 48;
     public static final int FRAME_S = 64;
     private static final int LOADOUT_SELECTED_S = LunarImageMst.LOADOUT_SELECTED_S;
-    private final Texture hovered_frame;
     protected boolean forcedSelected;
     
     public EclipseOption(EclipseTab tab, int level) {
         super(tab, LunarImageMst.EclipseOf(level), IMAGE_S, IMAGE_S, 68F, 68F, Settings.scale);
         this.valueInt = level;
-        hovered_frame = LunarImageMst.EclipseHoveredFrame;
         LunarTip overall = tipBuilder.getTip(0, Color.SKY.cpy(), LunarTip.B_DEFAULT);
         makeLunarTip(overall.concat(tipBuilder.getTip(valueInt)));
     }
@@ -63,9 +61,9 @@ public class EclipseOption extends LoadoutOption {
         if (!isHidden) {
             sb.setColor(Color.WHITE.cpy());
             if (!selected && !forcedSelected && hovered) {
-                sb.draw(hovered_frame, hb.cX - FRAME_S / 2F, hb.cY - FRAME_S / 2F, FRAME_S / 2F, FRAME_S / 2F,
-                        FRAME_S, getRenderHeight(FRAME_S), scale, scale, 0F, 0, FRAME_S - getSrcRenderHeight(FRAME_S),
-                        FRAME_S, getSrcRenderHeight(FRAME_S), false, false);
+                sb.draw(LunarImageMst.EclipseHoveredFrame, hb.cX - FRAME_S / 2F, hb.cY - FRAME_S / 2F, FRAME_S / 2F, 
+                        FRAME_S / 2F, FRAME_S, getRenderHeight(FRAME_S), scale, scale, 0F, 0, 
+                        FRAME_S - getSrcRenderHeight(FRAME_S), FRAME_S, getSrcRenderHeight(FRAME_S), false, false);
             }
             if (selected || forcedSelected) {
                 sb.setColor(forcedSelected ? Color.DARK_GRAY.cpy() : Color.YELLOW.cpy());

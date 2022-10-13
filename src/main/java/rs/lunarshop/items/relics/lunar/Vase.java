@@ -14,16 +14,12 @@ public class Vase extends LunarRelic {
         super(21);
         percent = 0.5F;
         useLeft = 2;
+        presetInfo(s -> createInfo(s, SciPercent(percent), useLeft));
     }
     
     @Override
     public void refreshStats() {
         percent = 0.5F + 0.25F * ((stack - 1) / 2F);
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], SciPercent(percent), useLeft);
     }
     
     @Override

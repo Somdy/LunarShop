@@ -8,7 +8,6 @@ public class PerfectPearl extends PlanetRelic {
     
     public PerfectPearl() {
         super(55);
-        popupTierBg = 3;
         baseAmt = 2;
     }
     
@@ -53,5 +52,10 @@ public class PerfectPearl extends PlanetRelic {
     @Override
     public int modifyRegen(int origin) {
         return origin + baseAmt;
+    }
+    
+    @Override
+    public float modifyCritChance(float origin) {
+        return origin + baseAmt * 0.1F;
     }
 }

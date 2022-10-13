@@ -3,10 +3,10 @@ package rs.lunarshop.powers;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.interfaces.powers.ArmorModifierPower;
-import rs.lunarshop.subjects.AbstractLunarPower;
+import rs.lunarshop.interfaces.ArmorModifierInterface;
+import rs.lunarshop.abstracts.AbstractLunarPower;
 
-public class CripplePower extends AbstractLunarPower implements ArmorModifierPower {
+public class CripplePower extends AbstractLunarPower implements ArmorModifierInterface {
     public static final String POWER_ID = LunarMod.Prefix("CripplePower");
     
     public CripplePower(AbstractCreature owner, int amount) {

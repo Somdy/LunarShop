@@ -3,7 +3,7 @@ package rs.lunarshop.shops;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.subjects.AbstractLunarShop;
+import rs.lunarshop.abstracts.AbstractLunarShop;
 import rs.lunarshop.utils.LunarUtils;
 import rs.lunarshop.utils.PotencyHelper;
 

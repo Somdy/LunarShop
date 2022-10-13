@@ -9,16 +9,12 @@ public class WineAffliction extends SpecialRelic {
     public WineAffliction() {
         super(58);
         debuff = 3;
+        presetInfo(s -> createInfo(s, debuff / 3));
     }
     
     @Override
     public void refreshStats() {
         debuff = 3 * stack;
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], debuff / 3);
     }
     
     private boolean notInTonic() {

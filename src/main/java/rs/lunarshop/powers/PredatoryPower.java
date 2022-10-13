@@ -3,12 +3,12 @@ package rs.lunarshop.powers;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import rs.lunarshop.abstracts.AbstractLunarPower;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.interfaces.powers.AttackModifierPower;
+import rs.lunarshop.interfaces.AttackModifierInterface;
 import rs.lunarshop.items.relics.lunar.PredatoryMask;
-import rs.lunarshop.subjects.AbstractLunarPower;
 
-public class PredatoryPower extends AbstractLunarPower implements AttackModifierPower {
+public class PredatoryPower extends AbstractLunarPower implements AttackModifierInterface {
     public static final String POWER_ID = LunarMod.Prefix("PredatoryPower");
     
     public PredatoryPower(AbstractCreature owner, int str, int turns) {
@@ -38,7 +38,7 @@ public class PredatoryPower extends AbstractLunarPower implements AttackModifier
         if (extraAmt > 0 && !owner.isDeadOrEscaped()) {
             origin += extraAmt;
         }
-        return AttackModifierPower.super.modifyAttack(origin);
+        return AttackModifierInterface.super.modifyAttack(origin);
     }
     
     @Override

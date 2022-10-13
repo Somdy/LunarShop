@@ -22,6 +22,7 @@ public final class SharpedGlass extends LunarRelic {
         ReturningMaxHp = false;
         HpLimit = 12;
         damageBuff = 2F;
+        presetInfo(s -> createInfo(s, HpLimit, SciPercent(damageBuff)));
     }
     
     @Override
@@ -29,11 +30,6 @@ public final class SharpedGlass extends LunarRelic {
         HpLimit = MathUtils.ceil((float) (12 * Math.pow(0.5F, stack - 1)));
         if (HpLimit <= 0) HpLimit = 1;
         damageBuff = 2F + 1F * (stack - 1);
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], HpLimit, SciPercent(damageBuff));
     }
     
     @Override

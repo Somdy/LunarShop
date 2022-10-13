@@ -19,11 +19,6 @@ public class LeechingSeed extends LunarRelic {
     }
     
     @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], heals);
-    }
-    
-    @Override
     public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
         if (damageAmount > 0 && info.owner == cpr()) {
             addToBot(new HealAction(cpr(), cpr(), heals, 0.01F));

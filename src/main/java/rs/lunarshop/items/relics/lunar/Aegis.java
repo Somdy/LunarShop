@@ -13,6 +13,7 @@ public class Aegis extends LunarRelic {
     public Aegis() {
         super(42);
         percent = 0.5F;
+        presetInfo(s -> createInfo(s, SciPercent(percent)));
     }
     
     @Override

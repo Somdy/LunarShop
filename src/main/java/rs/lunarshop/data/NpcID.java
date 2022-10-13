@@ -3,7 +3,7 @@ package rs.lunarshop.data;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.enums.NpcTier;
-import rs.lunarshop.subjects.lunarprops.LunarNpcData;
+import rs.lunarshop.abstracts.lunarprops.LunarNpcData;
 
 public final class NpcID {
     // Enemies

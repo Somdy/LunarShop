@@ -11,7 +11,7 @@ import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMaster;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.items.relics.lunar.RustyKey;
-import rs.lunarshop.subjects.AbstractLunarRelic;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
 import rs.lunarshop.utils.LunarUtils;
 
 import static rs.lunarshop.patches.MiscRewardEnum.LUNAR_COIN;

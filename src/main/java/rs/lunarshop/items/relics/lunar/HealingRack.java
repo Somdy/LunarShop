@@ -9,16 +9,12 @@ public class HealingRack extends LunarRelic {
     public HealingRack() {
         super(43);
         healBuff = 0.5F;
+        presetInfo(s -> createInfo(s, SciPercent(healBuff)));
     }
     
     @Override
     public void refreshStats() {
         healBuff = 0.5F + 0.25F * (stack - 1);
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], SciPercent(healBuff));
     }
     
     @Override

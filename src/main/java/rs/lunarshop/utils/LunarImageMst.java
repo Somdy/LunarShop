@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.ui.loadout.LoadoutManager;
 
@@ -69,7 +68,7 @@ public class LunarImageMst {
     public static Texture[] EquipSlots;
     public static Texture[] EclipseIcons;
     public static Texture[] RainLevelIcons;
-    public static Texture[] TierBgs;
+    public static Texture[] ItemBgIcons;
     
     public static Map<String, Texture> ArtifactIcons;
     public static Map<String, Texture> ArtifactShadows;
@@ -77,11 +76,21 @@ public class LunarImageMst {
     static  {
         EquipSlots = new Texture[3];
         EclipseIcons = new Texture[8];
-        TierBgs = new Texture[6];
+        ItemBgIcons = new Texture[8];
         RainLevelIcons = new Texture[3];
         
         ArtifactIcons = new HashMap<>();
         ArtifactShadows = new HashMap<>();
+    
+        for (int i = 0; i < EquipSlots.length; i++) {
+            EquipSlots[i] = load("LunarAssets/imgs/ui/equipmentSlots/slot" + (i + 1) + ".png");
+        }
+        for (int i = 0; i < EclipseIcons.length; i++) {
+            EclipseIcons[i] = load("LunarAssets/imgs/ui/loadout/eclipseLevel/level_" + (i + 1) + ".png");
+        }
+        for (int i = 0; i < RainLevelIcons.length; i++) {
+            RainLevelIcons[i] = load("LunarAssets/imgs/ui/loadout/rainLevel/level_" + i + ".png");
+        }
     }
     
     public static void Initialize() {
@@ -132,17 +141,8 @@ public class LunarImageMst {
         LunarTipBodyBg = load("LunarAssets/imgs/ui/tipBox/tipBg.png");
         LunarTipHeaderBg = load("LunarAssets/imgs/ui/tipBox/tipHeaderBg.png");
         
-        for (int i = 0; i < EquipSlots.length; i++) {
-            EquipSlots[i] = load("LunarAssets/imgs/ui/equipmentSlots/slot" + (i + 1) + ".png");
-        }
-        for (int i = 0; i < EclipseIcons.length; i++) {
-            EclipseIcons[i] = load("LunarAssets/imgs/ui/loadout/eclipseLevel/level_" + (i + 1) + ".png");
-        }
-        for (int i = 0; i < RainLevelIcons.length; i++) {
-            RainLevelIcons[i] = load("LunarAssets/imgs/ui/loadout/rainLevel/level_" + i + ".png");
-        }
-        for (int i = 0; i < TierBgs.length; i++) {
-            TierBgs[i] = load("LunarAssets/imgs/ui/relictier/bg_tier" + (i + 1) + ".png");
+        for (int i = 0; i < ItemBgIcons.length; i++) {
+            ItemBgIcons[i] = load("LunarAssets/imgs/ui/relicPopup/icon_" + i + ".png");
         }
     }
     
@@ -172,14 +172,13 @@ public class LunarImageMst {
     public static Texture RainLevelOf(int level) {
         if (level < 0) level = 0;
         if (level > 2) level = 2;
-        LunarMod.LogInfo("Returning rain leve of " + level);
         return RainLevelIcons[level];
     }
     
-    public static Texture TierBgOf(int tier) {
-        if (tier >= 7) tier = 6;
-        if (tier < 1) tier = 1;
-        return TierBgs[tier - 1];
+    public static Texture ItemBgIconOf(int popupIcon) {
+        if (popupIcon >= 8) popupIcon = 7;
+        if (popupIcon < 0) popupIcon = 0;
+        return ItemBgIcons[popupIcon];
     }
     
     public static Texture ArtifactOf(String ID) {

@@ -1,5 +1,6 @@
 package rs.lunarshop.patches.hook;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -9,7 +10,10 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import javassist.CtBehavior;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.interfaces.relics.LayDyingRelic;
-import rs.lunarshop.subjects.AbstractLunarRelic;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
+import rs.lunarshop.ui.loadout.LoadoutManager;
+import rs.lunarshop.utils.LunarUtils;
+import rs.lunarshop.utils.mechanics.CritHelper;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -23,6 +27,18 @@ public class CreatureDamageHooks {
             for (AbstractRelic r : LMSK.Player().relics) {
                 if (r instanceof AbstractLunarRelic)
                     ((AbstractLunarRelic) r).preModifyDamage(info, _inst);
+            }
+            if (info.type == DamageInfo.DamageType.HP_LOSS && LunarUtils.EclipseLevel() >= LoadoutManager.ECLIPSES.LV4) {
+                info.output = info.output * 2;
+            }
+            if (CritHelper.CanCrit(info)) {
+                float critChance = CritHelper.GetCalculatedChance(info.owner, _inst);
+                boolean critical = LMSK.MiscRng().randomBoolean(critChance);
+                if (critical) {
+                    float critMult = CritHelper.GetCalculatedMult(info.owner, _inst);
+                    int critHitDamage = MathUtils.ceil(info.output * critMult);
+                    CritHelper.SetInfoCritical(info, critHitDamage);
+                }
             }
         }
         @SpirePostfixPatch
@@ -50,6 +66,26 @@ public class CreatureDamageHooks {
     
     @SpirePatch(clz = AbstractPlayer.class, method = "damage")
     public static class PlayerDamagePatch {
+        @SpirePrefixPatch
+        public static void Prefix(AbstractPlayer _inst, DamageInfo info) {
+            for (AbstractRelic r : LMSK.Player().relics) {
+                if (r instanceof AbstractLunarRelic)
+                    ((AbstractLunarRelic) r).preModifyDamage(info, _inst);
+            }
+            if (info.type == DamageInfo.DamageType.HP_LOSS && LunarUtils.EclipseLevel() >= LoadoutManager.ECLIPSES.LV4) {
+                info.output = info.output * 2;
+            }
+            if (CritHelper.CanCrit(info)) {
+                float critChance = CritHelper.GetCalculatedChance(info.owner, _inst);
+                boolean critical = LMSK.MiscRng().randomBoolean(critChance);
+                if (critical) {
+                    float critMult = CritHelper.GetCalculatedMult(info.owner, _inst);
+                    int critHitDamage = MathUtils.ceil(info.output * critMult);
+                    CritHelper.SetInfoCritical(info, critHitDamage);
+                }
+            }
+        }
+        
         @SpirePostfixPatch
         public static void Postfix(AbstractPlayer _inst, DamageInfo info) {
             for (AbstractRelic r : LMSK.Player().relics) {

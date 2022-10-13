@@ -9,7 +9,7 @@ import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.enums.LunarRarity;
 import rs.lunarshop.items.abstracts.LunarRelic;
-import rs.lunarshop.subjects.AbstractLunarRelic;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
 import rs.lunarshop.utils.ItemHelper;
 import rs.lunarshop.utils.ItemSpawner;
 
@@ -24,17 +24,13 @@ public class RustyKey extends LunarRelic {
         super(60);
         keyNum = 1;
         treasure = false;
+        presetInfo(s -> createInfo(s, SciPercent(opts[0]), SciPercent(opts[1]), SciPercent(opts[2])));
     }
     
     @Override
     public void refreshStats() {
         keyNum = stack;
         calcOpts();
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], SciPercent(opts[0]), SciPercent(opts[1]), SciPercent(opts[2]));
     }
     
     private void calcOpts() {

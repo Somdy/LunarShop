@@ -11,7 +11,7 @@ import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.data.AchvID;
 import rs.lunarshop.enums.EssCallerType;
 import rs.lunarshop.enums.LunarRarity;
-import rs.lunarshop.subjects.AbstractCommandEssence;
+import rs.lunarshop.abstracts.AbstractCommandEssence;
 import rs.lunarshop.utils.AchvHelper;
 import rs.lunarshop.utils.PotencyHelper;
 

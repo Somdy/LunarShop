@@ -12,16 +12,12 @@ public class BossBullet extends LunarRelic {
     public BossBullet() {
         super(25);
         extra = 0.25F;
+        presetInfo(s -> createInfo(s, SciPercent(extra)));
     }
     
     @Override
     public void refreshStats() {
-        extra = 0.25F + 0.1F * (stack - 1);
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], SciPercent(extra));
+        extra = 0.25F + 0.2F * (stack - 1);
     }
     
     @Override

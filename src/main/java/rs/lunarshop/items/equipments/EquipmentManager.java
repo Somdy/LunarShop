@@ -7,8 +7,8 @@ import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.jetbrains.annotations.NotNull;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.items.abstracts.LunarEquipment;
-import rs.lunarshop.subjects.AbstractLunarEquipment;
-import rs.lunarshop.subjects.lunarprops.LunarItemProp;
+import rs.lunarshop.abstracts.AbstractLunarEquipment;
+import rs.lunarshop.abstracts.lunarprops.LunarItemProp;
 import rs.lunarshop.utils.MsgHelper;
 
 import java.util.ArrayList;

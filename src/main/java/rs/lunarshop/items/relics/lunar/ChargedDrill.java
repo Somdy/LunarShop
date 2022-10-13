@@ -19,16 +19,12 @@ public class ChargedDrill extends LunarRelic {
     public ChargedDrill() {
         super(24);
         multiplier = 1.5F;
+        presetInfo(s -> createInfo(s, SciPercent(multiplier)));
     }
     
     @Override
     public void refreshStats() {
         multiplier = 1.5F + 0.5F * (stack - 1);
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], SciPercent(multiplier));
     }
     
     @Override

@@ -29,6 +29,7 @@ public class CeremonialDagger extends LunarRelic {
         multiplier = 0.5F;
         counter = 0;
         justStartBattle = false;
+        presetInfo(this::setInfo);
     }
     
     @Override
@@ -36,13 +37,12 @@ public class CeremonialDagger extends LunarRelic {
         multiplier = 0.5F + 0.25F * (stack - 1);
     }
     
-    @Override
-    public void constructInfo() {
+    private void setInfo(String[] rawStrings) {
         if (counter > 0 && daggerList.size() > 0) {
             int damage = MathUtils.ceil(daggerList.get(0) * multiplier);
-            createStatsInfo(DESCRIPTIONS[1], damage);
+            rawStrings[0] = createInfo(DESCRIPTIONS[1], damage);
         } else {
-            createStatsInfo(DESCRIPTIONS[2]);
+            rawStrings[0] = createInfo(DESCRIPTIONS[2]);
         }
     }
     

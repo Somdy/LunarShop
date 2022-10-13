@@ -8,16 +8,12 @@ public class RoseBuckler extends LunarRelic {
     public RoseBuckler() {
         super(22);
         armor = 5;
+        presetInfo(s -> createInfo(s, armor));
     }
     
     @Override
     public void refreshStats() {
         armor = 5 * stack;
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], armor);
     }
     
     @Override

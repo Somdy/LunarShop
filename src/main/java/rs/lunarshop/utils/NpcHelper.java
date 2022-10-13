@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.subjects.lunarprops.LunarNpcProp;
+import rs.lunarshop.abstracts.lunarprops.LunarNpcProp;
 
 import java.util.HashMap;
 import java.util.Map;

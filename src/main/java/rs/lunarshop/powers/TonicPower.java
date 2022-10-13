@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.items.equipments.FakeWine;
-import rs.lunarshop.subjects.AbstractLunarPower;
+import rs.lunarshop.abstracts.AbstractLunarPower;
 import rs.lunarshop.utils.ItemHelper;
 
 public final class TonicPower extends AbstractLunarPower {

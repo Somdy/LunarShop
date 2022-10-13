@@ -1,6 +1,7 @@
 package rs.lunarshop.items.relics.lunar;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.actions.utility.SFXAction;
@@ -10,6 +11,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.combat.LightningEffect;
 import rs.lazymankits.actions.common.NullableSrcDamageAction;
 import rs.lunarshop.items.abstracts.LunarRelic;
+import rs.lunarshop.utils.DamageInfoTag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +31,6 @@ public class Ukulele extends LunarRelic {
     }
     
     @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], connect);
-    }
-    
-    @Override
     public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
         super.onAttack(info, damageAmount, target);
         if (info.owner == cpr() && damageAmount > 0 && rollCloverLuck(CHANCE)) {
@@ -50,7 +47,8 @@ public class Ukulele extends LunarRelic {
                     addToBot(new SFXAction("ORB_LIGHTNING_EVOKE"));
                     addToBot(new VFXAction(new LightningEffect(m.hb.cX, m.hb.cY)));
                     addToBot(new RelicAboveCreatureAction(m, this));
-                    addToBot(new NullableSrcDamageAction(m, crtDmgInfo(null, damage, DamageInfo.DamageType.THORNS)));
+                    addToBot(damage(m, null, damage, DamageInfo.DamageType.THORNS, AbstractGameAction.AttackEffect.NONE, 
+                            DamageInfoTag.ENERGETIC));
                 }
             }
         }

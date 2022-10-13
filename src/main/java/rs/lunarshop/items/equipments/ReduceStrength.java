@@ -12,7 +12,7 @@ import com.megacrit.cardcrawl.vfx.combat.VerticalAuraEffect;
 import rs.lazymankits.actions.utility.QuickAction;
 import rs.lunarshop.items.abstracts.LunarEquipment;
 import rs.lunarshop.powers.CripplePower;
-import rs.lunarshop.subjects.AbstractLunarEquipment;
+import rs.lunarshop.abstracts.AbstractLunarEquipment;
 
 public class ReduceStrength extends LunarEquipment {
     private int useLeft;
@@ -23,12 +23,7 @@ public class ReduceStrength extends LunarEquipment {
         setTargetRequired(false);
         useLeft = 6;
         strLoss = 2;
-    }
-    
-    @Override
-    public void constructInfo() {
-        super.constructInfo();
-        createStatsInfo(DESCRIPTIONS[1], useLeft);
+        presetInfo(s -> createInfo(s, useLeft));
     }
     
     @Override

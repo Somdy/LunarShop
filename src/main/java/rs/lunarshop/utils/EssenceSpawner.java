@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.interfaces.EssenceCaller;
 import rs.lunarshop.items.essences.*;
-import rs.lunarshop.subjects.AbstractCommandEssence;
+import rs.lunarshop.abstracts.AbstractCommandEssence;
 
 import java.util.ArrayList;
 import java.util.List;

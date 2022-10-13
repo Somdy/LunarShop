@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.data.AchvID;
-import rs.lunarshop.subjects.AbstractLunarAchievement;
+import rs.lunarshop.abstracts.AbstractLunarAchievement;
 import rs.lunarshop.utils.MsgHelper;
 import rs.lunarshop.utils.PotencyHelper;
 import rs.lunarshop.vfx.misc.AchvUnlockedEffect;

@@ -12,13 +12,13 @@ import rs.lunarshop.utils.ItemHelper;
 import rs.lunarshop.utils.PotencyHelper;
 
 public class Spleen extends LunarRelic {
-    private float damageThreshold;
+    private static final float CritMod = 0.05F;
     private static float bleedPercent;
     
     public Spleen() {
         super(44);
-        damageThreshold = 1.5F;
         bleedPercent = 0.05F;
+        presetInfo(s -> createInfo(s, SciPercent(bleedPercent)));
     }
     
     @Override
@@ -27,13 +27,13 @@ public class Spleen extends LunarRelic {
     }
     
     @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], SciPercent(bleedPercent));
+    public float modifyCritChance(float origin) {
+        return origin + CritMod;
     }
     
     @Override
     public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
-        if (info.owner == cpr() && isCrit(damageAmount, info)) {
+        if (info.owner == cpr() && isCrit(info)) {
             addToBot(new RelicAboveCreatureAction(target, this));
             int bleeds = MathUtils.ceil(damageAmount / 10F);
             if (bleeds < 2) bleeds = 2;

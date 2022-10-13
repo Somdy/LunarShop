@@ -16,17 +16,13 @@ public class Crown extends LunarRelic {
         super(1);
         golds = 18;
         hpPercent = 0.5F;
+        presetInfo(s -> createInfo(s, golds, SciPercent(hpPercent)));
     }
     
     @Override
     public void refreshStats() {
         golds = 18 + 6 * (stack - 1);
         hpPercent = (float) (0.5F * Math.pow(0.25F + 1, (stack - 1)));
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], golds, SciPercent(hpPercent));
     }
     
     @Override

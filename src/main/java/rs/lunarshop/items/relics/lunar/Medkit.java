@@ -16,16 +16,12 @@ public class Medkit extends LunarRelic {
         super(39);
         heals = 2;
         extraH = 0.05F;
+        presetInfo(s -> createInfo(s, heals));
     }
     
     @Override
     public void refreshStats() {
         heals = MathUtils.floor(2 + (0.05F * stack * (cpr() != null ? cpr().maxHealth : 1)));
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], heals);
     }
     
     @Override

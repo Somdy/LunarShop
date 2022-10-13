@@ -13,7 +13,7 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.screens.SingleRelicViewPopup;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.subjects.AbstractLunarRelic;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
 import rs.lunarshop.utils.ColorHelper;
 import rs.lunarshop.utils.LunarImageMst;
 
@@ -60,9 +60,9 @@ public final class RenderRelicRarityPatches {
                 relic.setAccessible(true);
                 AbstractRelic r = (AbstractRelic) relic.get(_inst);
                 if (r.isSeen && r instanceof AbstractLunarRelic) {
-                    int tier = ((AbstractLunarRelic) r).getPopupTierBg();
+                    int popupIcon = ((AbstractLunarRelic) r).getPopupIcon();
                     sb.setColor(Color.WHITE.cpy());
-                    sb.draw(LunarImageMst.TierBgOf(tier), Settings.WIDTH / 2F - 960F, Settings.HEIGHT / 2F - 540F, 
+                    sb.draw(LunarImageMst.ItemBgIconOf(popupIcon), Settings.WIDTH / 2F - 960F, Settings.HEIGHT / 2F - 540F, 
                             960F, 540F, 1920, 1080, Settings.scale, Settings.scale, 
                             0F, 0, 0, 1920, 1080, false, false);
                 }

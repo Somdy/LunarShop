@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import rs.lazymankits.actions.common.NullableSrcDamageAction;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.subjects.AbstractLunarPower;
+import rs.lunarshop.abstracts.AbstractLunarPower;
 
 public class OnFirePower extends AbstractLunarPower {
     public static final String POWER_ID = LunarMod.Prefix("OnFirePower");

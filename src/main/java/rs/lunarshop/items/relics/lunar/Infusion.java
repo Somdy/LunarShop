@@ -12,17 +12,13 @@ public class Infusion extends LunarRelic {
     public Infusion() {
         super(31);
         currHp = 0;
+        presetInfo(s -> createInfo(s, currHp));
     }
     
     @Override
     public void refreshStats() {
         maxStack = 20 * stack;
         currHp = currStack * perHp;
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], currHp);
     }
     
     @Override

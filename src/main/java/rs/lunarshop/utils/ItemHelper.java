@@ -6,8 +6,8 @@ import org.jetbrains.annotations.NotNull;
 import rs.lunarshop.core.LunarMaster;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.rewards.LunarMiscReward;
-import rs.lunarshop.subjects.AbstractLunarRelic;
-import rs.lunarshop.subjects.lunarprops.LunarItemProp;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
+import rs.lunarshop.abstracts.lunarprops.LunarItemProp;
 import rs.lunarshop.ui.ItemTargetInvoker;
 
 import java.util.HashMap;

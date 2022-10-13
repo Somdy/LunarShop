@@ -4,10 +4,10 @@ import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.interfaces.powers.RegenModifierPower;
-import rs.lunarshop.subjects.AbstractLunarPower;
+import rs.lunarshop.interfaces.RegenModifierInterface;
+import rs.lunarshop.abstracts.AbstractLunarPower;
 
-public class SlugPower extends AbstractLunarPower implements RegenModifierPower {
+public class SlugPower extends AbstractLunarPower implements RegenModifierInterface {
     public static final String POWER_ID = LunarMod.Prefix("SlugPower");
     
     public SlugPower(AbstractCreature owner, int amount, int turns) {
@@ -22,7 +22,7 @@ public class SlugPower extends AbstractLunarPower implements RegenModifierPower 
         if (amount > 0 && !owner.isDeadOrEscaped() && extraAmt > 0) {
             origin += extraAmt;
         }
-        return RegenModifierPower.super.modifyRegen(origin);
+        return RegenModifierInterface.super.modifyRegen(origin);
     }
     
     @Override

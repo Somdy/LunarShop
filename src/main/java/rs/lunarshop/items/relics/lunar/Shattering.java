@@ -14,16 +14,12 @@ public class Shattering extends LunarRelic {
     
     public Shattering() {
         super(23);
+        presetInfo(s -> createInfo(s, ArmorReduction));
     }
     
     @Override
     public void refreshStats() {
         ArmorReduction = 40 + MathUtils.ceil(40 * 0.1F * (stack - 1));
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], ArmorReduction);
     }
     
     @Override

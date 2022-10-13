@@ -29,6 +29,7 @@ public final class Purity extends LunarRelic implements LuckModifierRelic, Insta
         cardMulti = 1;
         maxEnergy = 3;
         roomCount = 0;
+        presetInfo(s -> createInfo(s, cardMulti, maxEnergy));
     }
     
     @Override
@@ -36,11 +37,6 @@ public final class Purity extends LunarRelic implements LuckModifierRelic, Insta
         cardMulti = 1 + (stack - 1);
         maxEnergy = 3 - (stack - 1);
         if (maxEnergy < 0) maxEnergy = 0;
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], cardMulti, maxEnergy);
     }
     
     @Override

@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import rs.lunarshop.items.abstracts.LunarRelic;
+import rs.lunarshop.utils.DamageInfoTag;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Behemoth extends LunarRelic {
     public Behemoth() {
         super(64);
         aftermathMult = BASE_AFTERMATH_MULT;
+        presetInfo(s -> createInfo(s, SciPercent(aftermathMult)));
     }
     
     @Override
@@ -26,16 +28,11 @@ public class Behemoth extends LunarRelic {
     }
     
     @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], SciPercent(aftermathMult));
-    }
-    
-    @Override
     public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
         super.onAttack(info, damageAmount, target);
         if (info.owner == cpr() && info.type == DamageInfo.DamageType.NORMAL && damageAmount > 0) {
             int second_damage = MathUtils.round(damageAmount * SECOND_DAMAGE_MULT);
-            addToBot(damage(target, second_damage, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
+            addToBot(damage(target, second_damage, AbstractGameAction.AttackEffect.BLUNT_HEAVY, DamageInfoTag.EXPLOSIVE));
             List<AbstractMonster> rest = getAllExptMstrs(m -> m != target && !m.isDeadOrEscaped());
             if (!rest.isEmpty()) {
                 int waveDamage = MathUtils.round(damageAmount * aftermathMult);

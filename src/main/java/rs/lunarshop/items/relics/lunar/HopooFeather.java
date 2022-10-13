@@ -18,11 +18,6 @@ public class HopooFeather extends LunarRelic implements BlockModifierRelic {
     }
     
     @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], least);
-    }
-    
-    @Override
     public float onGainBlock(AbstractCreature target, float blockAmt) {
         if (target == cpr() && blockAmt < least)
             blockAmt = least;

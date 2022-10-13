@@ -5,7 +5,7 @@ import com.megacrit.cardcrawl.actions.utility.NewQueueCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import rs.lazymankits.actions.utility.QuickAction;
 import rs.lunarshop.items.abstracts.LunarRelic;
-import rs.lunarshop.subjects.AbstractLunarEquipment;
+import rs.lunarshop.abstracts.AbstractLunarEquipment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +23,6 @@ public class Horn extends LunarRelic {
     @Override
     public void refreshStats() {
         cardsToPlay = stack + 1;
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], cardsToPlay);
     }
     
     @Override

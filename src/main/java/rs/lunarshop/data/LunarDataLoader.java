@@ -8,9 +8,8 @@ import org.jetbrains.annotations.Nullable;
 import rs.lunarshop.core.LunarMaster;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.enums.LunarRarity;
-import rs.lunarshop.subjects.lunarprops.LunarItemProp;
-import rs.lunarshop.subjects.lunarprops.LunarNpcProp;
-import rs.lunarshop.ui.loadout.LoadoutManager;
+import rs.lunarshop.abstracts.lunarprops.LunarItemProp;
+import rs.lunarshop.abstracts.lunarprops.LunarNpcProp;
 import rs.lunarshop.utils.ItemHelper;
 import rs.lunarshop.utils.MsgHelper;
 import rs.lunarshop.utils.NpcHelper;
@@ -107,7 +106,8 @@ public class LunarDataLoader {
                 rarity = LunarRarity.UNREAL;
         }
         AbstractRelic.LandingSound sound = AbstractRelic.LandingSound.valueOf(data.sound.toUpperCase());
-        return new LunarItemProp(lunarID, localID, localname, rarity, sound);
+        int popupIcon = data.popupIcon;
+        return new LunarItemProp(lunarID, localID, localname, rarity, sound, popupIcon);
     }
     
     private static class NpcStats {
@@ -121,5 +121,6 @@ public class LunarDataLoader {
         private String localname;
         private int tier;
         private String sound;
+        private int popupIcon;
     }
 }

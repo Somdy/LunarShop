@@ -17,8 +17,8 @@ import rs.lunarshop.items.equipments.EquipmentManager;
 import rs.lunarshop.items.relics.lunar.Fealty;
 import rs.lunarshop.items.relics.planet.Pearl;
 import rs.lunarshop.items.relics.special.DioConsumed;
-import rs.lunarshop.subjects.AbstractLunarRelic;
-import rs.lunarshop.subjects.lunarprops.LunarItemProp;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
+import rs.lunarshop.abstracts.lunarprops.LunarItemProp;
 import rs.lunarshop.utils.MsgHelper;
 
 import java.util.ArrayList;

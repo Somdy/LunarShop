@@ -17,11 +17,11 @@ import org.jetbrains.annotations.NotNull;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMaster;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.subjects.AbstractLunarRelic;
-import rs.lunarshop.utils.ArmorHelper;
-import rs.lunarshop.utils.LunarImageMst;
-import rs.lunarshop.utils.LunarUtils;
-import rs.lunarshop.utils.RegenHelper;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
+import rs.lunarshop.utils.*;
+import rs.lunarshop.utils.mechanics.ArmorHelper;
+import rs.lunarshop.utils.mechanics.AttackHelper;
+import rs.lunarshop.utils.mechanics.RegenHelper;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -165,7 +165,7 @@ public final class OmniPanel implements LunarUtils {
     
     @NotNull
     private String constructTips() {
-        int attack = LunarMaster.Attack(true);
+        int attack = AttackHelper.GetAttack(LMSK.Player());
         int regen = RegenHelper.GetRegen(LMSK.Player());
         int armor = ArmorHelper.GetArmor(LMSK.Player());
         float armorRate = ArmorHelper.RoughDamageMultiplier(LMSK.Player());

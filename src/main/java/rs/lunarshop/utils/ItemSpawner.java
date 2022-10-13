@@ -9,7 +9,7 @@ import rs.lunarshop.enums.LunarRarity;
 import rs.lunarshop.items.equipments.EquipmentManager;
 import rs.lunarshop.items.relics.RelicManager;
 import rs.lunarshop.items.relics.lunar.RustyKey;
-import rs.lunarshop.subjects.AbstractLunarRelic;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
 
 import java.util.ArrayList;
 import java.util.Collections;

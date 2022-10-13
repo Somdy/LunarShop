@@ -11,7 +11,7 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import org.jetbrains.annotations.NotNull;
 import rs.lazymankits.utils.LMSK;
-import rs.lunarshop.subjects.AbstractLunarRelic;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
 import rs.lunarshop.utils.LunarImageMst;
 import rs.lunarshop.utils.LunarUtils;
 

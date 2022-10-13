@@ -1,7 +1,7 @@
 package rs.lunarshop.data;
 
 import rs.lunarshop.enums.AchvTier;
-import rs.lunarshop.subjects.lunarprops.LunarAchvData;
+import rs.lunarshop.abstracts.lunarprops.LunarAchvData;
 
 public final class AchvID {
     public static LunarAchvData NewtFirstTime = create(0, AchvTier.COMMON);

@@ -9,11 +9,10 @@ import com.megacrit.cardcrawl.ui.DialogWord;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.data.AchvID;
-import rs.lunarshop.enums.LunarClass;
 import rs.lunarshop.items.relics.RelicManager;
 import rs.lunarshop.items.relics.planet.Pearl;
 import rs.lunarshop.items.relics.planet.PerfectPearl;
-import rs.lunarshop.subjects.AbstractLunarRelic;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
 import rs.lunarshop.ui.cmdpicker.ItemContainer;
 import rs.lunarshop.ui.cmdpicker.PickerCaller;
 import rs.lunarshop.utils.AchvHelper;
@@ -73,7 +72,7 @@ public class CleansingPoolEvent extends AbstractImageEvent implements LunarUtils
     static int countLunarItems() {
         int count = 0;
         for (AbstractRelic r : LMSK.Player().relics) {
-            if (r instanceof AbstractLunarRelic && ((AbstractLunarRelic) r).prop.getClazz() != LunarClass.SPECIAL)
+            if (r instanceof AbstractLunarRelic && ((AbstractLunarRelic) r).canBeCleansed())
                 count++;
         }
         return count;
@@ -82,7 +81,7 @@ public class CleansingPoolEvent extends AbstractImageEvent implements LunarUtils
     static int countLunarItemStacks() {
         int count = 0;
         for (AbstractRelic r : LMSK.Player().relics) {
-            if (r instanceof AbstractLunarRelic && ((AbstractLunarRelic) r).prop.getClazz() != LunarClass.SPECIAL)
+            if (r instanceof AbstractLunarRelic && ((AbstractLunarRelic) r).canBeCleansed())
                 count += ((AbstractLunarRelic) r).getStack();
         }
         return count;
@@ -146,8 +145,8 @@ public class CleansingPoolEvent extends AbstractImageEvent implements LunarUtils
         if (pearl[0] == lunarItemStacks && pearl[1] == 0) {
             AchvHelper.UnlockAchv(AchvID.ClearlyClear);
         }
-        List<AbstractRelic> removeList = copyRelicList(LMSK.Player().relics, r -> r instanceof AbstractLunarRelic
-                && ((AbstractLunarRelic) r).prop.getClazz() != LunarClass.SPECIAL);
+        List<AbstractRelic> removeList = copyRelicList(LMSK.Player().relics, 
+                r -> r instanceof AbstractLunarRelic && ((AbstractLunarRelic) r).canBeCleansed());
         for (AbstractRelic r : removeList) {
             LMSK.Player().loseRelic(r.relicId);
         }

@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.core.Settings;
 import rs.lazymankits.abstracts.LMCustomGameEffect;
 import rs.lunarshop.achievements.AchvTracker;
-import rs.lunarshop.subjects.AbstractLunarAchievement;
+import rs.lunarshop.abstracts.AbstractLunarAchievement;
 import rs.lunarshop.utils.AudioMst;
 import rs.lunarshop.utils.LunarUtils;
 

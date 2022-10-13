@@ -27,11 +27,6 @@ public class DeathMark extends LunarRelic {
     }
     
     @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], turns);
-    }
-    
-    @Override
     public void update() {
         super.update();
         if (AbstractDungeon.getCurrMapNode() != null && currRoom() != null && currRoom().phase == AbstractRoom.RoomPhase.COMBAT) {

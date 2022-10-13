@@ -21,9 +21,6 @@ public abstract class LoadoutTab implements LunarUtils {
     public static final int GENERAL_TAB_H = 49;
     public static final float GAP_DIST = 5 * Settings.scale;
     private static final float LEAST_BUFFER_TIME = 0.5F;
-    protected static final Texture FRAME_TOP = LunarImageMst.InnerFrameTop;
-    protected static final Texture FRAME_MID = LunarImageMst.InnerFrameMid;
-    protected static final Texture FRAME_BOT = LunarImageMst.InnerFrameBot;
     public final String localname;
     public final LoadoutManager manager;
     protected List<LoadoutOption> options = new ArrayList<>();
@@ -160,14 +157,14 @@ public abstract class LoadoutTab implements LunarUtils {
         if (tabArea != null && tabArea.height > 0) {
             sb.setColor(Color.WHITE.cpy());
             if (inspectingTab) {
-                sb.draw(FRAME_TOP, hb.cX - scale(LunarImageMst.INNER_FRAME_W) / 2F, frameTopRenderY,
+                sb.draw(LunarImageMst.InnerFrameTop, hb.cX - scale(LunarImageMst.INNER_FRAME_W) / 2F, frameTopRenderY,
                         scale(LunarImageMst.INNER_FRAME_W), LunarImageMst.INNER_FRAME_H);
             }
             if (hb.y - frameBotRenderY > LunarImageMst.INNER_FRAME_H) {
-                sb.draw(FRAME_MID, hb.cX - scale(LunarImageMst.INNER_FRAME_W) / 2F, frameMidRenderY,
+                sb.draw(LunarImageMst.InnerFrameMid, hb.cX - scale(LunarImageMst.INNER_FRAME_W) / 2F, frameMidRenderY,
                         scale(LunarImageMst.INNER_FRAME_W), frameMidRenderHeight);
             }
-            sb.draw(FRAME_BOT, hb.cX - scale(LunarImageMst.INNER_FRAME_W) / 2F, frameBotRenderY,
+            sb.draw(LunarImageMst.InnerFrameBot, hb.cX - scale(LunarImageMst.INNER_FRAME_W) / 2F, frameBotRenderY,
                     scale(LunarImageMst.INNER_FRAME_W), LunarImageMst.INNER_FRAME_H);
         }
     }

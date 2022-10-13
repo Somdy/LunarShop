@@ -15,16 +15,12 @@ public class JumpHigher extends LunarRelic implements BlockModifierRelic {
         super(11);
         setBattleUse();
         extraBlock = 2;
+        presetInfo(s -> createInfo(s, extraBlock));
     }
     
     @Override
     public void refreshStats() {
         extraBlock = 2 * stack;
-    }
-    
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], extraBlock);
     }
     
     @Override

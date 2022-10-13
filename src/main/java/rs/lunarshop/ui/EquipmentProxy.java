@@ -13,7 +13,7 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.subjects.AbstractLunarEquipment;
+import rs.lunarshop.abstracts.AbstractLunarEquipment;
 import rs.lunarshop.utils.ItemHelper;
 import rs.lunarshop.utils.LunarImageMst;
 import rs.lunarshop.utils.LunarUtils;

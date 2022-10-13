@@ -9,7 +9,6 @@ public class Pearl extends PlanetRelic {
     
     public Pearl(int stack) {
         super(54, stack);
-        popupTierBg = 3;
     }
     
     @Override

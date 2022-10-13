@@ -17,11 +17,6 @@ public class TougherTimes extends LunarRelic {
     }
     
     @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1]);
-    }
-    
-    @Override
     public int onLoseHpLast(int damageAmount) {
         if (rollStaticLuck(chance)) {
             addToBot(new RelicAboveCreatureAction(cpr(), this));

@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.items.relics.lunar.Purity;
-import rs.lunarshop.subjects.lunarprops.LunarAchvData;
+import rs.lunarshop.abstracts.lunarprops.LunarAchvData;
 
 public class AchvHelper {
     

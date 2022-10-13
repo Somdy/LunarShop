@@ -31,6 +31,7 @@ public class LessBossHp extends LunarRelic {
         timeCounter = 180;
         waitTimer = 0F;
         inBossBattle = false;
+        presetInfo(this::setInfo);
     }
     
     @Override
@@ -39,10 +40,11 @@ public class LessBossHp extends LunarRelic {
         timeLimits = 180 - MathUtils.ceil(60F * (stack - 1) / stack);
     }
     
-    @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], SciPercent(hpLoss), timeLimits);
-        if (timeLeft <= 0 && inBossBattle) {
+    private void setInfo(String[] rawStrings) {
+        if (timeLeft > 0 || !inBossBattle) {
+            rawStrings[0] = createInfo(DESCRIPTIONS[1], SciPercent(hpLoss), timeLimits);
+        } else {
+            rawStrings[0] = "";
             updateTip(new PowerTip(DESCRIPTIONS[2], DESCRIPTIONS[3]));
         }
     }

@@ -20,11 +20,6 @@ public class ArmorPlate extends LunarRelic {
     }
     
     @Override
-    public void constructInfo() {
-        createStatsInfo(DESCRIPTIONS[1], reduction);
-    }
-    
-    @Override
     public int onAttackedToChangeDamage(DamageInfo info, int damageAmount) {
         if (canActivate() && damageAmount > 1) {
             damageAmount -= reduction;
