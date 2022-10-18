@@ -1,4 +1,4 @@
-package rs.lunarshop.items.relics.lunar;
+package rs.lunarshop.items.relics.planet;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -11,8 +11,9 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.vfx.combat.LightningEffect;
 import rs.lazymankits.actions.common.NullableSrcDamageAction;
 import rs.lunarshop.items.abstracts.LunarRelic;
+import rs.lunarshop.items.abstracts.PlanetRelic;
 
-public class ChargedDrill extends LunarRelic {
+public class ChargedDrill extends PlanetRelic {
     private static final float CHANCE = 0.1F;
     private float multiplier;
     

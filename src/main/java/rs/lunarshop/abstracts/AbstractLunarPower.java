@@ -145,7 +145,12 @@ public abstract class AbstractLunarPower extends LMCustomPower implements LunarU
         return damage(t, s, damage, type, effect, (DamageInfoTag) null);
     }
     
+    protected NullableSrcDamageAction damage(AbstractCreature t, int damage, AbstractGameAction.AttackEffect effect,
+                                             DamageInfoTag... tags) {
+        return damage(t, source, damage, DamageInfo.DamageType.THORNS, effect, tags);
+    }
+    
     protected NullableSrcDamageAction damage(AbstractCreature t, int damage, AbstractGameAction.AttackEffect effect) {
-        return damage(t, owner, damage, DamageInfo.DamageType.THORNS, effect, (DamageInfoTag) null);
+        return damage(t, source, damage, DamageInfo.DamageType.THORNS, effect, (DamageInfoTag) null);
     }
 }

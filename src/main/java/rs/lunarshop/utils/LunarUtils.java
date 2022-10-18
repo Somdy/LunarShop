@@ -114,15 +114,15 @@ public interface LunarUtils extends LMGameGeneralUtils {
     }
     
     static int RainLevel() {
-        return LoadoutManager.Inst.getRainLevel();
+        return LoadoutManager.Inst().getRainLevel();
     }
     
     static int EclipseLevel() {
-        return LoadoutManager.Inst.getEclipseLevel();
+        return LoadoutManager.Inst().getEclipseLevel();
     }
     
     static boolean ArtifactEnabled(String artifactID) {
-        return LoadoutManager.Inst.isArtifactEnabled(artifactID);
+        return LoadoutManager.Inst().isArtifactEnabled(artifactID);
     }
     
     static String GetLang() {

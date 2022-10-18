@@ -52,6 +52,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
         AttackModifierInterface, RegenModifierInterface, CritModifierInterface, CustomSavable<LunarConfig> {
     
     private static final RelicStrings LunarStrings = CardCrawlGame.languagePack.getRelicStrings(LunarMod.Prefix("LunarRelic"));
+    public static final String[] TEXT = LunarStrings.DESCRIPTIONS;
     private static final Map<Integer, Boolean> corruptedMap = new HashMap<>();
     public final LunarItemProp prop;
     private List<LunarTip> info;
@@ -105,15 +106,23 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
         return DESCRIPTIONS[0];
     }
     
+    private final void updateItemStats() {
+        ItemStatHelper.RelicStats stats = ItemStatHelper.GetRelicStats(this);
+        if (stats.maxStack < this.stack)
+            ItemStatHelper.PutRelicHighestStack(this, this.stack);
+        ItemStatHelper.PutRelicCollectCount(this);
+    }
+    
     public final AbstractLunarRelic stackAmt(int amt, boolean stacking) {
         if (stackable) {
             if (stack < 0) stack = 0;
             stack += amt;
             flash();
-            updatePlayerStats();
+            updatePlayerLuck();
             refreshStats();
             onStackAmt(amt, stacking);
             updateExtraTips();
+            updateItemStats();
         }
         return this;
     }
@@ -121,7 +130,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     public final AbstractLunarRelic loseStack(int loss) {
         if (stackable && stack >= loss) {
             stack -= loss;
-            updatePlayerStats();
+            updatePlayerLuck();
             refreshStats();
             onStackAmt(loss, false);
             updateExtraTips();
@@ -132,7 +141,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
         return this;
     }
     
-    private void updatePlayerStats() {
+    private void updatePlayerLuck() {
         if (this instanceof LuckModifierRelic)
             LunarMaster.Luck(true);
     }
@@ -151,7 +160,8 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
             if (isEquipment) {
                 obtainEquipment(cpr());
             }
-            updatePlayerStats();
+            updatePlayerLuck();
+            updateItemStats();
         }
     }
     
@@ -170,7 +180,8 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
             if (isEquipment) {
                 obtainEquipment(p);
             }
-            updatePlayerStats();
+            updatePlayerLuck();
+            updateItemStats();
         }
     }
     
@@ -187,7 +198,8 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
             if (isEquipment) {
                 obtainEquipment(cpr());
             }
-            updatePlayerStats();
+            updatePlayerLuck();
+            updateItemStats();
         }
     }
     
@@ -659,7 +671,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
                             String origin = t.body;
                             String info = getInfoString();
                             if (info != null && !info.isEmpty()) {
-                                origin = origin + " NL NL " + LunarStrings.DESCRIPTIONS[0] + " NL " + info;
+                                origin = origin + " NL NL " + TEXT[0] + " NL " + info;
                             }
                             t.body = origin;
                         });
@@ -705,6 +717,21 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
         return null;
     }
     
+    @NotNull
+    public final List<LunarTip> getTextInfo() {
+        List<LunarTip> info = new ArrayList<>();
+        info.add(new LunarTip("", description));
+        ItemStatHelper.RelicStats stats = ItemStatHelper.GetRelicStats(this);
+        if (!stackable) {
+            info.add(new LunarTip("", TEXT[1] + stats.collects));
+        } else {
+            info.add(new LunarTip("", TEXT[1] + stats.collects + " NL "
+                    + TEXT[2] + (stats.maxStack > 0 ? "x" + stats.maxStack : 0)));
+        }
+        info.add(new LunarTip("", flavorText).makeMsg("FLAVOR"));
+        return info;
+    }
+    
     @Deprecated
     public void constructInfo() {}
     
@@ -732,8 +759,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     
     @Deprecated
     protected void createStatsInfo(String info, Object... args) {
-        updateTip(new PowerTip(LunarStrings.DESCRIPTIONS[0] + OmniPanel.NAME + LunarStrings.DESCRIPTIONS[1], 
-                String.format(info, args)));
+        updateTip(new PowerTip(TEXT[0] + OmniPanel.NAME + TEXT[1], String.format(info, args)));
     }
     
     protected void createInfo(@NotNull String[] rawInfo, Object... args) {

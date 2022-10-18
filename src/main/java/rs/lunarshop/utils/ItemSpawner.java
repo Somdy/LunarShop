@@ -7,7 +7,7 @@ import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.enums.LunarRarity;
 import rs.lunarshop.items.equipments.EquipmentManager;
-import rs.lunarshop.items.relics.RelicManager;
+import rs.lunarshop.items.relics.RelicMst;
 import rs.lunarshop.items.relics.lunar.RustyKey;
 import rs.lunarshop.abstracts.AbstractLunarRelic;
 
@@ -21,7 +21,7 @@ public class ItemSpawner {
     
     @NotNull
     public static AbstractLunarRelic ReturnRndExptItem(Random rng, Predicate<AbstractLunarRelic> expt) {
-        List<AbstractLunarRelic> tmp = RelicManager.GetAllAvailableRelics();
+        List<AbstractLunarRelic> tmp = RelicMst.GetAllAvailableRelics();
         tmp.addAll(EquipmentManager.GetAllAvailableEquips());
         tmp.removeIf(r -> !r.canSpawnInReward());
         tmp.removeIf(r -> !expt.test(r));
@@ -35,7 +35,7 @@ public class ItemSpawner {
     
     @NotNull
     public static List<AbstractLunarRelic> PopulateLimitedRelicLists(Predicate<AbstractLunarRelic> expt) {
-        List<AbstractLunarRelic> tmp = RelicManager.GetAllAvailableRelics();
+        List<AbstractLunarRelic> tmp = RelicMst.GetAllAvailableRelics();
         tmp.removeIf(r -> !r.canSpawnInReward());
         tmp.removeIf(r -> !expt.test(r));
         if (tmp.isEmpty()) {
@@ -45,7 +45,7 @@ public class ItemSpawner {
     }
     
     public static Optional<AbstractLunarRelic> PopulateRndRelicForShop(int shopType) {
-        List<AbstractLunarRelic> tmp = RelicManager.GetAllAvailableRelics();
+        List<AbstractLunarRelic> tmp = RelicMst.GetAllAvailableRelics();
         tmp.addAll(EquipmentManager.GetAllAvailableEquips());
         tmp.removeIf(r -> !r.canSpawnInShop(shopType));
         if (tmp.isEmpty()) {
@@ -58,7 +58,7 @@ public class ItemSpawner {
     
     @NotNull
     public static List<AbstractLunarRelic> PopulateRndRelicListForShop(int shopType, int amount) {
-        List<AbstractLunarRelic> tmp = RelicManager.GetAllAvailableRelics();
+        List<AbstractLunarRelic> tmp = RelicMst.GetAllAvailableRelics();
         tmp.addAll(EquipmentManager.GetAllAvailableEquips());
         tmp.removeIf(r -> !r.canSpawnInShop(shopType));
         if (tmp.isEmpty()) {
@@ -74,7 +74,7 @@ public class ItemSpawner {
     }
     
     public static Optional<AbstractLunarRelic> PopulateLimitedRndRelicForReward(LunarRarity maxRarity) {
-        List<AbstractLunarRelic> tmp = RelicManager.GetAllAvailableRelics();
+        List<AbstractLunarRelic> tmp = RelicMst.GetAllAvailableRelics();
         tmp.removeIf(r -> !r.canSpawnInReward());
         tmp.removeIf(r -> r.prop.getRarity().above(maxRarity));
         if (tmp.isEmpty()) {

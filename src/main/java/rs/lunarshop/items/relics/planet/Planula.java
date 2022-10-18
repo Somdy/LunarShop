@@ -1,10 +1,11 @@
-package rs.lunarshop.items.relics.lunar;
+package rs.lunarshop.items.relics.planet;
 
 import com.megacrit.cardcrawl.actions.common.HealAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import rs.lunarshop.items.abstracts.LunarRelic;
+import rs.lunarshop.items.abstracts.PlanetRelic;
 
-public class Planula extends LunarRelic {
+public class Planula extends PlanetRelic {
     private int heals;
     
     public Planula() {

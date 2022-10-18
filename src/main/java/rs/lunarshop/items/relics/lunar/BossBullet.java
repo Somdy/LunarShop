@@ -24,6 +24,7 @@ public class BossBullet extends LunarRelic {
     public void preModifyDamage(DamageInfo info, AbstractCreature who) {
         if (info.owner == cpr() && belongsToBoss(who)) {
             info.output = info.output + MathUtils.round(info.output * extra);
+            info.isModified = info.base != info.output;
         }
     }
     

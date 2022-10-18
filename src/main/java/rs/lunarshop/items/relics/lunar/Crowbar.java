@@ -21,7 +21,6 @@ public class Crowbar extends LunarRelic {
     
     @Override
     public void preModifyDamage(DamageInfo info, AbstractCreature who) {
-        super.preModifyDamage(info, who);
         if (info.owner == cpr() && info.type == DamageInfo.DamageType.NORMAL
                 && who.currentHealth > MathUtils.floor(who.maxHealth * 0.85F)) {
             info.output = info.output + MathUtils.ceil(info.output * damageMult);

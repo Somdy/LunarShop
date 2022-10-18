@@ -20,6 +20,7 @@ public class LunarTip extends PowerTip {
     public Color bColor;
     public Color hFontColor;
     public Color bFontColor;
+    private String secretMsg;
     
     public LunarTip(String header, String body, Color hColor, Color bColor, Color hFontColor, Color bFontColor) {
         super(header, body);
@@ -27,6 +28,7 @@ public class LunarTip extends PowerTip {
         this.bColor = bColor;
         this.hFontColor = hFontColor;
         this.bFontColor = bFontColor;
+        secretMsg = "";
     }
     
     public LunarTip(String header, String body, Color hColor, Color bColor) {
@@ -43,6 +45,15 @@ public class LunarTip extends PowerTip {
         if (bColor != null)
             this.bColor = bColor;
         return this;
+    }
+    
+    public LunarTip makeMsg(String secretMsg) {
+        this.secretMsg = secretMsg;
+        return this;
+    }
+    
+    public String getMsg() {
+        return secretMsg;
     }
     
     public LunarTip setImage(Texture image) {

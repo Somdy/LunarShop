@@ -8,14 +8,15 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import rs.lazymankits.actions.common.NullableSrcDamageAction;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.abstracts.AbstractLunarPower;
+import rs.lunarshop.utils.DamageInfoTag;
 
 public class OnFirePower extends AbstractLunarPower {
     public static final String POWER_ID = LunarMod.Prefix("OnFirePower");
     private final boolean refreshLastingTime;
     
-    public OnFirePower(AbstractCreature owner, int amount, int turns, boolean refreshLastingTime) {
+    public OnFirePower(AbstractCreature owner, int damageAmount, int turns, boolean refreshLastingTime) {
         super(POWER_ID, "onfire", PowerType.DEBUFF, owner);
-        setValues(turns, amount);
+        setValues(turns, damageAmount);
         this.refreshLastingTime = refreshLastingTime;
         stackable = this.refreshLastingTime;
         ID += refreshLastingTime;
@@ -32,9 +33,9 @@ public class OnFirePower extends AbstractLunarPower {
     @Override
     public void atEndOfTurn(boolean isPlayer) {
         if (!owner.isDeadOrEscaped() && amount > 0) {
-            if (extraAmt > 0)
-                addToBot(new NullableSrcDamageAction(cpr(), convert(new DamageInfo(null, extraAmt, 
-                        DamageInfo.DamageType.THORNS)), AbstractGameAction.AttackEffect.FIRE));
+            if (extraAmt > 0) {
+                addToBot(damage(owner, extraAmt, AbstractGameAction.AttackEffect.FIRE, DamageInfoTag.FIRE));
+            }
             addToBot(new ReducePowerAction(owner, owner, this, 1));
         }
     }

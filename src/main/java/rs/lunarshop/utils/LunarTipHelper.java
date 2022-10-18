@@ -1,17 +1,26 @@
 package rs.lunarshop.utils;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
+import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.screens.mainMenu.ScrollBar;
+import com.megacrit.cardcrawl.screens.mainMenu.ScrollBarListener;
 import rs.lazymankits.utils.LMSK;
+import rs.lunarshop.abstracts.AbstractLunarRelic;
 import rs.lunarshop.core.LunarMod;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +31,7 @@ public class LunarTipHelper {
     
     private static boolean renderedTipThisFrame = false;
     private static boolean isCard = false;
+    private static boolean relicPopup = false;
     private static float drawX;
     private static float drawY;
     private static List<String> KEYWORDS = new ArrayList<>();
@@ -30,8 +40,6 @@ public class LunarTipHelper {
     private static AbstractCard card;
     private static final Color BASE_COLOR = new Color(1.0F, 0.9725F, 0.8745F, 1.0F);
     private static final float CARD_TIP_PAD = 12F * Settings.scale;
-    private static final float SHADOW_DIST_Y = 14F * Settings.scale;
-    private static final float SHADOW_DIST_X = 9F * Settings.scale;
     private static final float BOX_EDGE_H = 10F * Settings.scale;
     private static final float BOX_BODY_H = 20F * Settings.scale;
     private static final float BOX_W = 450F * Settings.scale;
@@ -46,6 +54,20 @@ public class LunarTipHelper {
     private static final float TITLE_DESC_LINE_SPACING = 24F * Settings.scale;
     private static final float TIP_DESC_LINE_SPACING = 32F * Settings.scale;
     private static final float POWER_ICON_OFFSET_X = 40F * Settings.scale;
+    private static final float RELIC_INFO_TEXT_WIDTH = (LunarImageMst.TEXT_BLOCK_W - 50F) * Settings.scale;
+    private static OrthographicCamera camera;
+    private static float scrollPosition = 0F;
+    private static float scrollTarget = 0F;
+    private static float scrollLowerBound = 0F;
+    private static float scrollUpperBound = 100F;
+    private static float grabStartY = 0F;
+    private static boolean grabbedScreen = false;
+    private static float scrollSize = 0F;
+    private static ScrollBar scrollBar = new ScrollBar(new RelicTextScrollListener(), Settings.WIDTH, 0F, 
+            862F * Settings.scale){
+        @Override
+        public void reset() {}
+    };
     
     public static void Render(SpriteBatch sb) {
         if (!Settings.hidePopupDetails && renderedTipThisFrame) {
@@ -64,6 +86,9 @@ public class LunarTipHelper {
             }
             if (isCard && card != null) {
                 //TODO: No card tip needs to be rendered
+            } else if (relicPopup && !POWER_TIPS.isEmpty()) {
+                RenderRelicInfoText(sb, drawX, drawY, POWER_TIPS);
+                relicPopup = false;
             } else if (TIP.hasTip()) {
                 textHeight = -FontHelper.getSmartHeight(LunarFont.ROR_TIP_BODY_FONT, TIP.body, BODY_TEXT_WIDTH, 
                         TIP_DESC_LINE_SPACING) - BODY_OFFSET_Y - HEADER_OFFSET_Y + BODY_GAP_DIST * 2;
@@ -113,11 +138,58 @@ public class LunarTipHelper {
         return originX;
     }
     
+    public static void RenderRelicInfoText(SpriteBatch sb, float x, float y, List<LunarTip> info) {
+        if (camera == null) {
+            try {
+                Field c = CardCrawlGame.class.getDeclaredField("camera");
+                c.setAccessible(true);
+                camera = (OrthographicCamera) c.get(Gdx.app.getApplicationListener());
+            } catch (Exception e) {
+                LunarMod.WarnInfo("Failed to catch game camera when rendering relic text");
+                e.printStackTrace();
+                return;
+            }
+        }
+        if (isScrolling()) {
+            y = y + scrollPosition;
+        }
+        for (LunarTip i : info) {
+            if (!"FLAVOR".equals(i.getMsg())) {
+                textHeight = -FontHelper.getSmartHeight(LunarFont.ROR_RELIC_TEXT_FONT, i.body,
+                        RELIC_INFO_TEXT_WIDTH, TIP_DESC_LINE_SPACING + 8F * Settings.scale)
+                        - BODY_OFFSET_Y - BODY_GAP_DIST;
+                renderRelicInfoTextBlock(sb, x, y, i, LunarFont.ROR_RELIC_TEXT_FONT);
+            } else {
+                textHeight = -FontHelper.getSmartHeight(LunarFont.ROR_TIP_HEADER_FONT, i.body,
+                        RELIC_INFO_TEXT_WIDTH, TIP_DESC_LINE_SPACING + 4F * Settings.scale)
+                        - BODY_OFFSET_Y - BODY_GAP_DIST;
+                renderRelicInfoTextBlock(sb, x, y, i, LunarFont.ROR_TIP_HEADER_FONT);
+            }
+            float offsetChange = textHeight + BOX_EDGE_H * 3.5F;
+            y -= offsetChange;
+        }
+    }
+    
+    private static void renderRelicInfoTextBlock(SpriteBatch sb, float x, float y, LunarTip tip, BitmapFont bFont) {
+        float h = textHeight;
+        float boxW = LunarImageMst.TEXT_BLOCK_W * Settings.scale;
+        boolean renderingFlavor = "FLAVOR".equals(tip.getMsg());
+        sb.setColor(Color.WHITE.cpy());
+        sb.draw(LunarImageMst.TextBlockTop, x, y, boxW, BOX_EDGE_H);
+        sb.draw(LunarImageMst.TextBlockMid, x, y - h - BOX_EDGE_H, boxW, h + BOX_EDGE_H);
+        sb.draw(LunarImageMst.TextBlockBot, x, y - h - BOX_BODY_H, boxW, BOX_EDGE_H);
+        if (renderingFlavor) {
+            FontHelper.renderSmartText(sb, bFont, tip.body, x + TEXT_OFFSET_X, y + HEADER_OFFSET_Y - BODY_GAP_DIST,
+                    RELIC_INFO_TEXT_WIDTH, TIP_DESC_LINE_SPACING + 2F * Settings.scale, Color.LIGHT_GRAY);
+        } else {
+            FontHelper.renderSmartText(sb, bFont, tip.body, x + TEXT_OFFSET_X, y + HEADER_OFFSET_Y - BODY_GAP_DIST,
+                    RELIC_INFO_TEXT_WIDTH, TIP_DESC_LINE_SPACING + 4F * Settings.scale, Color.WHITE);
+        }
+    }
+    
     private static void renderLunarTips(SpriteBatch sb, float x, float y, List<LunarTip> tips) {
         float originalY = y;
-        boolean offsetLeft = false;
-        if (x > Settings.WIDTH / 2F)
-            offsetLeft = true;
+        boolean offsetLeft = x > Settings.WIDTH / 2F;
         float offset = 0F;
         for (LunarTip tip : tips) {
             textHeight = getPowerTipHeight(tip);
@@ -174,5 +246,21 @@ public class LunarTipHelper {
                 y + HEADER_OFFSET_Y, hFont);
         FontHelper.renderSmartText(sb, LunarFont.ROR_TIP_BODY_FONT, body, x + TEXT_OFFSET_X, y + BODY_OFFSET_Y - BODY_GAP_DIST, 
                 BODY_TEXT_WIDTH, TIP_DESC_LINE_SPACING, bFont);
+    }
+    
+    private static class RelicTextScrollListener implements ScrollBarListener {
+        @Override
+        public void scrolledUsingBar(float percent) {
+            scrollTarget = MathHelper.valueFromPercentBetween(scrollLowerBound, scrollUpperBound, percent);
+            updateScrollPercent();
+        }
+    }
+    
+    private static void updateScrollPercent() {
+        float percent = MathHelper.percentFromValueBetween(scrollLowerBound, scrollUpperBound, scrollPosition);
+    }
+    
+    private static boolean isScrolling() {
+        return scrollSize > 0F;
     }
 }

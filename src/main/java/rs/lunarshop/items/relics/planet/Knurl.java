@@ -1,9 +1,9 @@
-package rs.lunarshop.items.relics.lunar;
+package rs.lunarshop.items.relics.planet;
 
-import rs.lunarshop.items.abstracts.LunarRelic;
+import rs.lunarshop.items.abstracts.PlanetRelic;
 import rs.lunarshop.utils.PotencyHelper;
 
-public class Knurl extends LunarRelic {
+public class Knurl extends PlanetRelic {
     private int hp;
     private int regen;
     

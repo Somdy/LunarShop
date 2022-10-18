@@ -27,6 +27,7 @@ import rs.lunarshop.shops.ShopEventManager;
 import rs.lunarshop.ui.loadout.LoadoutManager;
 import rs.lunarshop.utils.AchvHelper;
 import rs.lunarshop.utils.ItemHelper;
+import rs.lunarshop.utils.ItemStatHelper;
 import rs.lunarshop.utils.LunarUtils;
 
 import java.lang.reflect.Type;
@@ -172,6 +173,7 @@ public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Intege
     
     @Override
     public Map<String, Integer> onSave() {
+        ItemStatHelper.RefreshAllRelicStats();
         Map<String, Integer> map = new HashMap<>();
         checkRngs();
         checkShopManager();

@@ -1,4 +1,4 @@
-package rs.lunarshop.items.relics.lunar;
+package rs.lunarshop.items.relics.planet;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
@@ -6,12 +6,12 @@ import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import rs.lazymankits.utils.LMSK;
-import rs.lunarshop.items.abstracts.LunarRelic;
+import rs.lunarshop.items.abstracts.PlanetRelic;
 import rs.lunarshop.powers.BleedingPower;
 import rs.lunarshop.utils.ItemHelper;
 import rs.lunarshop.utils.PotencyHelper;
 
-public class Spleen extends LunarRelic {
+public class Spleen extends PlanetRelic {
     private static final float CritMod = 0.05F;
     private static float bleedPercent;
     

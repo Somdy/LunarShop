@@ -20,7 +20,7 @@ import rs.lunarshop.utils.LunarImageMst;
 import java.lang.reflect.Field;
 
 public final class RenderRelicRarityPatches {
-    private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(LunarMod.Prefix("ItemRarity"));
+    private static final UIStrings uiStrings = LunarMod.UIStrings(LunarMod.Prefix("ItemRarity"));
     public static final String[] TEXT = uiStrings.TEXT;
     
     @SpirePatch(clz = SingleRelicViewPopup.class, method = "renderRarity")

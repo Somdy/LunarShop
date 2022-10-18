@@ -21,8 +21,7 @@ import java.util.*;
 
 @SuppressWarnings("unused")
 public class LoadoutManager implements LunarUtils, CustomSavable<Map<String, String>> {
-    public static final LoadoutManager Inst = new LoadoutManager();
-    
+    private static LoadoutManager Inst = null;
     public static final Texture LOADOUT_BUTTON = LunarImageMst.loadLocally("LunarAssets/imgs/ui/loadout/LoadoutButton_", ".png");
     public static final Texture LOADOUT_BUTTON_PRESSED = LunarImageMst.loadLocally("LunarAssets/imgs/ui/loadout/LoadoutButton_pressed_", ".png");
     public static final int LOADOUT_W = 309;
@@ -45,6 +44,12 @@ public class LoadoutManager implements LunarUtils, CustomSavable<Map<String, Str
     private int rainLevel;
     private int eclipseLevel;
     private final List<String> selectedArtifacts = new ArrayList<>();
+    
+    public static LoadoutManager Inst() {
+        if (Inst == null)
+            Inst = new LoadoutManager();
+        return Inst;
+    }
     
     private LoadoutManager() {
         tabs.add(new DifficultyTab(this));

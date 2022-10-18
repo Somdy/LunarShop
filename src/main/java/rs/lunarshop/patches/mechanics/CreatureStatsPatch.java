@@ -40,7 +40,7 @@ public class CreatureStatsPatch {
     public static class PlayerStatsPatch {
         @SpirePostfixPatch
         public static void Postfix(AbstractPlayer __instance) {
-            DifficultyMod mod = LunarMaster.GetDifficultyMod(LoadoutManager.Inst.getDifficultyLevel());
+            DifficultyMod mod = LunarMaster.GetDifficultyMod(LoadoutManager.Inst().getDifficultyLevel());
             if (mod != null) {
                 ArmorHelper.SetArmor(__instance, mod.playerStats[0]);
                 AttackHelper.SetAttack(__instance, mod.playerStats[1]);

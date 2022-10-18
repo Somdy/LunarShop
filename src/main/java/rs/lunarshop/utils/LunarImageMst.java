@@ -19,6 +19,7 @@ public class LunarImageMst {
     public static final int INNER_FRAME_H = 10;
     public static final int TAB_GLOW_W = 308;
     public static final int TAB_GLOW_H = 67;
+    public static final int TEXT_BLOCK_W = 608;
     
     public static TextureAtlas AchvAtlas;
     public static TextureAtlas.AtlasRegion BG_COMMON;
@@ -64,6 +65,13 @@ public class LunarImageMst {
     public static Texture LunarTipBoxBot;
     public static Texture LunarTipHeaderBg;
     public static Texture LunarTipBodyBg;
+    public static Texture RelicPopupBgMixed;
+    public static Texture RelicPopupBg;
+    public static Texture RelicPopupTextArea;
+    public static Texture RelicIconOutline;
+    public static Texture TextBlockTop;
+    public static Texture TextBlockMid;
+    public static Texture TextBlockBot;
     
     public static Texture[] EquipSlots;
     public static Texture[] EclipseIcons;
@@ -94,8 +102,7 @@ public class LunarImageMst {
     }
     
     public static void Initialize() {
-        LunarMod.LogInfo("Loading texture assets");
-        
+        long time = System.currentTimeMillis();
         AchvAtlas = new TextureAtlas(Gdx.files.internal("LunarAssets/imgs/achvs/achvs.atlas"));
         BG_COMMON = AchvAtlas.findRegion("bg/COMMON");
         BG_RARE = AchvAtlas.findRegion("bg/RARE");
@@ -140,10 +147,19 @@ public class LunarImageMst {
         LunarTipBoxBot = load("LunarAssets/imgs/ui/tipBox/tipBoxBot.png");
         LunarTipBodyBg = load("LunarAssets/imgs/ui/tipBox/tipBg.png");
         LunarTipHeaderBg = load("LunarAssets/imgs/ui/tipBox/tipHeaderBg.png");
+        RelicPopupBgMixed = load("LunarAssets/imgs/ui/relicPopup/popUpBg_mixed.png");
+        RelicPopupBg = load("LunarAssets/imgs/ui/relicPopup/popUpBg.png");
+        RelicPopupTextArea = load("LunarAssets/imgs/ui/relicPopup/textArea.png");
+        RelicIconOutline = load("LunarAssets/imgs/ui/relicPopup/icon_outline.png");
+        TextBlockTop = load("LunarAssets/imgs/ui/relicPopup/textBlockTop.png");
+        TextBlockMid = load("LunarAssets/imgs/ui/relicPopup/textBlockMid.png");
+        TextBlockBot = load("LunarAssets/imgs/ui/relicPopup/textBlockBot.png");
         
         for (int i = 0; i < ItemBgIcons.length; i++) {
             ItemBgIcons[i] = load("LunarAssets/imgs/ui/relicPopup/icon_" + i + ".png");
         }
+        
+        LunarMod.LogInfo("Lunar texture assets initialized: " + (System.currentTimeMillis() - time) + " ms");
     }
     
     private static Texture load(String path) {

@@ -15,13 +15,15 @@ import java.util.Map;
 
 public class LunarFont {
     private static FreeTypeFontGenerator.FreeTypeFontParameter param = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    private static FreeTypeFontGenerator.FreeTypeBitmapFontData data = new FreeTypeFontGenerator.FreeTypeBitmapFontData();
     private static Map<String, FreeTypeFontGenerator> fontGeneratorMap = new HashMap<>();
     private static FileHandle fontFile;
     private static float fontScale = 1F;
     
     public static BitmapFont ROR_TIP_HEADER_FONT;
     public static BitmapFont ROR_TIP_BODY_FONT;
+    public static BitmapFont ROR_RELIC_TITLE_FONT;
+    public static BitmapFont ROR_RELIC_SUBTL_FONT;
+    public static BitmapFont ROR_RELIC_TEXT_FONT;
     
     public static void Initialize() {
         long time = System.currentTimeMillis();
@@ -45,9 +47,16 @@ public class LunarFont {
 //        param.shadowColor = Color.DARK_GRAY;
 //        param.shadowOffsetX = 1;
 //        param.shadowOffsetY = 1;
+        param.spaceX = 1;
         ROR_TIP_HEADER_FONT = prepFont(24F, true);
         ROR_TIP_BODY_FONT = prepFont(22F, true);
-        LunarMod.LogInfo("lunar font initialized: " + (System.currentTimeMillis() - time) + " ms");
+        param.spaceX = 5;
+        ROR_RELIC_TITLE_FONT = prepFont(48, true);
+        ROR_RELIC_SUBTL_FONT = prepFont(36, true);
+        param.spaceX = 1;
+        ROR_RELIC_TEXT_FONT = prepFont(26, true);
+        
+        LunarMod.LogInfo("Lunar fonts initialized: " + (System.currentTimeMillis() - time) + " ms");
     }
     
     public static BitmapFont prepFont(float size, boolean isLinearFiltering) {

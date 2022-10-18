@@ -50,7 +50,7 @@ public class LunarNpcProp {
     }
     
     public LunarNpcProp modify() {
-        int level = LoadoutManager.Inst.getDifficultyLevel();
+        int level = LoadoutManager.Inst().getDifficultyLevel();
         DifficultyMod mod = LunarMaster.GetDifficultyMod(level);
         if (mod != null) {
             LunarMod.DebugLog("getting [" + level + "]-modified prop for [" + this.ID + "]");

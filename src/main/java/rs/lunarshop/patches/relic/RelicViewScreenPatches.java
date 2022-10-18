@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.screens.compendium.RelicViewScreen;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import javassist.CtBehavior;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.items.relics.RelicManager;
+import rs.lunarshop.items.relics.RelicMst;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -19,14 +19,21 @@ public class RelicViewScreenPatches {
     public static final String[] TEXT = uiStrings.TEXT;
     
     private static final ArrayList<AbstractRelic> lunarPool = new ArrayList<>();
+    private static final ArrayList<AbstractRelic> planetPool = new ArrayList<>();
     
     @SpirePatch(clz = RelicViewScreen.class, method = "open")
     public static class OpenPatch {
         @SpirePostfixPatch
         public static void Postfix(RelicViewScreen _inst) {
             lunarPool.clear();
-            lunarPool.addAll(RelicManager.GetLunarItems());
+            lunarPool.addAll(RelicMst.GetLunarItems());
             lunarPool.forEach(r -> {
+                if (UnlockTracker.isRelicSeen(r.relicId))
+                    r.isSeen = true;
+            });
+            planetPool.clear();
+            planetPool.addAll(RelicMst.GetPlanetItems());
+            planetPool.forEach(r -> {
                 if (UnlockTracker.isRelicSeen(r.relicId))
                     r.isSeen = true;
             });
@@ -41,6 +48,7 @@ public class RelicViewScreenPatches {
                     SpriteBatch.class, String.class, String.class, ArrayList.class);
             renderList.setAccessible(true);
             invoker(_inst, sb, renderList, TEXT[0], TEXT[1], lunarPool);
+            invoker(_inst, sb, renderList, TEXT[2], TEXT[3], planetPool);
         }
         private static void invoker(RelicViewScreen _inst, SpriteBatch sb, Method renderList, String tier, String text, 
                                     ArrayList<AbstractRelic> relics) throws Exception {
@@ -64,6 +72,7 @@ public class RelicViewScreenPatches {
             Method updateList = RelicViewScreen.class.getDeclaredMethod("updateList", ArrayList.class);
             updateList.setAccessible(true);
             invoker(_inst, updateList, lunarPool);
+            invoker(_inst, updateList, planetPool);
         }
         private static void invoker(RelicViewScreen _inst, Method updateList, ArrayList<AbstractRelic> relics) throws Exception {
             if (!relics.isEmpty()) {

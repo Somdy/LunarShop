@@ -42,7 +42,7 @@ import rs.lunarshop.events.LunarMerchantEvent;
 import rs.lunarshop.interfaces.relics.BlockModifierRelic;
 import rs.lunarshop.items.equipments.EquipmentManager;
 import rs.lunarshop.items.relics.LunarPass;
-import rs.lunarshop.items.relics.RelicManager;
+import rs.lunarshop.items.relics.RelicMst;
 import rs.lunarshop.localizations.LunarLocalLoader;
 import rs.lunarshop.patches.MiscRewardEnum;
 import rs.lunarshop.rewards.LunarMiscReward;
@@ -80,6 +80,8 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
     public static boolean TimeScalingDifficultyMode = false;
     public static boolean MakePassAStarterRelic = false;
     public static boolean DefeatedLunarSnecko = false;
+    
+    public static boolean DevMode = true;;
     
     public static boolean[] LunarPotencies = new boolean[]{false, false, false, false, false, false}; // size = 6
 
@@ -347,7 +349,7 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
     public void receiveEditRelics() {
         achvTracker.checkUnlocks();
         
-        RelicManager.LoadRelics();
+        RelicMst.LoadRelics();
         EquipmentManager.LoadEquipments();
     }
     
@@ -372,7 +374,7 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
     public void receivePostInitialize() {
         LunarImageMst.Initialize();
         LunarFont.Initialize();
-        LoadoutManager.Inst.init();
+        LoadoutManager.Inst().init();
         BaseMod.registerCustomReward(MiscRewardEnum.LUNAR_COIN, 
                 (onLoad) -> {
                     return ItemHelper.GetLunarCoinReward(onLoad.amount);

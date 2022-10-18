@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.neow.NeowReward;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.items.relics.LunarPass;
-import rs.lunarshop.items.relics.RelicManager;
+import rs.lunarshop.items.relics.RelicMst;
 import rs.lunarshop.patches.NeowLunarPassRewardPatches;
 import rs.lunarshop.utils.LunarUtils;
 
@@ -23,7 +23,7 @@ public class LunarPassReward extends NeowReward implements LunarUtils {
     @Override
     public void activate() {
         if (!LunarMod.HasPass()) {
-            LunarPass p = RelicManager.GetPass();
+            LunarPass p = RelicMst.GetPass();
             p.activateRndPass();
             currRoom().spawnRelicAndObtain(Settings.WIDTH / 2F, Settings.HEIGHT / 2F, p);
             NeowLunarPassRewardPatches.ChosenPass = true;

@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.ui.DialogWord;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.data.AchvID;
-import rs.lunarshop.items.relics.RelicManager;
+import rs.lunarshop.items.relics.RelicMst;
 import rs.lunarshop.items.relics.planet.Pearl;
 import rs.lunarshop.items.relics.planet.PerfectPearl;
 import rs.lunarshop.abstracts.AbstractLunarRelic;
@@ -164,9 +164,9 @@ public class CleansingPoolEvent extends AbstractImageEvent implements LunarUtils
         int stack = ic.cleanseRelic();
         AbstractRelic pearl;
         if (ItemHelper.RollLuck("CleansingPool", 0.2F)) {
-            pearl = RelicManager.Get(ItemHelper.GetProp(55), stack);
+            pearl = RelicMst.Get(ItemHelper.GetProp(55), stack);
         } else {
-            pearl = RelicManager.Get(ItemHelper.GetProp(54), stack);
+            pearl = RelicMst.Get(ItemHelper.GetProp(54), stack);
         }
         instantObtain(pearl);
         if (phase != OUTER_MSG) {

@@ -7,6 +7,8 @@ import rs.lunarshop.enums.LunarClass;
 import rs.lunarshop.enums.LunarRarity;
 import rs.lunarshop.shops.ShopType;
 
+import java.util.Objects;
+
 public final class LunarItemProp {
     public final int lunarID;
     public final String localID;
@@ -74,5 +76,18 @@ public final class LunarItemProp {
     @NotNull
     public static LunarItemProp GetReplacer() {
         return new LunarItemProp(-1, "MISSING_ITEM", "MISSING_ITEM", LunarRarity.UNREAL, AbstractRelic.LandingSound.FLAT, 6);
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LunarItemProp that = (LunarItemProp) o;
+        return lunarID == that.lunarID && localID.equals(that.localID) && clazz == that.clazz;
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(lunarID, localID, clazz);
     }
 }

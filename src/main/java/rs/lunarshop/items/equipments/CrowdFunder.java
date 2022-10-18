@@ -49,6 +49,7 @@ public class CrowdFunder extends LunarEquipment {
     public void preModifyDamage(DamageInfo info, AbstractCreature who) {
         if (info.owner == cpr() && isOn && cpr().gold > goldCost && info.output > 0 && who != null) {
             info.output = info.output + MathUtils.ceil(info.output * damageMult);
+            info.isModified = info.base != info.output;
             cpr().loseGold(goldCost);
             addToBot(new VFXAction(new FlickCoinEffect(info.owner.hb.cX, info.owner.hb.cY, who.hb.cX, who.hb.cY), 0.3F));
         }

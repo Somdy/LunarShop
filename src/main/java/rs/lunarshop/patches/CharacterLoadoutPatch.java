@@ -15,7 +15,7 @@ public class CharacterLoadoutPatch {
         @SpirePrefixPatch
         public static void Prefix(CharacterSelectScreen _inst) {
             if ((Boolean) ReflectionHacks.getPrivate(_inst, CharacterSelectScreen.class, "anySelected")) {
-                LoadoutManager.Inst.update();
+                LoadoutManager.Inst().update();
             }
         }
     }
@@ -24,7 +24,7 @@ public class CharacterLoadoutPatch {
         @SpirePostfixPatch
         public static void Postfix(CharacterSelectScreen _inst, SpriteBatch sb) {
             if ((Boolean) ReflectionHacks.getPrivate(_inst, CharacterSelectScreen.class, "anySelected")) {
-                LoadoutManager.Inst.render(sb);
+                LoadoutManager.Inst().render(sb);
             }
         }
     }
@@ -32,14 +32,14 @@ public class CharacterLoadoutPatch {
     public static class LoadoutCaptureCSSPatch {
         @SpirePostfixPatch
         public static void Postfix(CharacterSelectScreen _inst) {
-            LoadoutManager.Inst.captureCharSelectScreen(_inst);
+            LoadoutManager.Inst().captureCharSelectScreen(_inst);
         }
     }
     @SpirePatch(clz = CharacterOption.class, method = "updateHitbox")
     public static class CharacterOptionPrefPatch {
         @SpireInsertPatch(locator = Locator.class)
         public static void Insert(CharacterOption _inst) {
-            LoadoutManager.Inst.loadPrefsOnCharacterOptionJustSelected(_inst);
+            LoadoutManager.Inst().loadPrefsOnCharacterOptionJustSelected(_inst);
         }
         private static class Locator extends SpireInsertLocator {
             @Override

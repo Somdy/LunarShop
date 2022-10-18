@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import rs.lunarshop.core.LunarMod;
-import rs.lunarshop.items.relics.lunar.Spleen;
+import rs.lunarshop.items.relics.planet.Spleen;
 import rs.lunarshop.abstracts.AbstractLunarPower;
 
 public class BleedingPower extends AbstractLunarPower {
