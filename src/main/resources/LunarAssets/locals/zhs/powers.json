@@ -184,5 +184,13 @@
             "[owner_name] 的攻击力增加 #b[amt_0] 点，持续 #b[amt_1] 回合。",
             ""
         ]
+    },
+
+    "lunar:HitMarkPower": {
+        "NAME": "肃清标记",
+        "DESCRIPTIONS": [
+            "[owner_name] 已被标记为 #y肃清 对象。",
+            ""
+        ]
     }
 }

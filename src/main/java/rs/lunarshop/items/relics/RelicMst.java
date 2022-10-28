@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.Circlet;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.jetbrains.annotations.NotNull;
+import rs.lunarshop.abstracts.AbstractLunarEquipment;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.enums.LunarClass;
 import rs.lunarshop.items.abstracts.*;
@@ -95,6 +96,13 @@ public final class RelicMst {
         return tmp;
     }
     
+    public static ArrayList<? extends AbstractRelic> GetLegacyItems() {
+        ArrayList<AbstractLunarRelic> tmp = new ArrayList<>(GetAllAvailableRelics());
+        tmp.removeIf(r -> !(r instanceof LegacyRelic));
+        tmp.sort(ITEM_COMPARATOR);
+        return tmp;
+    }
+    
     @NotNull
     public static AbstractRelic Get(LunarItemProp itemID) {
         return Get(itemID, 0);
@@ -131,6 +139,10 @@ public final class RelicMst {
     @NotNull
     public static List<AbstractLunarRelic> GetAllRelics() {
         return ITEM_MAP.values().stream().map(r -> ((AbstractLunarRelic) r.makeCopy())).collect(Collectors.toList());
+    }
+    
+    public static boolean IsLunarItem(AbstractRelic r) {
+        return r instanceof LunarRelic || r instanceof PlanetRelic || r instanceof LegacyRelic || r instanceof AbstractLunarEquipment;
     }
     
     private static void Log(Object what) {

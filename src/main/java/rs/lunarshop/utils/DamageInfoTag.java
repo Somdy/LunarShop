@@ -11,6 +11,7 @@ public class DamageInfoTag {
     public static final DamageInfoTag FIRE = new DamageInfoTag("LUNAR_FIRE_DAMAGE");
     public static final DamageInfoTag EXPLOSIVE = new DamageInfoTag("LUNAR_EXPLOSIVE_DAMAGE");
     public static final DamageInfoTag ENERGETIC = new DamageInfoTag("LUNAR_ENERGETIC_DAMAGE");
+    public static final DamageInfoTag TURBINE_IGNORED = new DamageInfoTag("LUNAR_TURBINE_IGNORED");
     
     private final String ID;
     

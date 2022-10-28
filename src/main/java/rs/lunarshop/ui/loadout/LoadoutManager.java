@@ -195,7 +195,10 @@ public class LoadoutManager implements LunarUtils, CustomSavable<Map<String, Str
     public void loadPrefsOnCharacterOptionJustSelected(CharacterOption option) {
         Prefs pref = option.c.getPrefs();
         if (pref != null) {
+            deLog("Loading [" + option.c.chosenClass + "] loadout values");
             tabs.forEach(t -> t.loadConfig(pref));
+            updateTotalLevel();
+            updateSelectedGroup();
         }
     }
     

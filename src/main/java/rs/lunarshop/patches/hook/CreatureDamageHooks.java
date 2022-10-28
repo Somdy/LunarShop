@@ -33,7 +33,7 @@ public class CreatureDamageHooks {
             }
             if (CritHelper.CanCrit(info)) {
                 float critChance = CritHelper.GetCalculatedChance(info.owner, _inst);
-                boolean critical = LMSK.MiscRng().randomBoolean(critChance);
+                boolean critical = critChance >= 1F || LMSK.MiscRng().randomBoolean(critChance);
                 if (critical) {
                     float critMult = CritHelper.GetCalculatedMult(info.owner, _inst);
                     int critHitDamage = MathUtils.ceil(info.output * critMult);

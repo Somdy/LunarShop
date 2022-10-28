@@ -3,6 +3,7 @@ package rs.lunarshop.patches.relic;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.RelicLibrary;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.screens.compendium.RelicViewScreen;
@@ -13,6 +14,7 @@ import rs.lunarshop.items.relics.RelicMst;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RelicViewScreenPatches {
     private static final UIStrings uiStrings = LunarMod.UIStrings(LunarMod.Prefix("LunarRelicViewList"));
@@ -20,6 +22,7 @@ public class RelicViewScreenPatches {
     
     private static final ArrayList<AbstractRelic> lunarPool = new ArrayList<>();
     private static final ArrayList<AbstractRelic> planetPool = new ArrayList<>();
+    private static final ArrayList<AbstractRelic> legacyPool = new ArrayList<>();
     
     @SpirePatch(clz = RelicViewScreen.class, method = "open")
     public static class OpenPatch {
@@ -37,18 +40,41 @@ public class RelicViewScreenPatches {
                 if (UnlockTracker.isRelicSeen(r.relicId))
                     r.isSeen = true;
             });
+            legacyPool.clear();
+            legacyPool.addAll(RelicMst.GetLegacyItems());
+            legacyPool.forEach(r -> {
+                if (UnlockTracker.isRelicSeen(r.relicId))
+                    r.isSeen = true;
+            });
         }
     }
     
-    @SpirePatch(clz = RelicViewScreen.class, method = "render")
+    @SpirePatch2(clz = RelicViewScreen.class, method = "render")
     public static class RenderPatch {
+        private static final List<AbstractRelic> removeList = new ArrayList<>();
+        @SpirePrefixPatch
+        public static void PrefixRemoveItems() {
+            removeList.clear();
+            RelicLibrary.specialList.removeIf(r -> {
+                if (RelicMst.IsLunarItem(r))
+                    return removeList.add(r);
+                return false;
+            });
+        }
+        @SpirePostfixPatch
+        public static void PostfixReturnItems() {
+            RelicLibrary.specialList.addAll(removeList);
+            removeList.clear();
+        }
+        
         @SpireInsertPatch(locator = Locator.class)
-        public static void Insert(RelicViewScreen _inst, SpriteBatch sb) throws Exception {
+        public static void Insert(RelicViewScreen __instance, SpriteBatch sb) throws Exception {
             Method renderList = RelicViewScreen.class.getDeclaredMethod("renderList", 
                     SpriteBatch.class, String.class, String.class, ArrayList.class);
             renderList.setAccessible(true);
-            invoker(_inst, sb, renderList, TEXT[0], TEXT[1], lunarPool);
-            invoker(_inst, sb, renderList, TEXT[2], TEXT[3], planetPool);
+            invoker(__instance, sb, renderList, TEXT[0], TEXT[1], lunarPool);
+            invoker(__instance, sb, renderList, TEXT[2], TEXT[3], planetPool);
+            invoker(__instance, sb, renderList, TEXT[4], TEXT[5], legacyPool);
         }
         private static void invoker(RelicViewScreen _inst, SpriteBatch sb, Method renderList, String tier, String text, 
                                     ArrayList<AbstractRelic> relics) throws Exception {
@@ -73,6 +99,7 @@ public class RelicViewScreenPatches {
             updateList.setAccessible(true);
             invoker(_inst, updateList, lunarPool);
             invoker(_inst, updateList, planetPool);
+            invoker(_inst, updateList, legacyPool);
         }
         private static void invoker(RelicViewScreen _inst, Method updateList, ArrayList<AbstractRelic> relics) throws Exception {
             if (!relics.isEmpty()) {

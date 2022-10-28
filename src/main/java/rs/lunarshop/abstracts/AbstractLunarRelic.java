@@ -873,16 +873,41 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
         return damage(t, cpr(), damage, DamageInfo.DamageType.THORNS, effect, null);
     }
     
+    protected BetterDamageAllEnemiesAction damageAll(AbstractCreature s, int baseDamage, AbstractGameAction.AttackEffect effect, 
+                                                     DamageInfoTag... tags) {
+        CustomDmgInfo[] dmgInfos = CustomDmgInfo.createInfoArray(crtDmgInfo(s, baseDamage, DamageInfo.DamageType.THORNS), 
+                true);
+        if (tags != null && tags.length > 0 && dmgInfos.length > 0) {
+            for (CustomDmgInfo i : dmgInfos) {
+                DamageInfoTag.PutTags(i, tags);
+            }
+        }
+        return new BetterDamageAllEnemiesAction(dmgInfos, effect, true, false, null);
+    }
+    
     protected BetterDamageAllEnemiesAction damageAll(AbstractCreature s, int baseDamage, boolean pure,
                                                      DamageInfo.DamageType type, AbstractGameAction.AttackEffect effect,
-                                                     Consumer<AbstractCreature> func) {
-        int[] damage = DamageInfo.createDamageMatrix(baseDamage, pure);
-        return new BetterDamageAllEnemiesAction(damage, crtDmgSrc(s), type, effect, func);
+                                                     Consumer<AbstractCreature> func, DamageInfoTag... tags) {
+        CustomDmgInfo[] dmgInfos = CustomDmgInfo.createInfoArray(crtDmgInfo(s, baseDamage, type), pure);
+        if (tags != null && tags.length > 0 && dmgInfos.length > 0) {
+            for (CustomDmgInfo i : dmgInfos) {
+                DamageInfoTag.PutTags(i, tags);
+            }
+        }
+        return new BetterDamageAllEnemiesAction(dmgInfos, effect, pure, false, func);
     }
     
     protected BetterDamageAllEnemiesAction damageAll(AbstractCreature s, int baseDamage, AbstractGameAction.AttackEffect effect) {
         int[] damage = DamageInfo.createDamageMatrix(baseDamage, true);
         return new BetterDamageAllEnemiesAction(damage, crtDmgSrc(s), DamageInfo.DamageType.THORNS, effect);
+    }
+    
+    protected void atbTmpAction(Runnable action) {
+        addToBot(new QuickAction(action));
+    }
+    
+    protected void attTmpAction(Runnable action) {
+        addToTop(new QuickAction(action));
     }
     
     public void afterEqmtActivated(AbstractLunarEquipment equipment) {}
