@@ -34,6 +34,10 @@ import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.achievements.AchvGrid;
 import rs.lunarshop.achievements.AchvManager;
 import rs.lunarshop.achievements.AchvTracker;
+import rs.lunarshop.cards.CardMst;
+import rs.lunarshop.cards.variables.LunarExtraBlock;
+import rs.lunarshop.cards.variables.LunarExtraDamage;
+import rs.lunarshop.cards.variables.LunarExtraMagic;
 import rs.lunarshop.config.MiscConfig;
 import rs.lunarshop.data.LunarDataLoader;
 import rs.lunarshop.events.CleansingPoolEvent;
@@ -95,6 +99,7 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
     public LunarMod() {
         BaseMod.subscribe(this);
         LManager.Sub(this);
+        CardMst.RegisterColor();
     }
     
     @Nullable
@@ -329,7 +334,10 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
     
     @Override
     public void receiveEditCards() {
-    
+        CardMst.Initialize();
+        BaseMod.addDynamicVariable(new LunarExtraDamage());
+        BaseMod.addDynamicVariable(new LunarExtraBlock());
+        BaseMod.addDynamicVariable(new LunarExtraMagic());
     }
     
     @Override

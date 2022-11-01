@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import rs.lazymankits.actions.CustomDmgInfo;
 import rs.lazymankits.actions.DamageSource;
@@ -134,6 +135,11 @@ public interface LunarUtils extends LMGameGeneralUtils {
             default:
                 return "eng";
         }
+    }
+    
+    @NotNull
+    static String CardImageURL(String locator) {
+        return "LunarAssets/imgs/items/cards/lunar/" + locator + ".png";
     }
     
     static boolean RoomChecker(Class<? extends AbstractRoom> clz, AbstractRoom.RoomPhase phase) {

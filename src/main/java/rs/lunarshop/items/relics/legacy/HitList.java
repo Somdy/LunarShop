@@ -11,6 +11,7 @@ import rs.lunarshop.utils.ItemHelper;
 import java.util.List;
 
 public class HitList extends LegacyRelic {
+    private static final int DAMAGE_PER_MARK = 10;
     private int markTime;
     
     public HitList() {
@@ -48,7 +49,7 @@ public class HitList extends LegacyRelic {
     public void preModifyDamage(DamageInfo info, AbstractCreature who) {
         if (who.hasPower(HitMarkPower.POWER_ID)) {
             int markAmt = who.getPower(HitMarkPower.POWER_ID).amount;
-            info.output += markAmt;
+            info.output += markAmt * DAMAGE_PER_MARK;
             info.isModified = info.base != info.output;
         }
     }

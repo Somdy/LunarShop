@@ -143,7 +143,9 @@ public final class LunarPass extends LMCustomRelic implements LunarUtils, Picker
     @Override
     public void onMonsterDeath(AbstractMonster m) {
         super.onMonsterDeath(m);
-        dropItemOnMonsterDeath(m);
+        if (!m.halfDead) {
+            dropItemOnMonsterDeath(m);
+        }
     }
     
     private void dropItemOnMonsterDeath(AbstractMonster m) {

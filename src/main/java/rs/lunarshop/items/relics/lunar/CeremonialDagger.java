@@ -141,7 +141,6 @@ public class CeremonialDagger extends LunarRelic {
     
     @Override
     protected void saveThings(RelicConfigBuilder builder) {
-        super.saveThings(builder);
         if (!daggerList.isEmpty()) {
             builder.map("RDaggerSize", String.valueOf(daggerList.size()));
             for (int i = 0; i < daggerList.size(); i++) {
@@ -153,7 +152,6 @@ public class CeremonialDagger extends LunarRelic {
     
     @Override
     protected void loadThings(LunarConfig config) {
-        super.loadThings(config);
         if (config.hasMapKey("RDaggerSize")) {
             daggerList.clear();
             int size = Integer.parseInt(config.getMapValue("RDaggerSize"));

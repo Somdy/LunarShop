@@ -2,15 +2,18 @@ package rs.lunarshop.data;
 
 import com.badlogic.gdx.Gdx;
 import com.google.gson.Gson;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import rs.lunarshop.abstracts.lunarprops.LunarCardProp;
 import rs.lunarshop.core.LunarMaster;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.enums.LunarRarity;
 import rs.lunarshop.abstracts.lunarprops.LunarItemProp;
 import rs.lunarshop.abstracts.lunarprops.LunarNpcProp;
 import rs.lunarshop.utils.ItemHelper;
+import rs.lunarshop.utils.LunarCardHelper;
 import rs.lunarshop.utils.MsgHelper;
 import rs.lunarshop.utils.NpcHelper;
 
@@ -69,6 +72,19 @@ public class LunarDataLoader {
             }
         }
         MsgHelper.End();
+        dataPath = "LunarAssets/data/card_data_main.json";
+        dataJson = readJson(dataPath);
+        MsgHelper.PreLoad("CARD DATA LOADED");
+        {
+            CardData[] data = gson.fromJson(dataJson, CardData[].class);
+            assert data != null;
+            for (CardData cardData : data) {
+                LunarCardProp prop = createCardProp(cardData);
+                LunarCardHelper.AddCardProp(prop);
+                MsgHelper.Append(prop.lunarID);
+            }
+        }
+        MsgHelper.End();
     }
     
     @Nullable
@@ -110,6 +126,24 @@ public class LunarDataLoader {
         return new LunarItemProp(lunarID, localID, localname, rarity, sound, popupIcon);
     }
     
+    @NotNull
+    private static LunarCardProp createCardProp(@NotNull CardData data) {
+        int lunarID = data.lunarID;
+        String localID = data.localID;
+        String localname = data.localname;
+        AbstractCard.CardRarity rarity = AbstractCard.CardRarity.valueOf(data.rarity.toUpperCase());
+        AbstractCard.CardType type = AbstractCard.CardType.valueOf(data.type.toUpperCase());
+        int[] costValues = new int[]{data.values[0][0], data.values[0].length > 1 ? data.values[0][1] : data.values[0][0]};
+        int[][] damageValues = buildCardValues(data.values[1], data.values[4]);
+        int[][] blockValues = buildCardValues(data.values[2], data.values[5]);
+        int[][] magicValues = buildCardValues(data.values[3], data.values[6]);
+        return new LunarCardProp(lunarID, localID, localname, rarity, type, costValues, damageValues, blockValues, magicValues);
+    }
+    
+    private static int[][] buildCardValues(@NotNull int[] src, @NotNull int[] eSrc) {
+        return new int[][]{{src[0], src.length > 1 ? src[1] : 0}, {eSrc[0], eSrc.length > 1 ? eSrc[1] : 0}};
+    }
+    
     private static class NpcStats {
         private String ID;
         private final float[] stats = new float[6];
@@ -122,5 +156,14 @@ public class LunarDataLoader {
         private int tier;
         private String sound;
         private int popupIcon;
+    }
+    
+    private static class CardData {
+        private int lunarID;
+        private String localID;
+        private String localname;
+        private String rarity;
+        private String type;
+        private int[][] values;
     }
 }

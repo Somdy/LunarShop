@@ -14,7 +14,7 @@ public class AttackHelper {
     public static float ApplyPowersToMonster(AbstractCreature m, float damage) {
         int attack = GetAttack(m);
         if (attack >= 0) {
-            if (damage < 0) 
+            if (damage < attack) 
                 damage = attack;
             else 
                 damage += attack;
@@ -24,10 +24,10 @@ public class AttackHelper {
         return damage;
     }
     
-    public static float ApplyPowersToCard(AbstractPlayer p, float damage) {
+    public static float ApplyPowersToPlayer(AbstractPlayer p, float damage) {
         int attack = GetAttack(p);
         if (attack >= 0) {
-            if (damage < 0)
+            if (damage < attack)
                 damage = attack;
             else
                 damage += attack;

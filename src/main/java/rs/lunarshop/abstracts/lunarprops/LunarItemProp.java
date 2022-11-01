@@ -73,11 +73,6 @@ public final class LunarItemProp {
         return rarity.bloods();
     }
     
-    @NotNull
-    public static LunarItemProp GetReplacer() {
-        return new LunarItemProp(-1, "MISSING_ITEM", "MISSING_ITEM", LunarRarity.UNREAL, AbstractRelic.LandingSound.FLAT, 6);
-    }
-    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,5 +84,10 @@ public final class LunarItemProp {
     @Override
     public int hashCode() {
         return Objects.hash(lunarID, localID, clazz);
+    }
+    
+    @NotNull
+    public static LunarItemProp GetReplacer() {
+        return new LunarItemProp(-1, "MISSING_ITEM", "MISSING_ITEM", LunarRarity.UNREAL, AbstractRelic.LandingSound.FLAT, 6);
     }
 }

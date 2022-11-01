@@ -1,4 +1,4 @@
-package rs.lunarshop.items.cards.temp;
+package rs.lunarshop.cards.temp;
 
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -8,13 +8,13 @@ import rs.lunarshop.core.LunarMaster;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.shops.ShopType;
 
-public class BlueCampfire extends LMCustomCard {
-    public static final String ID = LunarMod.Prefix("BlueCampfire");
-    private static final String NAME = "蓝色火焰";
-    public static final String IMG = "LunarAssets/imgs/items/cards/misc/blue_fire.png";
-    public static final String DESCRIPTION = "尝试与凝滞在错乱时空中的存在联系 NL 测试版: 获得 6 *月亮币 。";
+public class PurpleCampfire extends LMCustomCard {
+    public static final String ID = LunarMod.Prefix("PurpleCampfire");
+    private static final String NAME = "紫色火焰";
+    public static final String IMG = "LunarAssets/imgs/items/cards/misc/purple_fire.png";
+    public static final String DESCRIPTION = "尝试与存在于低语声中的入侵者联系";
     
-    public BlueCampfire() {
+    public PurpleCampfire() {
         super(ID, NAME, IMG, -2, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.SPECIAL, CardTarget.NONE);
     }
     
@@ -26,8 +26,8 @@ public class BlueCampfire extends LMCustomCard {
     
     @Override
     public void onChoseThisOption() {
-        LunarMaster.ShopManager.setCurrShop(ShopType.LUNAR);
-        LunarMaster.PickUpLunarCoin(6);
+        LunarMaster.ShopManager.setCurrShop(ShopType.VOID);
+        LunarMaster.PickUpLunarCoin(20);
         LunarMod.addToBot(new QuickAction(() -> LunarMaster.ShopManager.openShop()));
     }
 }

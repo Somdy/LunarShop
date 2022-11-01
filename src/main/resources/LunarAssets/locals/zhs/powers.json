@@ -192,5 +192,13 @@
             "[owner_name] 已被标记为 #y肃清 对象。",
             ""
         ]
+    },
+
+    "lunar:PermafrostPower": {
+        "NAME": "永冻",
+        "DESCRIPTIONS": [
+            "[owner_name] 的攻击力减少 #b[amt_0] 点，持续 #b[amt_1] 回合。",
+            ""
+        ]
     }
 }

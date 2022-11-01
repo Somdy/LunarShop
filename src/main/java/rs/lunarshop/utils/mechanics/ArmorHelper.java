@@ -15,31 +15,31 @@ public class ArmorHelper {
     private static final float BaseArmorFactor = 50F;
     
     public static float RoughDamageMultiplier(AbstractCreature target) {
-        float multiplier;
+        float multiplier = 1F;
         int armor = GetArmor(target);
-        if (armor >= 0) {
+        if (armor > 0) {
             multiplier = (1F - (armor / (armor + BaseArmorFactor)));
-        } else {
+        } else if (armor < 0) {
             multiplier = (2.1F - (BaseArmorFactor / (BaseArmorFactor - armor)));
         }
         return multiplier;
     }
     
     public static float DamageMultiplier(AbstractCreature target, float damageToTake, DamageInfo info) {
-        float multiplier;
+        float multiplier = 1F;
         int armor = GetArmor(target);
         float efficiency = 1F;
         if (info != null) {
             efficiency = GetArmorEfficiency(info);
         }
-        if (armor >= 0) {
+        if (armor > 0) {
             float armorFix = damageToTake <= armor ? BaseArmorFactor :
                     BaseArmorFactor - BaseArmorFactor * Math.min(0.15F, (damageToTake - armor) / 50F);
             float stackFix = armorFix <= armor ? 0 : Math.min(0.95F, 0.2F * ((armor - armorFix) / armorFix));
             float adjustedArmor = armor - armor * stackFix > armorFix ? armor - armor * stackFix : armor;
             adjustedArmor *= efficiency;
             multiplier = (1F - (adjustedArmor / (adjustedArmor + armorFix)));
-        } else {
+        } else if (armor < 0) {
             armor *= (2F - efficiency);
             multiplier = (2.1F - (BaseArmorFactor / (BaseArmorFactor - armor)));
         }

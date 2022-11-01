@@ -75,7 +75,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     protected PresetInfoFunction infoFunc;
 
     private AbstractLunarRelic(LunarItemProp prop, LunarClass clazz, int stack) {
-        super(LunarMod.Prefix(prop.localID), ImageMaster.loadImage("LunarAssets/imgs/items/relics/"
+        super(prop.getGameID(), ImageMaster.loadImage("LunarAssets/imgs/items/relics/"
                         + prop.lunarID + ".png"), ImageMaster.loadImage("LunarAssets/imgs/items/relics/"
                 + prop.lunarID + ".png"), RelicTier.SPECIAL, prop.sound);
         this.prop = prop.setClazz(clazz);
@@ -579,12 +579,12 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     
     @Override
     public void log(Object what) {
-        LunarMod.LogInfo(name + ": " + what);
+        LunarMod.LogInfo("[" + name + "]> " + what);
     }
     
     @Override
     public void warn(Object what) {
-        LunarMod.LogInfo(name + ": " + what);
+        LunarMod.LogInfo("[" + name + "]> " + what);
     }
     
     public final boolean canUseOn(AbstractCreature s, AbstractCreature t) {
@@ -817,7 +817,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     }
     
     @Override
-    public LunarConfig onSave() {
+    public final LunarConfig onSave() {
         RelicConfigBuilder builder = new RelicConfigBuilder(this);
         builder.alterValue(isEquipment, cooldown, stack);
         builder.map("battles", String.valueOf(battles));
@@ -829,7 +829,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     protected void saveThings(RelicConfigBuilder builder) {}
     
     @Override
-    public void onLoad(LunarConfig lunarConfig) {
+    public final void onLoad(LunarConfig lunarConfig) {
         if (lunarConfig != null && lunarConfig.getSaver() == prop.lunarID) {
             if (isEquipment)
                 cooldown = lunarConfig.getValue();

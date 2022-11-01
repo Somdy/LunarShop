@@ -25,12 +25,6 @@ public class OnFirePower extends AbstractLunarPower {
     }
     
     @Override
-    public void stackPower(int stackAmount) {
-        if (!stackable) return;
-        super.stackPower(stackAmount);
-    }
-    
-    @Override
     public void atEndOfTurn(boolean isPlayer) {
         if (!owner.isDeadOrEscaped() && amount > 0) {
             if (extraAmt > 0) {

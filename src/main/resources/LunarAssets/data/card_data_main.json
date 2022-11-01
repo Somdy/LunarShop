@@ -1,0 +1,9 @@
+﻿[
+	{"lunarID":1, "localID":"ASUBash", "localname":"摄魂痛击", "rarity":"basic", "type":"attack", "values":[[2], [12,2], [0], [3], [0], [0], [0]]},
+	{"lunarID":2, "localID":"ASUSurvivor", "localname":"受启示的生存者", "rarity":"basic", "type":"skill", "values":[[1], [0], [8,4], [1], [0], [0], [0]]},
+	{"lunarID":3, "localID":"ASUNeutralize", "localname":"平衡追猎者", "rarity":"basic", "type":"attack", "values":[[0], [4,2], [0], [2,2], [0], [0], [2,1]]},
+	{"lunarID":4, "localID":"ASUZap", "localname":"强力电击", "rarity":"basic", "type":"skill", "values":[[1,0], [0], [0], [1], [0], [0], [2,1]]},
+	{"lunarID":5, "localID":"ASUDualcast", "localname":"超量释放", "rarity":"basic", "type":"skill", "values":[[0], [0], [0], [2,1], [0], [0], [0]]},
+	{"lunarID":6, "localID":"ASUEruption", "localname":"理解的冷漠", "rarity":"basic", "type":"attack", "values":[[2,1], [8], [0], [0], [0], [0], [0]]},
+	{"lunarID":7, "localID":"ASUVigilance", "localname":"理解的愤怒", "rarity":"basic", "type":"skill", "values":[[2], [0], [8,2], [0], [0], [0,5], [0]]}
+]

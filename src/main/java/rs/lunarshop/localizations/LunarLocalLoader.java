@@ -20,6 +20,7 @@ public final class LunarLocalLoader implements LunarUtils {
     private static final AchvLocals achievements = new AchvLocals();
     private static final Map<String, ArtifactLocals> ArtifactLocalMap = new HashMap<>();
     private static final Map<String, LunarTipLocals> TipLocalMap = new HashMap<>();
+    private static final Map<String, LunarCardLocals> CardLocalMap = new HashMap<>();
     
     public static void Initialize() {
         long time = System.currentTimeMillis();
@@ -45,6 +46,13 @@ public final class LunarLocalLoader implements LunarUtils {
         assert tipLocals != null;
         for (LunarTipLocals local : tipLocals) {
             TipLocalMap.put(local.ID, local);
+        }
+        jsonPath = getJsonPath("lunar_cards.json");
+        jsonData = loadJson(jsonPath);
+        LunarCardLocals[] cardLocals = gson.fromJson(jsonData, LunarCardLocals[].class);
+        assert cardLocals != null;
+        for (LunarCardLocals local : cardLocals) {
+            CardLocalMap.put(local.ID, local);
         }
     
         LunarMod.LogInfo("lunar local strings are loaded: " + (System.currentTimeMillis() - time) + " ms");
@@ -96,5 +104,11 @@ public final class LunarLocalLoader implements LunarUtils {
         if (TipLocalMap.containsKey(ID))
             return TipLocalMap.get(ID);
         return LunarTipLocals.MockingTip();
+    }
+    
+    public static LunarCardLocals GetCardLocal(String ID) {
+        if (CardLocalMap.containsKey(ID))
+            return CardLocalMap.get(ID);
+        return LunarCardLocals.MockingLocals();
     }
 }

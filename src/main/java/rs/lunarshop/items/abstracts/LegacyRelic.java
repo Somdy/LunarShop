@@ -11,4 +11,9 @@ public class LegacyRelic extends AbstractLunarRelic {
     public LegacyRelic(int lunarID) {
         super(lunarID, LunarClass.LEGACY, 1);
     }
+    
+    @Override
+    public boolean canSpawnForReward() {
+        return false;
+    }
 }

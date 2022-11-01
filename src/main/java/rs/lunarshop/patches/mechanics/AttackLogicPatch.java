@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -45,28 +46,28 @@ public class AttackLogicPatch {
     
     @SpirePatch(clz = AbstractCard.class, method = "applyPowers")
     public static class ApplyCardPowersPatch {
-        @SpireInsertPatch(rloc = 34, localvars = {"tmp"})
+        @SpireInsertPatch(rloc = 23, localvars = {"tmp"})
         public static void Insert1(AbstractCard _inst, @ByRef float[] tmp) {
-            tmp[0] = AttackHelper.ApplyPowersToCard(AbstractDungeon.player, tmp[0]);
+            tmp[0] = AttackHelper.ApplyPowersToPlayer(AbstractDungeon.player, tmp[0]);
         }
-        @SpireInsertPatch(rloc = 83, localvars = {"tmp"})
+        @SpireInsertPatch(rloc = 69, localvars = {"tmp"})
         public static void Insert2(AbstractCard _inst, float[] tmp) {
             for (int i = 0; i < tmp.length; i++) {
-                tmp[i] = AttackHelper.ApplyPowersToCard(AbstractDungeon.player, tmp[i]);
+                tmp[i] = AttackHelper.ApplyPowersToPlayer(AbstractDungeon.player, tmp[i]);
             }
         }
     }
     
     @SpirePatch(clz = AbstractCard.class, method = "calculateCardDamage")
     public static class CalculateCardDamagePatch {
-        @SpireInsertPatch(rloc = 44, localvars = {"tmp"})
+        @SpireInsertPatch(rloc = 23, localvars = {"tmp"})
         public static void Insert1(AbstractCard _inst, AbstractMonster mo, @ByRef float[] tmp) {
-            tmp[0] = AttackHelper.ApplyPowersToCard(AbstractDungeon.player, tmp[0]);
+            tmp[0] = AttackHelper.ApplyPowersToPlayer(AbstractDungeon.player, tmp[0]);
         }
-        @SpireInsertPatch(rloc = 113, localvars = {"tmp"})
+        @SpireInsertPatch(rloc = 81, localvars = {"tmp"})
         public static void Insert2(AbstractCard _inst, AbstractMonster mo, float[] tmp) {
             for (int i = 0; i < tmp.length; i++) {
-                tmp[i] = AttackHelper.ApplyPowersToCard(AbstractDungeon.player, tmp[i]);
+                tmp[i] = AttackHelper.ApplyPowersToPlayer(AbstractDungeon.player, tmp[i]);
             }
         }
     }
@@ -80,7 +81,7 @@ public class AttackLogicPatch {
         private static class Locator extends SpireInsertLocator {
             @Override
             public int[] Locate(CtBehavior ctBehavior) throws Exception {
-                Matcher.MethodCallMatcher matcher = new Matcher.MethodCallMatcher(MathUtils.class, "floor");
+                Matcher.FieldAccessMatcher matcher = new Matcher.FieldAccessMatcher(AbstractPlayer.class, "stance");
                 return LineFinder.findInOrder(ctBehavior, matcher);
             }
         }
@@ -93,12 +94,15 @@ public class AttackLogicPatch {
             if (owner instanceof AbstractMonster && _inst.type == DamageInfo.DamageType.NORMAL) {
                 tmp[0] = AttackHelper.ApplyPowersToMonster(owner, tmp[0]);
                 _inst.isModified = _inst.base != MathUtils.floor(tmp[0]);
+            } else if (owner instanceof AbstractPlayer) {
+                tmp[0] = AttackHelper.ApplyPowersToPlayer((AbstractPlayer) owner, tmp[0]);
+                _inst.isModified = _inst.base != MathUtils.floor(tmp[0]);
             }
         }
         private static class Locator extends SpireInsertLocator {
             @Override
             public int[] Locate(CtBehavior ctBehavior) throws Exception {
-                Matcher.MethodCallMatcher matcher = new Matcher.MethodCallMatcher(MathUtils.class, "floor");
+                Matcher.FieldAccessMatcher matcher = new Matcher.FieldAccessMatcher(AbstractPlayer.class, "stance");
                 return LineFinder.findInOrder(ctBehavior, matcher);
             }
         }

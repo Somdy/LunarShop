@@ -16,6 +16,14 @@ public class Stealthkit extends LunarRelic {
         counter = 0;
         hasTriggeredOnce = false;
         setBattleUse(3);
+        presetInfo(s -> {
+            if (canActivate()) {
+                int maxHp = MathUtils.floor(cpr().maxHealth * threshold);
+                s[0] = createInfo(DESCRIPTIONS[1], maxHp);
+            } else {
+                s[0] = DESCRIPTIONS[2];
+            }
+        });
     }
     
     @Override

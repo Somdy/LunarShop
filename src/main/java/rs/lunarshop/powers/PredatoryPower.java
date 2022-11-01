@@ -27,15 +27,14 @@ public class PredatoryPower extends AbstractLunarPower implements AttackModifier
     
     @Override
     public void atEndOfRound() {
-        super.atEndOfRound();
-        if (extraAmt > 0 && !owner.isDeadOrEscaped()) {
+        if (amount > 0) {
             addToBot(new ReducePowerAction(owner, owner, this, 1));
         }
     }
     
     @Override
     public int modifyAttack(int origin) {
-        if (extraAmt > 0 && !owner.isDeadOrEscaped()) {
+        if (extraAmt > 0) {
             origin += extraAmt;
         }
         return AttackModifierInterface.super.modifyAttack(origin);

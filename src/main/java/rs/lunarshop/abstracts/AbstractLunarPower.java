@@ -63,7 +63,7 @@ public abstract class AbstractLunarPower extends LMCustomPower implements LunarU
     }
     
     protected void setOwnerName() {
-        owner_name = owner.isPlayer ? MountPwrStrings.DESCRIPTIONS[0] : owner.name;
+        owner_name = owner.isPlayer ? cpr().getLocalizedCharacterName() : owner.name;
     }
     
     protected void setAmtValue(int slot, int value) {

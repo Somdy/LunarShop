@@ -1,0 +1,47 @@
+﻿[
+	{
+		"ID":"ASUBash",
+		"NAME":"摄魂痛击",
+		"DESCRIPTION":"无视目标50%的 护甲 。 NL 造成 !D! 点伤害。 NL 给予 !M! 层 易伤 。",
+		"UPGRADE_DESC":[""]
+	},
+	{
+		"ID":"ASUSurvivor",
+		"NAME":"受启示的生存者",
+		"DESCRIPTION":"获得 !B! 点 格挡 。 NL 丢弃 !M! 张牌。 NL 若被丢弃的牌 NL 可以打出，对随机目标 NL 使用其打出效果。",
+		"UPGRADE_DESC":[""],
+		"MSG": [
+			"丢弃 {受启示的生存者}"
+		]
+	},
+	{
+		"ID":"ASUNeutralize",
+		"NAME":"平衡追猎者",
+		"DESCRIPTION":"造成 !D! 点伤害。 NL 给予 !M! 层 虚弱 。 NL 目标失去 !lunar:EM! 点 力量 。",
+		"UPGRADE_DESC":[""]
+	},
+	{
+		"ID":"ASUZap",
+		"NAME":"强力电击",
+		"DESCRIPTION":"生成 !M! 个 闪电 充能球。 NL 所有 闪电 充能球的被动伤害增加 !lunar:EM! 点。",
+		"UPGRADE_DESC":[""]
+	},
+	{
+		"ID":"ASUDualcast",
+		"NAME":"超量释放",
+		"DESCRIPTION":"激发 你最右边的充能球 !M! 次。",
+		"UPGRADE_DESC":["激发 你最右边的充能球 !M! 次。 NL 将该牌洗入抽牌堆。"]
+	},
+	{
+		"ID":"ASUEruption",
+		"NAME":"理解的冷漠",
+		"DESCRIPTION":"进入 愤怒 。 NL 造成 !D! 点伤害。",
+		"UPGRADE_DESC":[""]
+	},
+	{
+		"ID":"ASUVigilance",
+		"NAME":"理解的愤怒",
+		"DESCRIPTION":"获得 !B! 点 格挡 。 NL 进入 平静 。",
+		"UPGRADE_DESC":["获得 !B! 点 格挡 。 NL 进入 平静 。 NL 若已处于 平静 ，再获得 !lunar:EB! 点 格挡 。"]
+	}
+]
