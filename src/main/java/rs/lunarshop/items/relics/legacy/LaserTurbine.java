@@ -16,7 +16,7 @@ import rs.lunarshop.vfx.combat.LunarSweepingBeamEffect;
 public class LaserTurbine extends LegacyRelic {
     private static final int CHARGE_THRESHOLD = 100;
     private static final int ULT_CHARGE_THRESHOLD = 500;
-    private static final float DAMAGE_RATE = 0.5F;
+    private static final float DAMAGE_RATE = 0.75F;
     private static final float RATE_PER_STACK = 0.25F;
     private static final float CHARGE_MULT = 1.5F;
     private float damageRate;
@@ -26,6 +26,14 @@ public class LaserTurbine extends LegacyRelic {
         super(78);
         damageRate = DAMAGE_RATE;
         counter = 0;
+        usable = false;
+        presetInfo(s -> createInfo(s, SciPercent(damageRate)));
+    }
+    
+    private LaserTurbine(int initCharge) {
+        super(78);
+        damageRate = DAMAGE_RATE;
+        counter = initCharge;
         usable = false;
         presetInfo(s -> createInfo(s, SciPercent(damageRate)));
     }

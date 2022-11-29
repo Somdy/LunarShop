@@ -18,6 +18,7 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.screens.mainMenu.MainMenuScreen;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.jetbrains.annotations.NotNull;
@@ -110,7 +111,6 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
         ItemStatHelper.RelicStats stats = ItemStatHelper.GetRelicStats(this);
         if (stats.maxStack < this.stack)
             ItemStatHelper.PutRelicHighestStack(this, this.stack);
-        ItemStatHelper.PutRelicCollectCount(this);
     }
     
     public final AbstractLunarRelic stackAmt(int amt, boolean stacking) {
@@ -162,6 +162,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
             }
             updatePlayerLuck();
             updateItemStats();
+            ItemStatHelper.PutRelicCollectCount(this);
         }
     }
     
@@ -182,6 +183,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
             }
             updatePlayerLuck();
             updateItemStats();
+            ItemStatHelper.PutRelicCollectCount(this);
         }
     }
     
@@ -200,6 +202,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
             }
             updatePlayerLuck();
             updateItemStats();
+            ItemStatHelper.PutRelicCollectCount(this);
         }
     }
     
@@ -932,6 +935,10 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
      */
     public int preModifyHeal(AbstractCreature who, int healAmt) {
         return healAmt;
+    }
+    
+    public float modifyGoldReward(float goldAmt, AbstractRoom room) {
+        return goldAmt;
     }
     
     @FunctionalInterface

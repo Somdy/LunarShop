@@ -3,6 +3,7 @@ package rs.lunarshop.utils;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Prefs;
+import org.jetbrains.annotations.NotNull;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.abstracts.AbstractLunarRelic;
 import rs.lunarshop.core.LunarMod;
@@ -17,70 +18,92 @@ public class ItemStatHelper {
     private static final String RELIC_COUNT_PREFIX = "LunarRelicCount_";
     
     private static final Map<Integer, RelicStats> RELIC_STATS_MAP = new HashMap<>();
-    
-    public static Prefs GetCharPref() {
-        return AbstractDungeon.player.getPrefs();
-    }
+    private static final Map<Integer, RelicStats> CACHED_RELIC_STATS_MAP = new HashMap<>();
     
     public static void PutRelicHighestStack(AbstractLunarRelic r, int stack) {
-        Prefs pref = GetCharPref();
-        String key = getRelicStackKey(r);
-        int oldV = pref.getInteger(key, 0);
+        RelicStats stats = getCachedRelicStats(r);
+        int oldV = stats.maxStack;
         if (oldV > stack) return;
-        pref.putInteger(getRelicStackKey(r), stack);
-        pref.flush();
+        stats.maxStack = stack;
+        if (stats.maxStack > 0 && stats.collects <= 0) {
+            LunarMod.LogInfo("[" + r.name + "] has stacks but no collects");
+            stats.collects = 1;
+        }
+        CACHED_RELIC_STATS_MAP.put(r.prop.lunarID, stats);
     }
     
     public static void PutRelicCollectCount(AbstractLunarRelic r) {
-        Prefs pref = GetCharPref();
-        String key = getRelicCountKey(r);
-        int oldV = pref.getInteger(key, -1);
-        if (oldV < 0) {
+        RelicStats stats = getCachedRelicStats(r);
+        int oldV = stats.collects;
+        if (oldV <= 0) {
             oldV = 0;
             LunarMod.LogInfo("[" + LMSK.Player().chosenClass + "] just got first [" + r.prop.lunarID + "]");
         }
-        pref.putInteger(key, oldV + 1);
+        stats.collects = oldV + 1;
     }
     
-    public static RelicStats GetRelicStats(AbstractLunarRelic relic) {
-        if (!RELIC_STATS_MAP.containsKey(relic.prop.lunarID)) {
-            LunarMod.LogInfo("Loading lunar item [" + relic.prop.lunarID +  "] stats");
-            List<Prefs> prefs = CardCrawlGame.characterManager.getAllPrefs();
-            RelicStats stats = new RelicStats();
-            for (Prefs p : prefs) {
-                int count = p.getInteger(getRelicCountKey(relic), 0);
-                int stack = p.getInteger(getRelicStackKey(relic), 0);
-                stats.setValues(count, stack);
-            }
-            RELIC_STATS_MAP.put(relic.prop.lunarID, stats);
+    public static void FlushCachedStats() {
+        if (!CACHED_RELIC_STATS_MAP.isEmpty()) {
+            CACHED_RELIC_STATS_MAP.forEach((k,v) -> {
+                LunarMod.LogInfo("Saving lunar item [" + k + "] stats {" + v.collects + ", " + v.maxStack + "}");
+                LunarMod.SaveInt(getRelicCountKey(k), v.collects);
+                LunarMod.SaveInt(getRelicStackKey(k), v.maxStack);
+            });
+            CACHED_RELIC_STATS_MAP.clear();
+        }
+    }
+    
+    public static RelicStats GetRelicStats(@NotNull AbstractLunarRelic r) {
+        LunarMod.LogInfo("Loading lunar item [" + r.prop.lunarID +  "] stats");
+        if (!RELIC_STATS_MAP.containsKey(r.prop.lunarID)) {
+            RelicStats stats = new RelicStats(){{
+                collects = LunarMod.GetInt(getRelicCountKey(r), 0);
+                maxStack = LunarMod.GetInt(getRelicStackKey(r), 0);
+            }};
+            RELIC_STATS_MAP.put(r.prop.lunarID, stats);
             return stats;
         }
-        return RELIC_STATS_MAP.get(relic.prop.lunarID);
+        return RELIC_STATS_MAP.get(r.prop.lunarID);
     }
     
     public static void RefreshAllRelicStats() {
+        RELIC_STATS_MAP.clear();
         List<AbstractLunarRelic> relics = RelicMst.GetAllRelics();
         for (AbstractLunarRelic r : relics) {
-            String countKey = getRelicCountKey(r);
-            String stackKey = getRelicStackKey(r);
-            List<Prefs> prefs = CardCrawlGame.characterManager.getAllPrefs();
-            RelicStats stats = new RelicStats();
-            for (Prefs p : prefs) {
-                p.flush();
-                int count = p.getInteger(countKey, 0);
-                int stack = p.getInteger(stackKey, 0);
-                stats.setValues(count, stack);
-            }
+            RelicStats stats = new RelicStats(){{
+                collects = LunarMod.GetInt(getRelicCountKey(r), 0);
+                maxStack = LunarMod.GetInt(getRelicStackKey(r), 0);
+            }};
             RELIC_STATS_MAP.put(r.prop.lunarID, stats);
         }
     }
     
-    private static String getRelicCountKey(AbstractLunarRelic r) {
+    private static RelicStats getCachedRelicStats(@NotNull AbstractLunarRelic r) {
+        int lunarID = r.prop.lunarID;
+        if (CACHED_RELIC_STATS_MAP.containsKey(lunarID))
+            return CACHED_RELIC_STATS_MAP.get(lunarID);
+        RelicStats mainStat = new RelicStats(){{
+            collects = LunarMod.GetInt(getRelicCountKey(r), 0);
+            maxStack = LunarMod.GetInt(getRelicStackKey(r), r.getStack());
+        }};
+        CACHED_RELIC_STATS_MAP.put(lunarID, mainStat);
+        return mainStat;
+    }
+    
+    private static String getRelicCountKey(@NotNull AbstractLunarRelic r) {
         return RELIC_COUNT_PREFIX + r.prop.lunarID;
     }
     
-    private static String getRelicStackKey(AbstractLunarRelic r) {
+    private static String getRelicCountKey(int lunarID) {
+        return RELIC_COUNT_PREFIX + lunarID;
+    }
+    
+    private static String getRelicStackKey(@NotNull AbstractLunarRelic r) {
         return RELIC_STACK_PREFIX + r.prop.lunarID;
+    }
+    
+    private static String getRelicStackKey(int lunarID) {
+        return RELIC_STACK_PREFIX + lunarID;
     }
     
     public static class RelicStats {
@@ -88,10 +111,11 @@ public class ItemStatHelper {
         public int maxStack;
         
         private RelicStats() {}
-        
-        private void setValues(int collects, int maxStack) {
-            this.collects = collects;
-            this.maxStack = maxStack;
+    
+        private void sumValues(int collects, int maxStack) {
+            this.collects += collects;
+            if (maxStack > this.maxStack)
+                this.maxStack = maxStack;
         }
     }
 }

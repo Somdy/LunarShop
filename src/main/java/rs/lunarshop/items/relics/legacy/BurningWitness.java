@@ -9,7 +9,7 @@ import rs.lunarshop.powers.OnFirePower;
 import rs.lunarshop.utils.mechanics.AttackHelper;
 
 public class BurningWitness extends LegacyRelic {
-    private static final int BASE_BLOCK = 1;
+    private static final int BASE_BLOCK = 2;
     private static final int DMG_PER_STACK = 1;
     private int fireDamage;
     

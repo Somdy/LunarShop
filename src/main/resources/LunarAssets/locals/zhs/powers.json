@@ -26,7 +26,7 @@
     "lunar:HelfirePower": {
         "NAME": "燃烧",
         "DESCRIPTIONS": [
-            "[owner_name] 在回合结束时，失去 #b[amt_0] 点生命值。",
+            "[owner_name] 在回合结束时失去 #b[amt_0] 点生命值。",
             ""
         ]
     },
@@ -34,7 +34,7 @@
     "lunar:OnFirePower": {
         "NAME": "燃烧",
         "DESCRIPTIONS": [
-            "[owner_name] 在回合结束时，受到 #b[amt_0] 点伤害，持续 #b[amt_1] 回合。",
+            "[owner_name] 在回合结束时受到 #b[amt_0] 点伤害，持续 #b[amt_1] 回合。",
             ""
         ]
     },
@@ -198,6 +198,14 @@
         "NAME": "永冻",
         "DESCRIPTIONS": [
             "[owner_name] 的攻击力减少 #b[amt_0] 点，持续 #b[amt_1] 回合。",
+            ""
+        ]
+    },
+
+    "lunar:ToxicPower": {
+        "NAME": "剧毒",
+        "DESCRIPTIONS": [
+            "[owner_name] 在回合开始时受到 #b[amt_0] 点伤害，持续 #b[amt_1] 回合。",
             ""
         ]
     }

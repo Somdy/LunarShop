@@ -10,6 +10,7 @@ import basemod.interfaces.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.evacipated.cardcrawl.modthespire.Loader;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
@@ -24,6 +25,7 @@ import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardSave;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import rs.lazymankits.LMDebug;
@@ -184,7 +186,12 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
     }
     
     public static int GetInt(String key) {
+        return GetInt(key, 0);
+    }
+    
+    public static int GetInt(String key, int defaultValue) {
         SpireConfig config = makeConfig();
+        if (!config.has(key)) return defaultValue;
         return config.getInt(key);
     }
     
@@ -526,6 +533,17 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
         if (achvGrid == null)
             achvGrid = new AchvGrid();
         achvGrid.init();
+    }
+    
+    public static int DropGoldReward(int golds, AbstractRoom room) {
+        float tmp = golds;
+        for (AbstractRelic r : LMSK.Player().relics) {
+            if (r instanceof AbstractLunarRelic)
+                tmp = ((AbstractLunarRelic) r).modifyGoldReward(tmp, room);
+        }
+        if (tmp < 0F) tmp = 0F;
+        int result = MathUtils.round(golds);
+        return result;
     }
     
     @Override

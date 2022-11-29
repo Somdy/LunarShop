@@ -17,7 +17,7 @@ import java.lang.reflect.Field;
 public final class RenderTransitColorPatches {
     public static Color RenderColor;
     
-    @SpirePatch(clz = SingleRelicViewPopup.class, method = "renderName")
+//    @SpirePatch(clz = SingleRelicViewPopup.class, method = "renderName")
     public static class RenderRelicNamePatch {
         @SpirePrefixPatch
         public static SpireReturn Prefix(SingleRelicViewPopup _inst, SpriteBatch sb) {

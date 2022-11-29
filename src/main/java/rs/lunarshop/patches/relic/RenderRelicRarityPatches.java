@@ -23,7 +23,7 @@ public final class RenderRelicRarityPatches {
     private static final UIStrings uiStrings = LunarMod.UIStrings(LunarMod.Prefix("ItemRarity"));
     public static final String[] TEXT = uiStrings.TEXT;
     
-    @SpirePatch(clz = SingleRelicViewPopup.class, method = "renderRarity")
+//    @SpirePatch(clz = SingleRelicViewPopup.class, method = "renderRarity")
     public static class LunarRarityPatch {
         @SpirePrefixPatch
         public static SpireReturn Prefix(SingleRelicViewPopup _inst, SpriteBatch sb) {
@@ -51,7 +51,7 @@ public final class RenderRelicRarityPatches {
         }
     }
     
-    @SpirePatch(clz = SingleRelicViewPopup.class, method = "renderPopupBg")
+//    @SpirePatch(clz = SingleRelicViewPopup.class, method = "renderPopupBg")
     public static class LunarTierBgPatch {
         @SpirePostfixPatch
         public static void Postfix(SingleRelicViewPopup _inst, SpriteBatch sb) {

@@ -173,7 +173,7 @@ public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Intege
     
     @Override
     public Map<String, Integer> onSave() {
-        ItemStatHelper.RefreshAllRelicStats();
+        ItemStatHelper.FlushCachedStats();
         Map<String, Integer> map = new HashMap<>();
         checkRngs();
         checkShopManager();
@@ -187,6 +187,7 @@ public class LunarMaster implements LunarUtils, CustomSavable<Map<String, Intege
     
     @Override
     public void onLoad(Map<String, Integer> saveFields) {
+        ItemStatHelper.RefreshAllRelicStats();
         if (saveFields != null && CardCrawlGame.loadingSave) {
             checkRngs();
             checkShopManager();
