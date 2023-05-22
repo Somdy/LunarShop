@@ -2,13 +2,11 @@ package rs.lunarshop.powers;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import rs.lazymankits.actions.common.NullableSrcDamageAction;
 import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.abstracts.AbstractLunarPower;
-import rs.lunarshop.utils.DamageInfoTag;
+import rs.lunarshop.utils.InfoTagHelper;
 
 public class OnFirePower extends AbstractLunarPower {
     public static final String POWER_ID = LunarMod.Prefix("OnFirePower");
@@ -28,7 +26,7 @@ public class OnFirePower extends AbstractLunarPower {
     public void atEndOfTurn(boolean isPlayer) {
         if (!owner.isDeadOrEscaped() && amount > 0) {
             if (extraAmt > 0) {
-                addToBot(damage(owner, extraAmt, AbstractGameAction.AttackEffect.FIRE, DamageInfoTag.FIRE));
+                addToBot(damage(owner, extraAmt, AbstractGameAction.AttackEffect.FIRE, InfoTagHelper.FIRE));
             }
             addToBot(new ReducePowerAction(owner, owner, this, 1));
         }

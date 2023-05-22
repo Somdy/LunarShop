@@ -9,7 +9,7 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import rs.lunarshop.items.abstracts.LegacyRelic;
-import rs.lunarshop.utils.DamageInfoTag;
+import rs.lunarshop.utils.InfoTagHelper;
 import rs.lunarshop.utils.LunarUtils;
 import rs.lunarshop.vfx.combat.LunarSweepingBeamEffect;
 
@@ -45,7 +45,7 @@ public class LaserTurbine extends LegacyRelic {
     
     @Override
     public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
-        if (info.owner == cpr() && damageAmount > 0 && !DamageInfoTag.HasTag(info, DamageInfoTag.TURBINE_IGNORED)) {
+        if (info.owner == cpr() && damageAmount > 0 && !InfoTagHelper.HasTag(info, InfoTagHelper.TURBINE_IGNORED)) {
             int charge = MathUtils.round(damageAmount * damageRate);
             if (charge > 0) {
                 charge(charge);
@@ -77,10 +77,10 @@ public class LaserTurbine extends LegacyRelic {
         addToBot(new VFXAction(new LunarSweepingBeamEffect(currentX, currentY, cpr().flipHorizontal, Color.FIREBRICK)));
         if (ult) {
             addToBot(new VFXAction(new LunarSweepingBeamEffect(currentX, currentY, !cpr().flipHorizontal, Color.FIREBRICK)));
-            addToBot(damage(cpr(), damage, AbstractGameAction.AttackEffect.BLUNT_HEAVY, DamageInfoTag.TURBINE_IGNORED));
+            addToBot(damage(cpr(), damage, AbstractGameAction.AttackEffect.BLUNT_HEAVY, InfoTagHelper.TURBINE_IGNORED));
         }
         addToBot(damageAll(cpr(), damage, ult ? AbstractGameAction.AttackEffect.BLUNT_HEAVY
-                : AbstractGameAction.AttackEffect.BLUNT_LIGHT, DamageInfoTag.TURBINE_IGNORED));
+                : AbstractGameAction.AttackEffect.BLUNT_LIGHT, InfoTagHelper.TURBINE_IGNORED));
     }
     
     private void charge(int amount) {

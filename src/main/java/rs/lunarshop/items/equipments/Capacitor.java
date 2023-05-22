@@ -14,7 +14,7 @@ import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.vfx.BorderFlashEffect;
 import com.megacrit.cardcrawl.vfx.combat.LightningEffect;
 import rs.lunarshop.items.abstracts.LunarEquipment;
-import rs.lunarshop.utils.DamageInfoTag;
+import rs.lunarshop.utils.InfoTagHelper;
 import rs.lunarshop.utils.mechanics.AttackHelper;
 
 public class Capacitor extends LunarEquipment {
@@ -35,7 +35,7 @@ public class Capacitor extends LunarEquipment {
             addToBot(new VFXAction(new BorderFlashEffect(Color.ROYAL.cpy())));
             addToBot(new VFXAction(new LightningEffect(t.hb.cX, t.hb.cY)));
             addToBot(damage(t, s, MathUtils.round(attack * DAMAGE_MULT), DamageInfo.DamageType.THORNS, 
-                    AbstractGameAction.AttackEffect.NONE, DamageInfoTag.ENERGETIC));
+                    AbstractGameAction.AttackEffect.NONE, InfoTagHelper.ENERGETIC));
             addToBot(new ApplyPowerAction(t, s, new StrengthPower(t, -STR_LOSS)));
             startCooldown();
         }

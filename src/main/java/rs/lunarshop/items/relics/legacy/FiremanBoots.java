@@ -3,7 +3,7 @@ package rs.lunarshop.items.relics.legacy;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import rs.lunarshop.items.abstracts.LegacyRelic;
-import rs.lunarshop.utils.DamageInfoTag;
+import rs.lunarshop.utils.InfoTagHelper;
 
 public class FiremanBoots extends LegacyRelic {
     private static final int BASE_DAMAGE = 15;
@@ -23,7 +23,7 @@ public class FiremanBoots extends LegacyRelic {
     @Override
     public int onAttacked(DamageInfo info, int damageAmount) {
         if (info.owner != null && info.type == DamageInfo.DamageType.NORMAL) {
-            addToBot(damage(info.owner, damage, AbstractGameAction.AttackEffect.FIRE, DamageInfoTag.FIRE));
+            addToBot(damage(info.owner, damage, AbstractGameAction.AttackEffect.FIRE, InfoTagHelper.FIRE));
         }
         return super.onAttacked(info, damageAmount);
     }

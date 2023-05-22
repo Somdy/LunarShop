@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import rs.lunarshop.items.abstracts.LunarRelic;
-import rs.lunarshop.utils.DamageInfoTag;
+import rs.lunarshop.utils.InfoTagHelper;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class Behemoth extends LunarRelic {
         super.onAttack(info, damageAmount, target);
         if (info.owner == cpr() && info.type == DamageInfo.DamageType.NORMAL && damageAmount > 0) {
             int second_damage = MathUtils.round(damageAmount * SECOND_DAMAGE_MULT);
-            addToBot(damage(target, second_damage, AbstractGameAction.AttackEffect.BLUNT_HEAVY, DamageInfoTag.EXPLOSIVE));
+            addToBot(damage(target, second_damage, AbstractGameAction.AttackEffect.BLUNT_HEAVY, InfoTagHelper.EXPLOSIVE));
             List<AbstractMonster> rest = getAllExptMstrs(m -> m != target && !m.isDeadOrEscaped());
             if (!rest.isEmpty()) {
                 int waveDamage = MathUtils.round(damageAmount * aftermathMult);

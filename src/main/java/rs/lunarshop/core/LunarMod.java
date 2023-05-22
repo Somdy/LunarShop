@@ -16,6 +16,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -30,8 +31,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import rs.lazymankits.LMDebug;
 import rs.lazymankits.LManager;
+import rs.lazymankits.interfaces.EndTurnPreDiscardSubscriber;
+import rs.lazymankits.interfaces.OnAttackdSubscriber;
 import rs.lazymankits.interfaces.OnGainBlockSubscriber;
 import rs.lazymankits.interfaces.OnInitializeSubscriber;
+import rs.lazymankits.interfaces.utilities.AtDamageReceiveModifier;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.achievements.AchvGrid;
 import rs.lunarshop.achievements.AchvManager;
@@ -46,6 +50,7 @@ import rs.lunarshop.events.CleansingPoolEvent;
 import rs.lunarshop.events.EventManager;
 import rs.lunarshop.events.LunarMerchantEvent;
 import rs.lunarshop.interfaces.relics.BlockModifierRelic;
+import rs.lunarshop.items.abstracts.PRVDAbstractCurse;
 import rs.lunarshop.items.equipments.EquipmentManager;
 import rs.lunarshop.items.relics.LunarPass;
 import rs.lunarshop.items.relics.RelicMst;
@@ -66,7 +71,8 @@ import java.util.*;
 @SpireInitializer
 public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubscriber, EditKeywordsSubscriber, EditStringsSubscriber, 
         PostDungeonUpdateSubscriber, PostRenderSubscriber, PostInitializeSubscriber, OnGainBlockSubscriber, OnInitializeSubscriber,
-        PostCreateStartingRelicsSubscriber, PostUpdateSubscriber, AddAudioSubscriber, MaxHPChangeSubscriber {
+        PostCreateStartingRelicsSubscriber, PostUpdateSubscriber, AddAudioSubscriber, MaxHPChangeSubscriber, AtDamageReceiveModifier,
+        EndTurnPreDiscardSubscriber {
     public static final String MOD_ID = "LunarShop";
     public static final String MOD_NAME = "Bazaars Between Time";
     public static final String[] AUTHORS = {"Somdy"};
@@ -75,6 +81,8 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
     private static LunarMod lunar;
     
     private static List<AbstractGameAction> actionList = new ArrayList<>();
+    
+    private static Map<String, GIFPlayer> GIFPlayers = new HashMap<>();
     
     public static OmniPanel OmniPanel;
     public static EquipmentProxy EqmtProxy;
@@ -575,5 +583,25 @@ public class LunarMod implements LunarUtils, EditCardsSubscriber, EditRelicsSubs
     @Override
     public void receiveAddAudio() {
         BaseMod.addAudio(AudioMst.TONE_MSG, "LunarAssets/audio/TONE_MSG.ogg");
+    }
+    
+    @Override
+    public void receiveOnEndTurnPreDiscard() {
+        for (AbstractRelic r : LMSK.Player().relics) {
+            if (r instanceof AbstractLunarRelic)
+                ((AbstractLunarRelic) r).onPlayerEndTurnPreDiscard();
+        }
+    }
+    
+    @Override
+    public float atDamageReceive(float damage, DamageInfo.DamageType type, AbstractCreature owner, AbstractCreature target) {
+        float tmp = damage;
+        for (AbstractRelic r : LMSK.Player().relics) {
+            if (r instanceof AbstractLunarRelic)
+                tmp = ((AbstractLunarRelic) r).atDamageReceive(tmp, type, owner, target);
+        }
+        if (tmp < 0) tmp = 0;
+        damage = tmp;
+        return AtDamageReceiveModifier.super.atDamageReceive(damage, type, owner, target);
     }
 }

@@ -3,6 +3,7 @@ package rs.lunarshop.utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -55,6 +56,10 @@ public interface LunarUtils extends LMGameGeneralUtils {
     
     default boolean cprHasLunarRelic(LunarItemProp lunarID) {
         return cprHasLunarRelic(lunarID.lunarID);
+    }
+    
+    default boolean isDead(AbstractCreature who) {
+        return (who.currentHealth <= 0 || who.isDying) && !who.halfDead;
     }
     
     default Optional<AbstractLunarRelic> cprExptRelic(Predicate<AbstractLunarRelic> expt) {

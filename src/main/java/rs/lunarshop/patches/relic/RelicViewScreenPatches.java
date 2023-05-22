@@ -56,7 +56,7 @@ public class RelicViewScreenPatches {
         public static void PrefixRemoveItems() {
             removeList.clear();
             RelicLibrary.specialList.removeIf(r -> {
-                if (RelicMst.IsLunarItem(r))
+                if (RelicMst.IsLunarItem(r) || RelicMst.IsProvidenceCurse(r))
                     return removeList.add(r);
                 return false;
             });

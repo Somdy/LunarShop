@@ -40,6 +40,10 @@ public final class RelicConfigBuilder {
         return this;
     }
     
+    public RelicConfigBuilder map(String key, int value) {
+        return map(key, String.valueOf(value));
+    }
+    
     public LunarConfig build() {
         return config;
     }

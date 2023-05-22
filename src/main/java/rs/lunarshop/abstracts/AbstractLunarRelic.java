@@ -22,6 +22,7 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.screens.mainMenu.MainMenuScreen;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.jetbrains.annotations.NotNull;
+import rs.lazymankits.abstracts.DamageInfoTag;
 import rs.lazymankits.abstracts.LMCustomRelic;
 import rs.lazymankits.actions.CustomDmgInfo;
 import rs.lazymankits.actions.common.BetterDamageAllEnemiesAction;
@@ -37,6 +38,7 @@ import rs.lunarshop.interfaces.AttackModifierInterface;
 import rs.lunarshop.interfaces.CritModifierInterface;
 import rs.lunarshop.interfaces.relics.LuckModifierRelic;
 import rs.lunarshop.interfaces.RegenModifierInterface;
+import rs.lunarshop.interfaces.relics.OnMonsterDamagedRelic;
 import rs.lunarshop.items.abstracts.LunarEquipment;
 import rs.lunarshop.items.abstracts.LunarRelic;
 import rs.lunarshop.items.abstracts.PlanetRelic;
@@ -50,8 +52,7 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarUtils, ArmorModifierInterface, 
-        AttackModifierInterface, RegenModifierInterface, CritModifierInterface, CustomSavable<LunarConfig> {
-    
+        AttackModifierInterface, RegenModifierInterface, CritModifierInterface, CustomSavable<LunarConfig>, OnMonsterDamagedRelic {
     private static final RelicStrings LunarStrings = CardCrawlGame.languagePack.getRelicStrings(LunarMod.Prefix("LunarRelic"));
     public static final String[] TEXT = LunarStrings.DESCRIPTIONS;
     private static final Map<Integer, Boolean> corruptedMap = new HashMap<>();
@@ -576,7 +577,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     }
 
     @Override
-    public boolean canSpawn() {
+    public final boolean canSpawn() {
         return false;
     }
     
@@ -851,14 +852,14 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     protected void loadThings(LunarConfig config) {}
     
     @Override
-    public Type savedType() {
+    public final Type savedType() {
         return new TypeToken<LunarConfig>(){}.getType();
     }
     
-    protected NullableSrcDamageAction damage(AbstractCreature t, AbstractCreature s, int damage, DamageInfo.DamageType type, 
+    protected NullableSrcDamageAction damage(AbstractCreature t, AbstractCreature s, int damage, DamageInfo.DamageType type,
                                              AbstractGameAction.AttackEffect effect, DamageInfoTag... tags) {
         CustomDmgInfo info = crtDmgInfo(s, damage, type);
-        DamageInfoTag.PutTags(info, tags);
+        InfoTagHelper.PutTags(info, tags);
         return new NullableSrcDamageAction(t, info, effect);
     }
     
@@ -876,13 +877,12 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
         return damage(t, cpr(), damage, DamageInfo.DamageType.THORNS, effect, null);
     }
     
-    protected BetterDamageAllEnemiesAction damageAll(AbstractCreature s, int baseDamage, AbstractGameAction.AttackEffect effect, 
+    protected BetterDamageAllEnemiesAction damageAll(AbstractCreature s, int baseDamage, AbstractGameAction.AttackEffect effect,
                                                      DamageInfoTag... tags) {
-        CustomDmgInfo[] dmgInfos = CustomDmgInfo.createInfoArray(crtDmgInfo(s, baseDamage, DamageInfo.DamageType.THORNS), 
-                true);
+        CustomDmgInfo[] dmgInfos = CustomDmgInfo.createInfoArray(crtDmgInfo(s, baseDamage, DamageInfo.DamageType.THORNS), true);
         if (tags != null && tags.length > 0 && dmgInfos.length > 0) {
             for (CustomDmgInfo i : dmgInfos) {
-                DamageInfoTag.PutTags(i, tags);
+                InfoTagHelper.PutTags(i, tags);
             }
         }
         return new BetterDamageAllEnemiesAction(dmgInfos, effect, true, false, null);
@@ -894,7 +894,7 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
         CustomDmgInfo[] dmgInfos = CustomDmgInfo.createInfoArray(crtDmgInfo(s, baseDamage, type), pure);
         if (tags != null && tags.length > 0 && dmgInfos.length > 0) {
             for (CustomDmgInfo i : dmgInfos) {
-                DamageInfoTag.PutTags(i, tags);
+                InfoTagHelper.PutTags(i, tags);
             }
         }
         return new BetterDamageAllEnemiesAction(dmgInfos, effect, pure, false, func);
@@ -926,6 +926,15 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     public void afterOneDamaged(DamageInfo info, AbstractCreature who) {}
     public void onProbablyKillMonster(DamageInfo info, int damageAmt, AbstractMonster m) {}
     
+    public float atDamageReceive(float damage, DamageInfo.DamageType type, AbstractCreature owner, AbstractCreature target) {
+        return damage;
+    }
+    
+    @Override
+    public int onMonsterDamagedFinally(int damage, DamageInfo info, AbstractMonster who) {
+        return OnMonsterDamagedRelic.super.onMonsterDamagedFinally(damage, info, who);
+    }
+    
     public int onPlayerMaxHpChange(int amount) {
         return amount;
     }
@@ -940,6 +949,8 @@ public abstract class AbstractLunarRelic extends LMCustomRelic implements LunarU
     public float modifyGoldReward(float goldAmt, AbstractRoom room) {
         return goldAmt;
     }
+    
+    public void onPlayerEndTurnPreDiscard() {}
     
     @FunctionalInterface
     public interface PresetInfoFunction {

@@ -9,9 +9,8 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.combat.LightningEffect;
-import rs.lazymankits.actions.common.NullableSrcDamageAction;
 import rs.lunarshop.items.abstracts.LunarRelic;
-import rs.lunarshop.utils.DamageInfoTag;
+import rs.lunarshop.utils.InfoTagHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +47,7 @@ public class Ukulele extends LunarRelic {
                     addToBot(new VFXAction(new LightningEffect(m.hb.cX, m.hb.cY)));
                     addToBot(new RelicAboveCreatureAction(m, this));
                     addToBot(damage(m, null, damage, DamageInfo.DamageType.THORNS, AbstractGameAction.AttackEffect.NONE, 
-                            DamageInfoTag.ENERGETIC));
+                            InfoTagHelper.ENERGETIC));
                 }
             }
         }

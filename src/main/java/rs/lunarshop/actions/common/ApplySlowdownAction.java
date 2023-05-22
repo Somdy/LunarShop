@@ -25,7 +25,10 @@ public class ApplySlowdownAction extends LMCustomGameAction {
             if (target.powers.stream().anyMatch(p -> p.ID.equals(SlowdownPower.POWER_ID))) {
                 try {
                     SlowdownPower p = (SlowdownPower) target.getPower(SlowdownPower.POWER_ID);
-                    p.stackPower(amount);
+                    if (amount > p.amount) {
+                        int diff = amount - p.amount;
+                        p.stackPower(diff);
+                    }
                     p.stackSlow(percent);
                     p.updateDescription();
                 } catch (Exception e) {

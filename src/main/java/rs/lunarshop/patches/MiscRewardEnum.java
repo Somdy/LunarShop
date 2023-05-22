@@ -8,4 +8,6 @@ public class MiscRewardEnum {
     public static RewardItem.RewardType LUNAR_COIN;
     @SpireEnum
     public static RewardItem.RewardType OLD_CHEST;
+    @SpireEnum
+    public static RewardItem.RewardType LINKED_REWARD;
 }

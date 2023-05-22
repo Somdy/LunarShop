@@ -10,43 +10,45 @@ import rs.lunarshop.abstracts.AbstractLunarPower;
 public class SlowdownPower extends AbstractLunarPower {
     public static final String POWER_ID = LunarMod.Prefix("SlowdownPower");
     private float slowRate;
-    private float damageRe;
-    private float damageTa;
+    private float damageGive;
+    private float damageTake;
     
     public SlowdownPower(AbstractCreature owner, float percent, int turns) {
         super(POWER_ID, "slow_m", PowerType.DEBUFF, owner);
         setValues(turns);
+        if (percent > 1F) percent = 1F;
         slowRate = percent;
         calcVars();
     }
     
     private void calcVars() {
         if (slowRate > 0) {
-            damageRe = slowRate / 2F;
-            damageTa = slowRate / 2F;
+            damageGive = slowRate / 2F;
+            damageTake = slowRate;
             updateDescription();
         }
     }
     
     public void stackSlow(float percent) {
         if (percent > slowRate) {
-            slowRate = slowRate + slowRate * (1 + percent);
+            slowRate = slowRate + slowRate / (1F + percent);
+            if (slowRate > 1F) slowRate = 1F;
             calcVars();
         }
     }
     
     @Override
     public float atDamageFinalGive(float damage, DamageInfo.DamageType type) {
-        if (amount > 0 && damageRe > 0) {
-            damage = damage - damage * damageRe;
+        if (amount > 0 && damageGive > 0) {
+            damage = damage - damage * damageGive;
         }
         return super.atDamageFinalGive(damage, type);
     }
     
     @Override
     public float atDamageFinalReceive(float damage, DamageInfo.DamageType type) {
-        if (amount > 0 && damageTa > 0) {
-            damage = damage + damage * damageTa;
+        if (amount > 0 && damageTake > 0) {
+            damage = damage + damage * damageTake;
         }
         return super.atDamageFinalReceive(damage, type);
     }
@@ -60,8 +62,8 @@ public class SlowdownPower extends AbstractLunarPower {
     
     @Override
     public String preSetDescription() {
-        setAmtValue(0, SciPercent(damageRe));
-        setAmtValue(1, SciPercent(damageTa));
+        setAmtValue(0, SciPercent(damageGive));
+        setAmtValue(1, SciPercent(damageTake));
         setAmtValue(2, amount);
         return DESCRIPTIONS[0];
     }

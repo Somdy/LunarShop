@@ -7,10 +7,10 @@ import rs.lunarshop.abstracts.lunarprops.LunarNpcData;
 
 public final class NpcID {
     // Enemies
-    public static final LunarNpcData LunarSnecko = make("Snecko_E", NpcTier.BOSS, 10000, 310F, 305F);
+    public static final LunarNpcData LunarSnecko = make("Snecko_E", NpcTier.BOSS, 5000, 310F, 305F);
     
     // Friendly
-    public static final LunarNpcData MerchSnecko = make("Snecko_F", NpcTier.MERCHANT, 5000, 310F, 305F);
+    public static final LunarNpcData MerchSnecko = make("Snecko_F", NpcTier.MERCHANT, 2500, 310F, 305F);
     
     private static LunarNpcData make(String ID, NpcTier tier, int min, int max, float w, float h) {
         return new LunarNpcData(LunarMod.Prefix(ID), tier, new Hitbox(w, h), min, max);

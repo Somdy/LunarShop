@@ -145,6 +145,10 @@ public final class RelicMst {
         return r instanceof LunarRelic || r instanceof PlanetRelic || r instanceof LegacyRelic || r instanceof AbstractLunarEquipment;
     }
     
+    public static boolean IsProvidenceCurse(AbstractRelic r) {
+        return r instanceof SpecialRelic && ((SpecialRelic) r).isProvidenceCurse;
+    }
+    
     private static void Log(Object what) {
         LunarMod.LogInfo(what);
     }

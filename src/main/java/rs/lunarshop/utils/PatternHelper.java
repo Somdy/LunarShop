@@ -10,4 +10,5 @@ public class PatternHelper {
     public static final Pattern POWER_NAME = Pattern.compile("\\[(owner_name)]", Pattern.MULTILINE);
     public static final Pattern POWER_AMT = Pattern.compile("\\[(amt_(\\d))]", Pattern.MULTILINE);
     public static final Pattern POWER_TARGET = Pattern.compile("\\[(crt_(\\d))]", Pattern.MULTILINE);
+    public static final Pattern PRVD_CURSE_PREFIX = Pattern.compile("\\$\\d{2}\\s", Pattern.MULTILINE);
 }

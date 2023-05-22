@@ -29,7 +29,7 @@ public class MeatNugget extends LegacyRelic {
     
     @Override
     public void onProbablyKillMonster(DamageInfo info, int damageAmt, AbstractMonster m) {
-        if (itIsDead(m) && rollCloverLuck(HEAL_CHANCE)) {
+        if (isDead(m) && rollCloverLuck(HEAL_CHANCE)) {
             addToBot(new VFXAction(new FlyingColoredOrbEffect(m.hb.cX, m.hb.cY, Color.LIME)));
             addToBot(new HealAction(cpr(), cpr(), healAmt));
         }

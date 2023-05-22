@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import rs.lazymankits.abstracts.DamageInfoTag;
 import rs.lazymankits.abstracts.LMCustomCard;
 import rs.lazymankits.actions.CustomDmgInfo;
 import rs.lazymankits.actions.common.NullableSrcDamageAction;
@@ -18,7 +19,7 @@ import rs.lunarshop.core.LunarMod;
 import rs.lunarshop.localizations.LunarCardLocals;
 import rs.lunarshop.localizations.LunarLocalLoader;
 import rs.lunarshop.patches.card.LunarCardEnum;
-import rs.lunarshop.utils.DamageInfoTag;
+import rs.lunarshop.utils.InfoTagHelper;
 import rs.lunarshop.utils.LunarCardHelper;
 import rs.lunarshop.utils.LunarUtils;
 import rs.lunarshop.utils.mechanics.AttackHelper;
@@ -348,29 +349,29 @@ public abstract class AbstractLunarCard extends LMCustomCard implements LunarUti
     }
     
     protected NullableSrcDamageAction DamageAction(AbstractCreature t, AbstractCreature s, int damage, DamageInfo.DamageType type,
-                                                   AbstractGameAction.AttackEffect effect, Consumer<DamageInfo> c, DamageInfoTag... tags) {
+                                                   AbstractGameAction.AttackEffect effect, Consumer<DamageInfo> c, DamageInfoTag tags) {
         CustomDmgInfo info = crtDmgInfo(s, damage, type);
-        DamageInfoTag.PutTags(info, tags);
+        InfoTagHelper.PutTags(info, tags);
         if (c != null) c.accept(info);
         return new NullableSrcDamageAction(t, info, effect);
     }
     
     protected NullableSrcDamageAction DamageAction(AbstractCreature t, AbstractCreature s, int damage,
                                                    DamageInfo.DamageType type, AbstractGameAction.AttackEffect effect) {
-        return DamageAction(t, s, damage, type, effect, null, (DamageInfoTag) null);
+        return DamageAction(t, s, damage, type, effect, null, (InfoTagHelper) null);
     }
     
     protected NullableSrcDamageAction DamageAction(AbstractCreature t, AbstractCreature s, int damage, AbstractGameAction.AttackEffect effect,
-                                                   Consumer<DamageInfo> c, DamageInfoTag... tags) {
+                                                   Consumer<DamageInfo> c, DamageInfoTag tags) {
         return DamageAction(t, s, damage, damageTypeForTurn, effect, c, tags);
     }
     
     protected NullableSrcDamageAction DamageAction(AbstractCreature t, AbstractCreature s, int damage, AbstractGameAction.AttackEffect effect, 
                                                    Consumer<DamageInfo> c) {
-        return DamageAction(t, s, damage, damageTypeForTurn, effect, c, (DamageInfoTag) null);
+        return DamageAction(t, s, damage, damageTypeForTurn, effect, c, (InfoTagHelper) null);
     }
     
     protected NullableSrcDamageAction DamageAction(AbstractCreature t, AbstractCreature s, int damage, AbstractGameAction.AttackEffect effect) {
-        return DamageAction(t, s, damage, damageTypeForTurn, effect, null, (DamageInfoTag) null);
+        return DamageAction(t, s, damage, damageTypeForTurn, effect, null, (InfoTagHelper) null);
     }
 }

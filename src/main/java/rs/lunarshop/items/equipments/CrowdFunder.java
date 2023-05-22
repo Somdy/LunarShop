@@ -53,6 +53,5 @@ public class CrowdFunder extends LunarEquipment {
             cpr().loseGold(goldCost);
             addToBot(new VFXAction(new FlickCoinEffect(info.owner.hb.cX, info.owner.hb.cY, who.hb.cX, who.hb.cY), 0.3F));
         }
-        super.preModifyDamage(info, who);
     }
 }

@@ -11,6 +11,7 @@ import javassist.CtBehavior;
 import rs.lazymankits.utils.LMSK;
 import rs.lunarshop.interfaces.relics.LayDyingRelic;
 import rs.lunarshop.abstracts.AbstractLunarRelic;
+import rs.lunarshop.interfaces.relics.OnMonsterDamagedRelic;
 import rs.lunarshop.ui.loadout.LoadoutManager;
 import rs.lunarshop.utils.LunarUtils;
 import rs.lunarshop.utils.mechanics.CritHelper;
@@ -41,6 +42,7 @@ public class CreatureDamageHooks {
                 }
             }
         }
+        
         @SpirePostfixPatch
         public static void Postfix(AbstractMonster _inst, DamageInfo info) {
             for (AbstractRelic r : LMSK.Player().relics) {
@@ -48,6 +50,7 @@ public class CreatureDamageHooks {
                     ((AbstractLunarRelic) r).afterOneDamaged(info, _inst);
             }
         }
+        
         @SpireInsertPatch(locator = Locator.class, localvars = {"damageAmount"})
         public static void Insert(AbstractMonster _inst, DamageInfo info, int damageAmt) {
             for (AbstractRelic r : LMSK.Player().relics) {
@@ -59,6 +62,21 @@ public class CreatureDamageHooks {
             @Override
             public int[] Locate(CtBehavior ctBehavior) throws Exception {
                 Matcher.MethodCallMatcher matcher = new Matcher.MethodCallMatcher(AbstractDungeon.class, "getMonsters");
+                return LineFinder.findInOrder(ctBehavior, matcher);
+            }
+        }
+        
+        @SpireInsertPatch(locator = MidLocator.class, localvars = {"damageAmount"})
+        public static void FinallyDamagedInsert(AbstractMonster _inst, DamageInfo info, @ByRef int[] damageAmt) {
+            for (AbstractRelic r : LMSK.Player().relics) {
+                if (r instanceof OnMonsterDamagedRelic)
+                    damageAmt[0] = ((OnMonsterDamagedRelic) r).onMonsterDamagedFinally(damageAmt[0], info, _inst);
+            }
+        }
+        private static class MidLocator extends SpireInsertLocator {
+            @Override
+            public int[] Locate(CtBehavior ctBehavior) throws Exception {
+                Matcher.MethodCallMatcher matcher = new Matcher.MethodCallMatcher(Math.class, "min");
                 return LineFinder.findInOrder(ctBehavior, matcher);
             }
         }

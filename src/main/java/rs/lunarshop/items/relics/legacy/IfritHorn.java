@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import rs.lunarshop.items.abstracts.LegacyRelic;
-import rs.lunarshop.utils.DamageInfoTag;
+import rs.lunarshop.utils.InfoTagHelper;
 import rs.lunarshop.utils.LunarUtils;
 import rs.lunarshop.utils.mechanics.AttackHelper;
 import rs.lunarshop.vfx.combat.CustomFireballEffect;
@@ -48,7 +48,7 @@ public class IfritHorn extends LegacyRelic {
                 List<AbstractMonster> monsters = getAllLivingMstrs();
                 for (AbstractMonster m : monsters) {
                     addToBot(new VFXAction(new CustomFireballEffect(currentX, currentY, m.hb.cX, m.hb.cY, Color.GOLDENROD)));
-                    addToBot(damage(m, finalDamage, AbstractGameAction.AttackEffect.FIRE, DamageInfoTag.FIRE));
+                    addToBot(damage(m, finalDamage, AbstractGameAction.AttackEffect.FIRE, InfoTagHelper.FIRE));
                 }
             }
         }

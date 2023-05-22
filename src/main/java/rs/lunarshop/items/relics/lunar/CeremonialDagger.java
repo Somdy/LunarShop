@@ -49,7 +49,7 @@ public class CeremonialDagger extends LunarRelic {
     @Override
     public void onProbablyKillMonster(DamageInfo info, int damageAmt, AbstractMonster m) {
         super.onProbablyKillMonster(info, damageAmt, m);
-        if (info.owner != null && info.owner != m && itIsDead(m)) {
+        if (info.owner != null && info.owner != m && isDead(m)) {
             int damage = Math.max(damageAmt, 1);
             daggerList.add(damage);
             counter += 3;
